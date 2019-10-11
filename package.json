@@ -1,25 +1,23 @@
 {
   "name": "fluffyhome",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lirance/FluffyHome.git"
-  },
-  "author": "chendi zhang",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/lirance/FluffyHome/issues"
-  },
-  "homepage": "https://github.com/lirance/FluffyHome#readme",
   "dependencies": {
     "consola": "^2.10.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
     "express-session": "^1.16.2",
-    "mongoose": "^5.7.3",
-    "mongoose-auto-increment": "^5.0.1"
+    "http-errors": "~1.6.3",
+    "mongoose": "^5.7.4",
+    "mongoose-auto-increment": "^5.0.1",
+    "morgan": "~1.9.1",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
   }
 }
