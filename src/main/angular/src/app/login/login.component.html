@@ -1,0 +1,55 @@
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand">Errands</h3>
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+        <a class="nav-link" routerLink="/aboutUs" routerLinkActive="active">About us</a>
+        <a class="nav-link" routerLink="/login" routerLinkActive="active">Log in</a>
+        <a class="nav-link" routerLink="/signup" routerLinkActive="active">Sign up</a>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main" class="inner cover">
+    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="form-signin">
+
+      <h1 class="mb-3 font-weight-normal">Please log in</h1>
+
+      <div class="form-group">
+        <label for="phone" class="sr-only">Phone Number</label>
+        <input type="phone" id="phone" class="form-control" formControlName="phone" placeholder="Phone Number" required="" autofocus="">
+        <div *ngIf="loginForm.controls.phone.touched && !loginForm.controls.phone.valid" class="alert alert-danger">
+          Phone number is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" class="form-control" formControlName="password" placeholder="Password" required="">
+        <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors">
+          <div *ngIf="loginForm.controls.password.errors.invalidLogin"
+               class="alert alert-danger">
+            Phone number or password is invalid.
+          </div>
+          <div *ngIf="loginForm.controls.password.errors.required" class="alert alert-danger">
+            Password is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-lg btn-secondary btn-block mt-auto" type="submit">Log in</button>
+      </div>
+
+    </form>
+  </main>
+
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p>Website for <a href="http://web.engr.oregonstate.edu/~scaffidc/courses/cs562/index.shtml?cb=1547975610290">CS562</a>,
+        by <a href="https://github.com/lirance/errands">@Lirance and Brian</a>.</p>
+    </div>
+  </footer>
+
+</div>

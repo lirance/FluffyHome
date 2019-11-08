@@ -1,0 +1,185 @@
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand">Errands</h3>
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+        <a class="nav-link" routerLink="/aboutUs" routerLinkActive="active">About us</a>
+        <a class="nav-link" routerLink="/login" routerLinkActive="active">Log in</a>
+        <a class="nav-link" routerLink="/signup" routerLinkActive="active">Sign up</a>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main" class="inner cover">
+    <form (ngSubmit)="onSubmit()" [formGroup]="signupForm" class="form-signup mt-auto">
+
+      <h1 class="mb-3 font-weight-normal">Sign Up</h1>
+
+      <div *ngIf="invalidsignup&&submitted" class="alert alert-danger">
+        Invalid phone. This phone is already registered.
+      </div>
+
+      <div class="form-group">
+        <label for="username" class="sr-only">Enter your username</label>
+        <input type="username" id="username" class="form-control" formControlName="username"
+               placeholder="Enter your username" required=""
+               autofocus="">
+
+        <div *ngIf="signupForm.controls.username.touched && signupForm.controls.username.errors">
+
+          <div *ngIf="signupForm.controls.username.errors.required && !signupForm.controls.username.errors.maxlength"
+               class="alert alert-danger">
+            Username is required
+          </div>
+
+          <div *ngIf="signupForm.controls.username.errors.maxlength && !signupForm.controls.username.errors.required"
+               class="alert alert-danger">
+            The max length of username is 20
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phone" class="sr-only">Enter your phone number</label>
+        <input type="phone" id="phone" class="form-control" formControlName="phone"
+               placeholder="Enter your phone number" required=""
+               autofocus="">
+
+        <div *ngIf="signupForm.controls.phone.touched && signupForm.controls.phone.errors">
+
+          <div *ngIf="signupForm.controls.phone.errors.required && !signupForm.controls.phone.errors.pattern"
+               class="alert alert-danger">
+            Phone number is required.
+          </div>
+
+          <div *ngIf="signupForm.controls.phone.errors.pattern && !signupForm.controls.phone.errors.required"
+               class="alert alert-danger">
+            US phone number should be 10 numbers.
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="sr-only">Enter your email</label>
+        <input type="email" id="email" class="form-control" formControlName="email"
+               placeholder="Enter your email" required=""
+               autofocus="">
+
+        <div *ngIf="signupForm.controls.email.touched && signupForm.controls.email.errors">
+
+          <div *ngIf="signupForm.controls.email.errors.maxlength && !signupForm.controls.email.errors.required"
+               class="alert alert-danger">
+            email does not exist
+          </div>
+
+          <div *ngIf="signupForm.controls.email.errors.required && !signupForm.controls.email.errors.maxlength"
+               class="alert alert-danger">
+            email is required
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="address" class="sr-only">Enter your address</label>
+        <input type="address" id="address" class="form-control" formControlName="address"
+               placeholder="Enter your address" required=""
+               autofocus="">
+
+        <div *ngIf="signupForm.controls.address.touched && signupForm.controls.address.errors">
+
+          <div *ngIf="signupForm.controls.address.errors.maxlength && !signupForm.controls.address.errors.required"
+               class="alert alert-danger">
+            The max length of address is 50
+          </div>
+
+          <div *ngIf="signupForm.controls.address.errors.required && !signupForm.controls.address.errors.maxlength"
+               class="alert alert-danger">
+            Address is required
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="zip" class="sr-only">Enter your zip</label>
+        <input type="zip" id="zip" class="form-control" formControlName="zip"
+               placeholder="Enter your zip" required=""
+               autofocus="">
+
+        <div *ngIf="signupForm.controls.zip.touched && signupForm.controls.zip.errors">
+
+          <div *ngIf="signupForm.controls.zip.errors.maxlength && !signupForm.controls.zip.errors.required"
+               class="alert alert-danger">
+            zip code does not exist
+          </div>
+
+          <div *ngIf="signupForm.controls.zip.errors.required && !signupForm.controls.zip.errors.maxlength"
+               class="alert alert-danger">
+            zip is required
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="sr-only">Enter your password</label>
+        <input type="password" id="password" class="form-control" formControlName="password"
+               placeholder="Enter your password" required="">
+
+        <div *ngIf="signupForm.controls.password.touched && signupForm.controls.password.errors">
+
+          <div *ngIf="signupForm.controls.password.errors.required && !signupForm.controls.password.errors.maxlength"
+               class="alert alert-danger">
+            Password is required
+          </div>
+
+          <div *ngIf="signupForm.controls.password.errors.maxlength && !signupForm.controls.password.errors.required"
+               class="alert alert-danger">
+            The max length of password is 20
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword" class="sr-only">Confirm your password</label>
+        <input type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword"
+               placeholder="Confirm your password" required="">
+
+        <div *ngIf="signupForm.controls.confirmPassword.touched && signupForm.controls.confirmPassword.errors">
+
+          <div
+            *ngIf="signupForm.controls.confirmPassword.errors.required && !signupForm.controls.confirmPassword.errors.EqualValidator"
+            class="alert alert-danger">
+            Confirm password is required
+          </div>
+          <div
+            *ngIf="signupForm.controls.confirmPassword.errors.EqualValidator && !signupForm.controls.confirmPassword.errors.required"
+            class="alert alert-danger">
+            Password is mismatch
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-lg btn-secondary btn-block mt-5" type="submit">Sign up</button>
+
+    </form>
+
+
+
+
+  </main>
+
+  <footer class="mastfoot mt-5">
+    <div class="inner">
+      <p>Website for <a href="http://web.engr.oregonstate.edu/~scaffidc/courses/cs562/index.shtml?cb=1547975610290">CS562</a>,
+        by <a href="https://github.com/lirance/errands">@Lirance and Brian</a>.</p>
+    </div>
+  </footer>
+
+</div>
