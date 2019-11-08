@@ -18,7 +18,8 @@
 
       <div class="form-group">
         <label for="phone" class="sr-only">Phone Number</label>
-        <input type="phone" id="phone" class="form-control" formControlName="phone" placeholder="Phone Number" required="" autofocus="">
+        <input type="phone" id="phone" class="form-control" formControlName="phone" placeholder="Phone Number"
+               required="" autofocus="">
         <div *ngIf="loginForm.controls.phone.touched && !loginForm.controls.phone.valid" class="alert alert-danger">
           Phone number is required
         </div>
@@ -26,7 +27,8 @@
 
       <div class="form-group">
         <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" class="form-control" formControlName="password" placeholder="Password" required="">
+        <input type="password" id="password" class="form-control" formControlName="password" placeholder="Password"
+               required="">
         <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors">
           <div *ngIf="loginForm.controls.password.errors.invalidLogin"
                class="alert alert-danger">
@@ -47,8 +49,7 @@
 
   <footer class="mastfoot mt-auto">
     <div class="inner">
-      <p>Website for <a href="http://web.engr.oregonstate.edu/~scaffidc/courses/cs562/index.shtml?cb=1547975610290">CS562</a>,
-        by <a href="https://github.com/lirance/errands">@Lirance and Brian</a>.</p>
+      <p>Website for <a href="">Capstone Project</a>, by <a href="https://github.com/lirance">@Chendi Zhang</a>.</p>
     </div>
   </footer>
 

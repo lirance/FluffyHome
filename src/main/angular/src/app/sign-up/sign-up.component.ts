@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from "../_services/user.service";
-import { EqualValidator} from "../_directives/equal-validator.directive";
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../_services/user.service';
+import {EqualValidator} from '../_directives/equal-validator.directive';
 
-import { first } from 'rxjs/operators';
-import {User} from "../_models";
-import {Observable} from "rxjs";
+import {first} from 'rxjs/operators';
+import {User} from '../_models';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
@@ -26,15 +26,18 @@ export class SignUpComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
-      username:['', Validators.compose([Validators.required, Validators.maxLength(20)])],
-      phone:['', [Validators.required, Validators.pattern('[0-9]{10}')]],
-      address:['', Validators.compose([Validators.required,Validators.maxLength(50)])],
-      password:['', [Validators.required,Validators.maxLength(20)]],
-      confirmPassword:['', [Validators.required, EqualValidator('password')]]
+      username: ['', Validators.compose([Validators.required, Validators.maxLength(20)])],
+      phone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
+      zip: ['', [Validators.required, Validators.pattern('[0-9]{5}')]],
+      email: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      address: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      password: ['', [Validators.required, Validators.maxLength(20)]],
+      confirmPassword: ['', [Validators.required, EqualValidator('password')]]
     });
   }
 
@@ -47,15 +50,18 @@ export class SignUpComponent implements OnInit {
     }
 
     this.userService.signup(this.signupForm.value).pipe(first()).subscribe(
-      data=>{data.toString();
-      if(data) {
-        this.router.navigate(['/login']);
-      };
-      if(!data){
-        this.invalidsignup = true;
-      };
+      data => {
+        data.toString();
+        if (data) {
+          this.router.navigate(['/login']);
+        };
+        if (!data) {
+          this.invalidsignup = true;
+        };
       },
-      error => {console.log('error')}
-      );
+      error => {
+        console.log('error');
+      }
+    );
   }
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService, UserService} from "../_services";
-import {NavigationEnd, Router} from "@angular/router";
+import { AlertService, UserService} from '../_services';
+import {NavigationEnd, Router} from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from "../_models";
-import {first} from "rxjs/operators";
+import { User } from '../_models';
+import {first} from 'rxjs/operators';
 import { Location } from '@angular/common';
 
 @Component({
@@ -25,9 +25,9 @@ export class UserprofileComponent implements OnInit {
     private alertService: AlertService,
     private location: Location
   ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
-    }
+    };
 
     this.router.events.subscribe((evt) => {
       if (evt instanceof NavigationEnd) {
@@ -47,8 +47,8 @@ export class UserprofileComponent implements OnInit {
       userName: [this.currentUser.username, Validators.required],
       phone: [this.currentUser.phone, Validators.required],
       address: [this.currentUser.address, Validators.required],
-      rateNumber: [this.currentUser.ratenumber, Validators.required],
-      averageRate: [this.currentUser.averagerate]
+      rateNumber: [this.currentUser.rateNumber, Validators.required],
+      averageRate: [this.currentUser.averageRate]
     });
 
   }
@@ -68,26 +68,26 @@ export class UserprofileComponent implements OnInit {
       this.profileForm.value.userName, this.profileForm.value.address)
       .pipe(first())
       .subscribe(
-        data=>{data.toString();
-          if(data) {
+        data => {data.toString();
+          if (data) {
             console.log('update successful');
-            this.currentUserID= localStorage.getItem('currentUserID');
+            this.currentUserID = localStorage.getItem('currentUserID');
             localStorage.removeItem('currentUser');
             this.userService.getUserById(this.currentUserID).pipe(first()).subscribe(user => {
-              this.currentUser=user;
+              this.currentUser = user;
               localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
             });
             this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
-          };
+          }
 
-          if(!data) {
+          if (!data) {
             console.log('update error');
-          };
+          }
 
         });
   }
 
-  backtolast(){
+  backtolast() {
     this.location.back();
   }
 
