@@ -1,4 +1,7 @@
 # fluffy home
+A website that can helps you to find a nice person to take care of your fluffy friends for free when you are not home.
+
+#Framework and techies
 Framework: Spring boot mybatis Angular  
 Language: JAVA(Backend)  
 Database: MySQL  
