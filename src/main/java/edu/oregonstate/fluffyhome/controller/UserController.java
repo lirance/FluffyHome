@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @RequestMapping("/register")
-    public boolean register(String username, String password, String phone, String address, int zip, String email, String userType, String avaliableDate, String avaliableWeekday) {
+    public boolean register(String username, String password, String phone, String address, int zip, String email, Boolean userType) {
 
         User user = new User();
         user.setUsername(username);
@@ -62,9 +62,14 @@ public class UserController {
         user.setAddress(address);
         user.setZip(zip);
         user.setEmail(email);
-        user.setUserType(userType);
-        user.setAvaliableDate(avaliableDate);
-        user.setAvaliableWeekday(avaliableWeekday);
+        String ut = "Normal";
+        if (userType) {
+            ut = "Sitter";
+        }
+        user.setUserType(ut);
+//        user.setAvaliableDate(avaliableDate);
+//        user.setAvaliableWeekday(avaliableWeekday);
+        user.setAverageRate((float) 0);
         user.setLatlng(userService.getLatlng(address));
 
         try {

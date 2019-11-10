@@ -8,7 +8,7 @@
   zip: number;
   latlng: number;
   email: string;
-  userType: string;
+  userType: boolean;
   avaliableDate: string;
   avaliableWeekday: string;
   rateNumber: number;

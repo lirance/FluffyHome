@@ -29,6 +29,7 @@ export class SignUpComponent implements OnInit {
   ) {
   }
 
+
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
       username: ['', Validators.compose([Validators.required, Validators.maxLength(20)])],
@@ -37,7 +38,8 @@ export class SignUpComponent implements OnInit {
       email: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
       address: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
       password: ['', [Validators.required, Validators.maxLength(20)]],
-      confirmPassword: ['', [Validators.required, EqualValidator('password')]]
+      confirmPassword: ['', [Validators.required, EqualValidator('password')]],
+      userType: false// default to not sitter
     });
   }
 
@@ -54,10 +56,12 @@ export class SignUpComponent implements OnInit {
         data.toString();
         if (data) {
           this.router.navigate(['/login']);
-        };
+        }
+        ;
         if (!data) {
           this.invalidsignup = true;
-        };
+        }
+        ;
       },
       error => {
         console.log('error');

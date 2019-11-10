@@ -13,7 +13,7 @@ public class User extends BaseModelObject {
 
     private String address;
 
-    private Integer credits;
+    private Integer credits = 10;
 
     private Integer zip;
 
@@ -23,9 +23,9 @@ public class User extends BaseModelObject {
 
     private String userType;
 
-    private String avaliableDate;
+    private String avaliableDate = "";
 
-    private String avaliableWeekday;
+    private String avaliableWeekday = "";
 
     private Integer rateNumber = 0;
 
@@ -69,14 +69,6 @@ public class User extends BaseModelObject {
 
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
-    }
-
-    public Integer getRateNumber() {
-        return rateNumber;
-    }
-
-    public void setRateNumber(Integer rateNumber) {
-        this.rateNumber = rateNumber;
     }
 
     public Float getAverageRate() {
@@ -141,5 +133,13 @@ public class User extends BaseModelObject {
 
     public void setAvaliableWeekday(String avaliableWeekday) {
         this.avaliableWeekday = avaliableWeekday;
+    }
+
+    public Integer getRateNumber() {
+        return rateNumber;
+    }
+
+    public void setRateNumber(Integer rateNumber) {
+        this.rateNumber = rateNumber;
     }
 }
