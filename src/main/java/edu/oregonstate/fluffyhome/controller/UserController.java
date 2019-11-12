@@ -1,6 +1,7 @@
 package edu.oregonstate.fluffyhome.controller;
 
 import edu.oregonstate.fluffyhome.model.User;
+import edu.oregonstate.fluffyhome.model.UserType;
 import edu.oregonstate.fluffyhome.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -62,13 +63,11 @@ public class UserController {
         user.setAddress(address);
         user.setZip(zip);
         user.setEmail(email);
-        String ut = "Normal";
+        String ut = UserType.NORMAL.toString();
         if (userType) {
-            ut = "Sitter";
+            ut = UserType.SITTER.toString();
         }
         user.setUserType(ut);
-//        user.setAvaliableDate(avaliableDate);
-//        user.setAvaliableWeekday(avaliableWeekday);
         user.setAverageRate((float) 0);
         user.setLatlng(userService.getLatlng(address));
 
