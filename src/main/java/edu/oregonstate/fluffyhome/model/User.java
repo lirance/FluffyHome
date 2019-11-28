@@ -1,8 +1,7 @@
 package edu.oregonstate.fluffyhome.model;
 
-import java.util.Date;
-
 public class User extends BaseModelObject {
+
     private Integer userid;
 
     private String username;
@@ -25,7 +24,7 @@ public class User extends BaseModelObject {
 
     private String avaliableDate = "";
 
-    private String avaliableWeekday = "";
+    private WeekDayAva avaliableWeekday = new WeekDayAva();
 
     private Integer rateNumber = 0;
 
@@ -127,19 +126,19 @@ public class User extends BaseModelObject {
         this.avaliableDate = avaliableDate;
     }
 
-    public String getAvaliableWeekday() {
-        return avaliableWeekday;
-    }
-
-    public void setAvaliableWeekday(String avaliableWeekday) {
-        this.avaliableWeekday = avaliableWeekday;
-    }
-
     public Integer getRateNumber() {
         return rateNumber;
     }
 
     public void setRateNumber(Integer rateNumber) {
         this.rateNumber = rateNumber;
+    }
+
+    public WeekDayAva getAvaliableWeekday() {
+        return avaliableWeekday;
+    }
+
+    public void setAvaliableWeekday(WeekDayAva avaliableWeekday) {
+        this.avaliableWeekday = avaliableWeekday;
     }
 }

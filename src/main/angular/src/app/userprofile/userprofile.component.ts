@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertService, UserService} from '../_services';
+import {Component, OnInit} from '@angular/core';
+import {AlertService, UserService} from '../_services';
 import {NavigationEnd, Router} from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../_models';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {User} from '../_models';
 import {first} from 'rxjs/operators';
-import { Location } from '@angular/common';
+import {Location} from '@angular/common';
+import {AvaliableWeekday} from '../_models/avaliableWeekday';
 
 @Component({
   selector: 'app-userprofile',
@@ -25,7 +26,7 @@ export class UserprofileComponent implements OnInit {
     private alertService: AlertService,
     private location: Location
   ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
 
@@ -46,14 +47,26 @@ export class UserprofileComponent implements OnInit {
       userId: [this.currentUser.userid, Validators.required],
       userName: [this.currentUser.username, Validators.required],
       phone: [this.currentUser.phone, Validators.required],
+      email: [this.currentUser.email, Validators.required],
+      zip: [this.currentUser.zip, Validators.required],
       address: [this.currentUser.address, Validators.required],
+      monday: this.currentUser.avaliableWeekday.monday,
+      tuesday: this.currentUser.avaliableWeekday.tuesday,
+      wednesday: this.currentUser.avaliableWeekday.wednesday,
+      thursday: this.currentUser.avaliableWeekday.thursday,
+      friday: this.currentUser.avaliableWeekday.friday,
+      saturday: this.currentUser.avaliableWeekday.saturday,
+      sunday: this.currentUser.avaliableWeekday.sunday,
+      credits: [this.currentUser.credits],
       rateNumber: [this.currentUser.rateNumber, Validators.required],
       averageRate: [this.currentUser.averageRate]
     });
 
   }
 
-  get f() { return this.profileForm.controls; }
+  get f() {
+    return this.profileForm.controls;
+  }
 
   onSubmit() {
     this.submitted = true;
@@ -64,11 +77,23 @@ export class UserprofileComponent implements OnInit {
     }
 
     this.loading = true;
+
+    this.currentUser.avaliableWeekday.monday = this.profileForm.value.monday;
+    this.currentUser.avaliableWeekday.tuesday = this.profileForm.value.tuesday;
+    this.currentUser.avaliableWeekday.wednesday = this.profileForm.value.wednesday;
+    this.currentUser.avaliableWeekday.thursday = this.profileForm.value.thursday;
+    this.currentUser.avaliableWeekday.friday = this.profileForm.value.friday;
+    this.currentUser.avaliableWeekday.saturday = this.profileForm.value.saturday;
+    this.currentUser.avaliableWeekday.sunday = this.profileForm.value.sunday;
+
     this.userService.profileEdit(this.profileForm.value.userId, this.profileForm.value.phone,
-      this.profileForm.value.userName, this.profileForm.value.address)
+      this.profileForm.value.userName, this.profileForm.value.email, this.profileForm.value.zip, this.profileForm.value.address,
+      this.currentUser.avaliableWeekday
+    )
       .pipe(first())
       .subscribe(
-        data => {data.toString();
+        data => {
+          data.toString();
           if (data) {
             console.log('update successful');
             this.currentUserID = localStorage.getItem('currentUserID');

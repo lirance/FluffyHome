@@ -37,6 +37,7 @@ public class PersonalOrderController {
     @RequestMapping("/create")
     public boolean createOrder(@RequestParam(value = "itemlist", required = true) List<String> itemlist, String storeadd, String destination, int timelimit, float tip, int userid) {
 
+        // check if the user already setup available time
         UserOrder userOrder = new UserOrder();
         Order order = new Order();
 

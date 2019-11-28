@@ -1,10 +1,13 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {User} from '../_models/user';
+import {AvaliableWeekday} from '../_models/avaliableWeekday';
 
 @Injectable()
 
 export class UserService {
+  private avaliableWeekday: AvaliableWeekday;
+
   constructor(private http: HttpClient) {
   }
 
@@ -34,9 +37,12 @@ export class UserService {
 
   }
 
-  profileEdit(userid: string, phone: string, username: string, email: string, address: string) {
-    // tslint:disable-next-line:max-line-length
-    return this.http.get<string>('http://localhost:8080/user/editProfile?userid=' + userid + '&phone=' + phone + '&email=' + email + '&username=' + username + '&address=' + address);
+  profileEdit(userid: string, phone: string, username: string, email: string,
+              zip: string, address: string, avaliableWeekday: AvaliableWeekday) {
+
+    return this.http.get<String>('http://localhost:8080/user/editProfile?userid=' + userid
+      + '&phone=' + phone + '&email=' + email + '&username=' + username + '&zip=' + zip + '&address=' + address
+      + '&avaliableWeekday=' + JSON.stringify(avaliableWeekday));
   }
 
 }

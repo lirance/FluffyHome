@@ -14,13 +14,8 @@ public class OrderShow extends Order {
     private User recipient;
 
     public OrderShow(Order order) {
-//        this.setState(order.getState());
         this.setDestination(order.getDestination());
-//        this.setItemlist(order.getItemlist());
         this.setOrderid(order.getOrderid());
-//        this.setStoreadd(order.getStoreadd());
-//        this.setTimelimit(order.getTimelimit());
-//        this.setTip(order.getTip());
     }
 
     public OrderShow() {

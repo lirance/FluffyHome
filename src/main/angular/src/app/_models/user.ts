@@ -1,4 +1,6 @@
-﻿export class User {
+﻿import {AvaliableWeekday} from './avaliableWeekday';
+
+export class User {
   userid: number;
   username: string;
   password: string;
@@ -10,7 +12,7 @@
   email: string;
   userType: boolean;
   avaliableDate: string;
-  avaliableWeekday: string;
+  avaliableWeekday: AvaliableWeekday;
   rateNumber: number;
   averageRate: number;
 }

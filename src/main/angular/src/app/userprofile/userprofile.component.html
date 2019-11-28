@@ -1,38 +1,103 @@
-<h2 class="text-dark">Profile</h2>
+<script src="userprofile.component.ts"></script><h2 class="text-dark">Profile</h2>
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="text-dark text-left">
 
   <div class="form-group">
     <label>User Id</label>
-    <input type="text" formControlName="userId" readonly="readonly" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.userId.errors }" />
+    <input type="text" formControlName="userId" readonly="readonly" class="form-control"
+           [ngClass]="{ 'is-invalid': submitted && f.userId.errors }"/>
   </div>
 
   <div class="form-group">
     <label>User Name</label>
-    <input type="text" formControlName="userName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" />
+    <input type="text" formControlName="userName" class="form-control"
+           [ngClass]="{ 'is-invalid': submitted && f.userName.errors }"/>
     <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
       <div *ngIf="f.userName.errors.required">User name is required</div>
     </div>
   </div>
-
+  
   <div class="form-group">
     <label>Phone Number</label>
-    <input type="text" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+    <input type="text" formControlName="phone" class="form-control"
+           [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"/>
     <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
       <div *ngIf="f.phone.errors.required">Phone Number is required</div>
     </div>
   </div>
 
   <div class="form-group">
+    <label>email</label>
+    <input type="text" formControlName="email" class="form-control"
+           [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
+    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+      <div *ngIf="f.email.errors.required">email code is required</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>zip</label>
+    <input type="text" formControlName="zip" class="form-control"
+           [ngClass]="{ 'is-invalid': submitted && f.zip.errors }"/>
+    <div *ngIf="submitted && f.zip.errors" class="invalid-feedback">
+      <div *ngIf="f.zip.errors.required">zip code is required</div>
+    </div>
+  </div>
+
+  <div class="form-group">
     <label>Address</label>
-    <input type="text" formControlName="address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" />
+    <input type="text" formControlName="address" class="form-control"
+           [ngClass]="{ 'is-invalid': submitted && f.address.errors }"/>
     <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
       <div *ngIf="f.address.errors.required">Address is required</div>
     </div>
   </div>
 
   <div class="form-group">
+    <label>avaliable weekdays</label> <br/>
+    <div class="form-check form-check-inline">
+      <input type="checkbox" formControlName="monday" [checked]="currentUser.avaliableWeekday.monday"
+             class="form-check-input" id="a1">
+      <label class="form-check-label" for="a1">monday</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input type="checkbox" formControlName="tuesday" [checked]="currentUser.avaliableWeekday.tuesday"
+             class="form-check-input" id="a2">
+      <label class="form-check-label" for="a2">tuesday</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input type="checkbox" formControlName="wednesday" [checked]="currentUser.avaliableWeekday.wednesday"
+             class="form-check-input" id="a3">
+      <label class="form-check-label" for="a3">wednesday</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input type="checkbox" formControlName="thursday" [checked]="currentUser.avaliableWeekday.thursday"
+             class="form-check-input" id="a4">
+      <label class="form-check-label" for="a4">thursday</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input type="checkbox" formControlName="friday" [checked]="currentUser.avaliableWeekday.friday"
+             class="form-check-input " id="a5">
+      <label class="form-check-label" for="a5">friday</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input type="checkbox" formControlName="saturday" [checked]="currentUser.avaliableWeekday.saturday"
+             class="form-check-input" id="a6">
+      <label class="form-check-label" for="a6">saturday</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input type="checkbox" formControlName="sunday" [checked]="currentUser.avaliableWeekday.sunday"
+             class="form-check-input" id="a7">
+      <label class="form-check-label" for="a7">sunday</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>credits</label>
+    <input type="text" formControlName="credits" readonly="readonly" class="form-control"/>
+  </div>
+  <div class="form-group">
     <label>Rate Number</label>
-    <input type="text" formControlName="rateNumber" readonly="readonly" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.rateNumber.errors }" />
+    <input type="text" formControlName="rateNumber" readonly="readonly" class="form-control"
+           [ngClass]="{ 'is-invalid': submitted && f.rateNumber.errors }"/>
   </div>
 
   <div class="form-group">

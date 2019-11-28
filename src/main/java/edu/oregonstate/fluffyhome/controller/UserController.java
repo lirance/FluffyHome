@@ -1,7 +1,9 @@
 package edu.oregonstate.fluffyhome.controller;
 
+import com.alibaba.fastjson.JSON;
 import edu.oregonstate.fluffyhome.model.User;
 import edu.oregonstate.fluffyhome.model.UserType;
+import edu.oregonstate.fluffyhome.model.WeekDayAva;
 import edu.oregonstate.fluffyhome.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -96,12 +98,17 @@ public class UserController {
     }
 
     @RequestMapping("/editProfile")
-    public boolean editProfile(String username, String phone, String address, int userid) {
+    public boolean editProfile(String username, String phone, String address, int userid, int zip, String email, String avaliableWeekday) {
         try {
             User user = userService.selectByPrimaryKey(userid);
+
             user.setUsername(username);
             user.setAddress(address);
             user.setPhone(phone);
+            user.setAvaliableWeekday(JSON.parseObject(avaliableWeekday, WeekDayAva.class));
+            user.setZip(zip);
+            user.setLatlng(userService.getLatlng(address));
+            user.setEmail(email);
 
             return userService.updateByPrimaryKey(user) == 1;
         } catch (Exception e) {

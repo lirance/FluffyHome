@@ -15,7 +15,8 @@
         <result column="averageRate" jdbcType="REAL" property="averageRate"/>
         <result column="userType" jdbcType="VARCHAR" property="userType"/>
         <result column="avaliableDate" jdbcType="VARCHAR" property="avaliableDate"/>
-        <result column="avaliableWeekday" jdbcType="VARCHAR" property="avaliableWeekday"/>
+        <result column="avaliableWeekday" jdbcType="VARCHAR" property="avaliableWeekday"
+                typeHandler="edu.oregonstate.fluffyhome.handler.WeekDayAvaHandler"/>
     </resultMap>
     <sql id="Base_Column_List">
     userId, userName, password, phone, credits, address, zip, latlng, email, rateNumber, 
@@ -184,16 +185,10 @@
     set userName = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
-      credits = #{credits,jdbcType=INTEGER},
       address = #{address,jdbcType=VARCHAR},
       zip = #{zip,jdbcType=INTEGER},
-      latlng = #{latlng,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      rateNumber = #{ratenumber,jdbcType=INTEGER},
-      averageRate = #{averagerate,jdbcType=REAL},
-      userType = #{usertype,jdbcType=VARCHAR},
-      avaliableDate = #{avaliabledate,jdbcType=VARCHAR},
-      avaliableWeekday = #{avaliableweekday,jdbcType=VARCHAR}
+      avaliableWeekday = #{avaliableWeekday,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR}
     where userId = #{userid,jdbcType=INTEGER}
   </update>
     <select id="selectByPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
