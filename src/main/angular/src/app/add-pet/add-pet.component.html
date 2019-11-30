@@ -1,0 +1,33 @@
+<h2 class="text-dark">Create an order</h2>
+<form [formGroup]="petForm" (ngSubmit)="onSubmit()" class="text-dark text-left">
+
+  <div class="form-group">
+    <label for="petType">pet Type: </label>
+    <input type="text" placeholder="dog/cat/other" id="petType" formControlName="petType" class="form-control"/>
+
+  </div>
+
+  <div class="form-group">
+    <label for="petName"> pet Name: </label>
+    <input type="text" id="petName" formControlName="petName"
+           class="form-control"
+    />
+
+  </div>
+
+  <div class="form-group">
+    <label for="petInfo">petInfo(some special about your pet)</label>
+    <input type="text" placeholder="XXX is shy but friendly, shel loves play with ball..." id="petInfo"
+           formControlName="petInfo"
+           class="form-control"/>
+
+  </div>
+
+  <div class="form-group text-center">
+    <button class="btn btn-primary">Submit</button>
+    <a (click)="backtolast()" class="btn btn-link">Cancel</a>
+  </div>
+
+</form>
+
+<br><br>

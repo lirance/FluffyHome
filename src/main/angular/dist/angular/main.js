@@ -310,7 +310,7 @@ var UserService = /** @class */ (function () {
     };
     UserService.prototype.signup = function (user) {
         // tslint:disable-next-line:max-line-length
-        return this.http.post("http://localhost:8080/user/register?phone=" + user.phone + "&password=" + user.password + "&username=" + user.username + "&address=" + user.address + "&phone=" + user.phone + "&zip=" + user.zip + "&userType=" + user.userType, user);
+        return this.http.post("http://localhost:8080/user/register?phone=" + user.phone + "&email=" + user.email + "&password=" + user.password + "&username=" + user.username + "&address=" + user.address + "&zip=" + user.zip + "&userType=" + user.userType, user);
     };
     UserService.prototype.getUserByphone = function (phone) {
         return this.http.post("http://localhost:8080/user/getUserByPhone?phone=" + phone, phone);
@@ -324,9 +324,10 @@ var UserService = /** @class */ (function () {
         localStorage.removeItem('currentUser');
         localStorage.clear();
     };
-    UserService.prototype.profileEdit = function (userid, phone, username, address) {
-        // tslint:disable-next-line:max-line-length
-        return this.http.get('http://localhost:8080/user/editProfile?userid=' + userid + '&phone=' + phone + '&username=' + username + '&address=' + address);
+    UserService.prototype.profileEdit = function (userid, phone, username, email, zip, address, avaliableWeekday) {
+        return this.http.get('http://localhost:8080/user/editProfile?userid=' + userid
+            + '&phone=' + phone + '&email=' + email + '&username=' + username + '&zip=' + zip + '&address=' + address
+            + '&avaliableWeekday=' + JSON.stringify(avaliableWeekday));
     };
     UserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])(),
@@ -594,7 +595,8 @@ var routes = [
     { path: 'aboutUs', component: _aboutUs_aboutUs_component__WEBPACK_IMPORTED_MODULE_3__["AboutUsComponent"] },
     { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_5__["LoginComponent"] },
     { path: 'signup', component: _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_6__["SignUpComponent"] },
-    { path: 'dashboard',
+    {
+        path: 'dashboard',
         component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_7__["DashboardComponent"],
         children: [
             { path: '', redirectTo: 'dashhome', pathMatch: 'full' },
@@ -604,7 +606,8 @@ var routes = [
             { path: 'myorder', component: _my_order_my_order_component__WEBPACK_IMPORTED_MODULE_12__["MyOrderComponent"], outlet: 'aux' },
             { path: 'orderdetail/:orderid', component: _order_detail_order_detail_component__WEBPACK_IMPORTED_MODULE_10__["OrderDetailComponent"], outlet: 'aux' },
             { path: 'publicprofile/:userid', component: _public_profile_public_profile_component__WEBPACK_IMPORTED_MODULE_13__["PublicProfileComponent"], outlet: 'aux' },
-        ] }
+        ]
+    }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -1876,7 +1879,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"text-dark\">Profile</h2>\n<form [formGroup]=\"profileForm\" (ngSubmit)=\"onSubmit()\" class=\"text-dark text-left\">\n\n  <div class=\"form-group\">\n    <label>User Id</label>\n    <input type=\"text\" formControlName=\"userId\" readonly=\"readonly\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.userId.errors }\" />\n  </div>\n\n  <div class=\"form-group\">\n    <label>User Name</label>\n    <input type=\"text\" formControlName=\"userName\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.userName.errors }\" />\n    <div *ngIf=\"submitted && f.userName.errors\" class=\"invalid-feedback\">\n      <div *ngIf=\"f.userName.errors.required\">User name is required</div>\n    </div>\n  </div>\n\n  <div class=\"form-group\">\n    <label>Phone Number</label>\n    <input type=\"text\" formControlName=\"phone\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.phone.errors }\" />\n    <div *ngIf=\"submitted && f.phone.errors\" class=\"invalid-feedback\">\n      <div *ngIf=\"f.phone.errors.required\">Phone Number is required</div>\n    </div>\n  </div>\n\n  <div class=\"form-group\">\n    <label>Address</label>\n    <input type=\"text\" formControlName=\"address\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.address.errors }\" />\n    <div *ngIf=\"submitted && f.address.errors\" class=\"invalid-feedback\">\n      <div *ngIf=\"f.address.errors.required\">Address is required</div>\n    </div>\n  </div>\n\n  <div class=\"form-group\">\n    <label>Rate Number</label>\n    <input type=\"text\" formControlName=\"rateNumber\" readonly=\"readonly\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.rateNumber.errors }\" />\n  </div>\n\n  <div class=\"form-group\">\n    <label>Average Rate</label>\n    <input type=\"text\" formControlName=\"averageRate\" readonly=\"readonly\" class=\"form-control\"/>\n  </div>\n\n  <div class=\"form-group text-center\">\n    <button [disabled]=\"loading\" class=\"btn btn-primary\">Submit</button>\n    <a (click)=\"backtolast()\" class=\"btn btn-link\">Cancel</a>\n  </div>\n\n</form>\n"
+module.exports = "<script src=\"userprofile.component.ts\"></script><h2 class=\"text-dark\">Profile</h2>\n<form [formGroup]=\"profileForm\" (ngSubmit)=\"onSubmit()\" class=\"text-dark text-left\">\n\n  <div class=\"form-group\">\n    <label>User Id</label>\n    <input type=\"text\" formControlName=\"userId\" readonly=\"readonly\" class=\"form-control\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.userId.errors }\"/>\n  </div>\n\n  <div class=\"form-group\">\n    <label>User Name</label>\n    <input type=\"text\" formControlName=\"userName\" class=\"form-control\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.userName.errors }\"/>\n    <div *ngIf=\"submitted && f.userName.errors\" class=\"invalid-feedback\">\n      <div *ngIf=\"f.userName.errors.required\">User name is required</div>\n    </div>\n  </div>\n  \n  <div class=\"form-group\">\n    <label>Phone Number</label>\n    <input type=\"text\" formControlName=\"phone\" class=\"form-control\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.phone.errors }\"/>\n    <div *ngIf=\"submitted && f.phone.errors\" class=\"invalid-feedback\">\n      <div *ngIf=\"f.phone.errors.required\">Phone Number is required</div>\n    </div>\n  </div>\n\n  <div class=\"form-group\">\n    <label>email</label>\n    <input type=\"text\" formControlName=\"email\" class=\"form-control\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.email.errors }\"/>\n    <div *ngIf=\"submitted && f.email.errors\" class=\"invalid-feedback\">\n      <div *ngIf=\"f.email.errors.required\">email code is required</div>\n    </div>\n  </div>\n\n  <div class=\"form-group\">\n    <label>zip</label>\n    <input type=\"text\" formControlName=\"zip\" class=\"form-control\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.zip.errors }\"/>\n    <div *ngIf=\"submitted && f.zip.errors\" class=\"invalid-feedback\">\n      <div *ngIf=\"f.zip.errors.required\">zip code is required</div>\n    </div>\n  </div>\n\n  <div class=\"form-group\">\n    <label>Address</label>\n    <input type=\"text\" formControlName=\"address\" class=\"form-control\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.address.errors }\"/>\n    <div *ngIf=\"submitted && f.address.errors\" class=\"invalid-feedback\">\n      <div *ngIf=\"f.address.errors.required\">Address is required</div>\n    </div>\n  </div>\n\n  <div class=\"form-group\">\n    <label>avaliable weekdays</label> <br/>\n    <div class=\"form-check form-check-inline\">\n      <input type=\"checkbox\" formControlName=\"monday\" [checked]=\"currentUser.avaliableWeekday.monday\"\n             class=\"form-check-input\" id=\"a1\">\n      <label class=\"form-check-label\" for=\"a1\">monday</label>\n    </div>\n    <div class=\"form-check form-check-inline\">\n      <input type=\"checkbox\" formControlName=\"tuesday\" [checked]=\"currentUser.avaliableWeekday.tuesday\"\n             class=\"form-check-input\" id=\"a2\">\n      <label class=\"form-check-label\" for=\"a2\">tuesday</label>\n    </div>\n    <div class=\"form-check form-check-inline\">\n      <input type=\"checkbox\" formControlName=\"wednesday\" [checked]=\"currentUser.avaliableWeekday.wednesday\"\n             class=\"form-check-input\" id=\"a3\">\n      <label class=\"form-check-label\" for=\"a3\">wednesday</label>\n    </div>\n    <div class=\"form-check form-check-inline\">\n      <input type=\"checkbox\" formControlName=\"thursday\" [checked]=\"currentUser.avaliableWeekday.thursday\"\n             class=\"form-check-input\" id=\"a4\">\n      <label class=\"form-check-label\" for=\"a4\">thursday</label>\n    </div>\n    <div class=\"form-check form-check-inline\">\n      <input type=\"checkbox\" formControlName=\"friday\" [checked]=\"currentUser.avaliableWeekday.friday\"\n             class=\"form-check-input \" id=\"a5\">\n      <label class=\"form-check-label\" for=\"a5\">friday</label>\n    </div>\n    <div class=\"form-check form-check-inline\">\n      <input type=\"checkbox\" formControlName=\"saturday\" [checked]=\"currentUser.avaliableWeekday.saturday\"\n             class=\"form-check-input\" id=\"a6\">\n      <label class=\"form-check-label\" for=\"a6\">saturday</label>\n    </div>\n    <div class=\"form-check form-check-inline\">\n      <input type=\"checkbox\" formControlName=\"sunday\" [checked]=\"currentUser.avaliableWeekday.sunday\"\n             class=\"form-check-input\" id=\"a7\">\n      <label class=\"form-check-label\" for=\"a7\">sunday</label>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <label>credits</label>\n    <input type=\"text\" formControlName=\"credits\" readonly=\"readonly\" class=\"form-control\"/>\n  </div>\n  <div class=\"form-group\">\n    <label>Rate Number</label>\n    <input type=\"text\" formControlName=\"rateNumber\" readonly=\"readonly\" class=\"form-control\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.rateNumber.errors }\"/>\n  </div>\n\n  <div class=\"form-group\">\n    <label>Average Rate</label>\n    <input type=\"text\" formControlName=\"averageRate\" readonly=\"readonly\" class=\"form-control\"/>\n  </div>\n\n  <div class=\"form-group text-center\">\n    <button [disabled]=\"loading\" class=\"btn btn-primary\">Submit</button>\n    <a (click)=\"backtolast()\" class=\"btn btn-link\">Cancel</a>\n  </div>\n\n</form>\n"
 
 /***/ }),
 
@@ -1932,13 +1935,25 @@ var UserprofileComponent = /** @class */ (function () {
             userId: [this.currentUser.userid, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
             userName: [this.currentUser.username, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
             phone: [this.currentUser.phone, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+            email: [this.currentUser.email, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+            zip: [this.currentUser.zip, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
             address: [this.currentUser.address, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+            monday: this.currentUser.avaliableWeekday.monday,
+            tuesday: this.currentUser.avaliableWeekday.tuesday,
+            wednesday: this.currentUser.avaliableWeekday.wednesday,
+            thursday: this.currentUser.avaliableWeekday.thursday,
+            friday: this.currentUser.avaliableWeekday.friday,
+            saturday: this.currentUser.avaliableWeekday.saturday,
+            sunday: this.currentUser.avaliableWeekday.sunday,
+            credits: [this.currentUser.credits],
             rateNumber: [this.currentUser.rateNumber, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
             averageRate: [this.currentUser.averageRate]
         });
     };
     Object.defineProperty(UserprofileComponent.prototype, "f", {
-        get: function () { return this.profileForm.controls; },
+        get: function () {
+            return this.profileForm.controls;
+        },
         enumerable: true,
         configurable: true
     });
@@ -1950,7 +1965,14 @@ var UserprofileComponent = /** @class */ (function () {
             return;
         }
         this.loading = true;
-        this.userService.profileEdit(this.profileForm.value.userId, this.profileForm.value.phone, this.profileForm.value.userName, this.profileForm.value.address)
+        this.currentUser.avaliableWeekday.monday = this.profileForm.value.monday;
+        this.currentUser.avaliableWeekday.tuesday = this.profileForm.value.tuesday;
+        this.currentUser.avaliableWeekday.wednesday = this.profileForm.value.wednesday;
+        this.currentUser.avaliableWeekday.thursday = this.profileForm.value.thursday;
+        this.currentUser.avaliableWeekday.friday = this.profileForm.value.friday;
+        this.currentUser.avaliableWeekday.saturday = this.profileForm.value.saturday;
+        this.currentUser.avaliableWeekday.sunday = this.profileForm.value.sunday;
+        this.userService.profileEdit(this.profileForm.value.userId, this.profileForm.value.phone, this.profileForm.value.userName, this.profileForm.value.email, this.profileForm.value.zip, this.profileForm.value.address, this.currentUser.avaliableWeekday)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["first"])())
             .subscribe(function (data) {
             data.toString();

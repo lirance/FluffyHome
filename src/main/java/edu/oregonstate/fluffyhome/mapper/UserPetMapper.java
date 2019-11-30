@@ -3,6 +3,8 @@ package edu.oregonstate.fluffyhome.mapper;
 import edu.oregonstate.fluffyhome.model.UserPet;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface UserPetMapper {
     int deleteByPrimaryKey(Integer petid);
@@ -16,4 +18,6 @@ public interface UserPetMapper {
     int updateByPrimaryKeySelective(UserPet record);
 
     int updateByPrimaryKey(UserPet record);
+
+    List<UserPet> getUserPets(int userid);
 }

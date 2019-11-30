@@ -166,7 +166,7 @@
         select
         <include refid="Base_Column_List"/>
         from `order`
-        where state = 'ORDERED'
+        where status = 'ORDERED'
     </select>
 
 

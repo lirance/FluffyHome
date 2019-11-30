@@ -90,4 +90,11 @@
       petInfo = #{petinfo,jdbcType=VARCHAR}
     where petId = #{petid,jdbcType=INTEGER}
   </update>
+
+    <select id="getUserPets" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `user_pet`
+        where userId = #{userid,jdbcType=INTEGER}
+    </select>
 </mapper>

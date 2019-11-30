@@ -9,7 +9,7 @@
         <result column="rate" jdbcType="REAL" property="rate"/>
     </resultMap>
     <sql id="Base_Column_List">
-    orderId, userId, rateFlag, orderMaker, rate
+    orderId, userId, rateFlag, makerType, rate
   </sql>
     <select id="selectByPrimaryKey" parameterType="edu.oregonstate.fluffyhome.model.UserOrderKey"
             resultMap="BaseResultMap">
@@ -26,9 +26,9 @@
   </delete>
     <insert id="insert" parameterType="edu.oregonstate.fluffyhome.model.UserOrder">
     insert into user_order (orderId, userId, rateFlag, 
-      orderMaker, rate)
+      makerType, rate)
     values (#{orderid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{rateflag,jdbcType=BIT}, 
-      #{ordermaker,jdbcType=BIT}, #{rate,jdbcType=REAL})
+      #{makerType,jdbcType=BIT}, #{rate,jdbcType=REAL})
   </insert>
     <insert id="insertSelective" parameterType="edu.oregonstate.fluffyhome.model.UserOrder">
         insert into user_order
@@ -42,7 +42,7 @@
             <if test="rateflag != null">
                 rateFlag,
             </if>
-            <if test="ordermaker != null">
+            <if test="makerType != null">
                 orderMaker,
             </if>
             <if test="rate != null">
@@ -59,7 +59,7 @@
             <if test="rateflag != null">
                 #{rateflag,jdbcType=BIT},
             </if>
-            <if test="ordermaker != null">
+            <if test="makerType != null">
                 #{ordermaker,jdbcType=BIT},
             </if>
             <if test="rate != null">
@@ -73,8 +73,8 @@
             <if test="rateflag != null">
                 rateFlag = #{rateflag,jdbcType=BIT},
             </if>
-            <if test="ordermaker != null">
-                orderMaker = #{ordermaker,jdbcType=BIT},
+            <if test="makerType != null">
+                makerType = #{makerType,jdbcType=BIT},
             </if>
             <if test="rate != null">
                 rate = #{rate,jdbcType=REAL},
@@ -86,7 +86,7 @@
     <update id="updateByPrimaryKey" parameterType="edu.oregonstate.fluffyhome.model.UserOrder">
     update user_order
     set rateFlag = #{rateflag,jdbcType=BIT},
-      orderMaker = #{ordermaker,jdbcType=BIT},
+      makerType = #{makerType,jdbcType=BIT},
       rate = #{rate,jdbcType=REAL}
     where orderId = #{orderid,jdbcType=INTEGER}
       and userId = #{userid,jdbcType=INTEGER}
@@ -118,7 +118,7 @@
         select
         <include refid="Base_Column_List"/>
         from user_order
-        where orderMaker = true
+        where makerType = true
     </select>
 
     <select id="getUsersByOrder" resultMap="BaseResultMap">
@@ -133,6 +133,6 @@
         <include refid="Base_Column_List"/>
         from user_order
         where userId = #{0}
-        and orderMaker = #{1}
+        and makerType = #{1}
     </select>
 </mapper>

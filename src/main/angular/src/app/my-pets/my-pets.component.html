@@ -1,0 +1,30 @@
+<div class="row text-dark" *ngIf='petList != []'>
+  <div *ngFor="let pets of petList" class="col-md-4">
+    <div class="card mb-4 box-shadow">
+      <div class="card-body">
+        <h5 class="card-title"> {{pets.petid}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Pet Name: {{pets.petname}} </h6>
+      </div>
+
+      <ul class="list-group list-group-flush text-left">
+        <li class="list-group-item">Pet Type: {{pets.pettype}} </li>
+        <li class="list-group-item">Pet Info: {{pets.petinfo}} </li>
+      </ul>
+
+      <div class="card-body">
+        <!--        <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderid]}}]" class="card-link">See-->
+        <!--          Detail</a>-->
+        <!--       <a routerLink=" " *ngIf="order.maker.userid != currentUserID" class="card-link" (click)="accept(order.orderid)">Accept</a>-->
+        <!--      </div>-->
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<div class="card mb-4 box-shadow">
+  <div class="card-body">
+    <a [routerLink]="['/dashboard', {outlets: {'aux': ['addpet']}}]" class="card-link">add</a>
+  </div>
+</div>
+

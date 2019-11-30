@@ -3,8 +3,8 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {AboutUsComponent} from './aboutUs/aboutUs.component';
 import {HomeComponent} from './home/home.component';
-import {LoginComponent} from './login/login.component';
-import {SignUpComponent} from './sign-up/sign-up.component';
+import {LoginComponent} from './login';
+import {SignUpComponent} from './sign-up';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {DashhomeComponent} from './dashhome/dashhome.component';
 import {CreateOrderComponent} from './create-order/create-order.component';
@@ -12,6 +12,9 @@ import {OrderDetailComponent} from './order-detail/order-detail.component';
 import {UserprofileComponent} from './userprofile/userprofile.component';
 import {MyOrderComponent} from './my-order/my-order.component';
 import {PublicProfileComponent} from './public-profile/public-profile.component';
+import {MyProfileComponent} from './my-profile/my-profile.component';
+import {MyPetsComponent} from './my-pets/my-pets.component';
+import {AddPetComponent} from './add-pet/add-pet.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -30,6 +33,9 @@ const routes: Routes = [
       {path: 'myorder', component: MyOrderComponent, outlet: 'aux'},
       {path: 'orderdetail/:orderid', component: OrderDetailComponent, outlet: 'aux'},
       {path: 'publicprofile/:userid', component: PublicProfileComponent, outlet: 'aux'},
+      {path: 'myprofile/:userid', component: MyProfileComponent, outlet: 'aux'},
+      {path: 'mypets/:userid', component: MyPetsComponent, outlet: 'aux'},
+      {path: 'addpet', component: AddPetComponent, outlet: 'aux'}
     ]
   }];
 

@@ -2,6 +2,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {User} from '../_models/user';
 import {AvaliableWeekday} from '../_models/avaliableWeekday';
+import {Pet} from '../_models/Pet';
 
 @Injectable()
 
@@ -17,8 +18,9 @@ export class UserService {
   }
 
   signup(user: User) {
-    // tslint:disable-next-line:max-line-length
-    return this.http.post(`http://localhost:8080/user/register?phone=` + user.phone + `&email=` + user.email + `&password=` + user.password + `&username=` + user.username + `&address=` + user.address + `&zip=` + user.zip + `&userType=` + user.userType, user);
+    return this.http.post(`http://localhost:8080/user/register?phone=` + user.phone + `&email=`
+      + user.email + `&password=` + user.password + `&username=` + user.username + `&address=`
+      + user.address + `&zip=` + user.zip + `&userType=` + user.userType, user);
   }
 
   getUserByphone(phone: string) {
@@ -40,10 +42,20 @@ export class UserService {
   profileEdit(userid: string, phone: string, username: string, email: string,
               zip: string, address: string, avaliableWeekday: AvaliableWeekday) {
 
-    return this.http.get<String>('http://localhost:8080/user/editProfile?userid=' + userid
-      + '&phone=' + phone + '&email=' + email + '&username=' + username + '&zip=' + zip + '&address=' + address
-      + '&avaliableWeekday=' + JSON.stringify(avaliableWeekday));
+    return this.http.get<string>('http://localhost:8080/user/editProfile?userid=' + userid
+      + '&phone=' + phone + '&email=' + email + '&username=' + username + '&zip=' + zip + '&address='
+      + address + '&avaliableWeekday=' + JSON.stringify(avaliableWeekday));
   }
 
+
+  getPets(userId: string) {
+    return this.http.get<Pet[]>('http://localhost:8080/userPet/getUserPets?userid=' + userId);
+  }
+
+  addPet(pet: Pet) {
+    return this.http.get<string>('http://localhost:8080/userPet/addPet?userid=' + pet.userid +
+      '&petType=' + pet.pettype + '&petName=' + pet.petname + '&petInfo=' + pet.petinfo);
+
+  }
 }
 

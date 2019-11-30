@@ -30,7 +30,10 @@
           </button>
 
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item text-dark" [routerLink]="['/dashboard', {outlets: {'aux': ['profile']}}]">Edit Profile</a>
+            <a class="dropdown-item text-dark"
+               [routerLink]="['/dashboard', {outlets: {'aux': ['myprofile', currentUserID]}}]">MyProfile</a>
+            <a class="dropdown-item text-dark"
+               [routerLink]="['/dashboard', {outlets: {'aux': ['mypets', currentUserID]}}]">MyPets</a>
             <a class="dropdown-item text-dark" (click)="userLogout()">Log Out</a>
           </div>
         </div>

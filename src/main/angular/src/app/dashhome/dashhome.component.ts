@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {first} from 'rxjs/operators';
-import {OrderService} from "../_services/order.service";
-import {Router} from "@angular/router";
-import {Order} from "../_models/order";
-import {MatDialog, MatDialogConfig} from "@angular/material";
-import {AcceptDialogComponent} from "../accept-dialog/accept-dialog.component";
+import {OrderService} from '../_services/order.service';
+import {Router} from '@angular/router';
+import {Order} from '../_models/order';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {AcceptDialogComponent} from '../accept-dialog/accept-dialog.component';
 
 @Component({
   selector: 'app-dashhome',
@@ -19,12 +19,12 @@ export class DashhomeComponent implements OnInit {
   acceptResult: string;
 
 
-  constructor(private orderService: OrderService, private router: Router,  private dialog: MatDialog) {
+  constructor(private orderService: OrderService, private router: Router, private dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.getOrderList();
-    this.currentUserID= localStorage.getItem('currentUserID');
+    this.currentUserID = localStorage.getItem('currentUserID');
   }
 
   getOrderList() {
@@ -33,8 +33,8 @@ export class DashhomeComponent implements OnInit {
     });
   }
 
-  accept(orderid:string){
-    this.orderService.acceptOrder(this.currentUserID, orderid).pipe(first()).subscribe(result=>{
+  accept(orderid: string) {
+    this.orderService.acceptOrder(this.currentUserID, orderid).pipe(first()).subscribe(result => {
       result.toString();
       console.log(result);
       this.acceptResult = result;
@@ -42,7 +42,8 @@ export class DashhomeComponent implements OnInit {
     });
 
   }
-  openAcceptDialog():void {
+
+  openAcceptDialog(): void {
 
     const dialogConfig = new MatDialogConfig();
 
