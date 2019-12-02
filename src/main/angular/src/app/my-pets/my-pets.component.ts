@@ -11,7 +11,7 @@ import {Pet} from '../_models/Pet';
   styleUrls: ['./my-pets.component.css']
 })
 export class MyPetsComponent implements OnInit {
-  // currentUserId: string;
+  currentUserId: string;
   petList: Pet[];
 
   constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private location: Location) {
@@ -22,8 +22,8 @@ export class MyPetsComponent implements OnInit {
   }
 
   getPets() {
-    const userId = this.route.snapshot.paramMap.get('userid');
-    this.userService.getPets(userId).pipe(first()).subscribe(result => {
+    this.currentUserId = this.route.snapshot.paramMap.get('userid');
+    this.userService.getPets(this.currentUserId).pipe(first()).subscribe(result => {
       this.petList = result;
     });
   }

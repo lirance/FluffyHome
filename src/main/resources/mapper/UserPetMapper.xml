@@ -84,7 +84,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="edu.oregonstate.fluffyhome.model.UserPet">
     update user_pet
-    set userId = #{userid,jdbcType=INTEGER},
+    set
       petType = #{pettype,jdbcType=VARCHAR},
       petName = #{petname,jdbcType=VARCHAR},
       petInfo = #{petinfo,jdbcType=VARCHAR}

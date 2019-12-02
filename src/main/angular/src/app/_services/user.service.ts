@@ -55,7 +55,15 @@ export class UserService {
   addPet(pet: Pet) {
     return this.http.get<string>('http://localhost:8080/userPet/addPet?userid=' + pet.userid +
       '&petType=' + pet.pettype + '&petName=' + pet.petname + '&petInfo=' + pet.petinfo);
+  }
 
+  getPetById(petid: String) {
+    return this.http.get<Pet>('http://localhost:8080/userPet/getPetInfoById?petid=' + petid);
+  }
+
+  editPetInfo(petid: string, petName: string, petType: string, petInfo: string) {
+    return this.http.get<string>('http://localhost:8080/userPet/editPetInfo?petid=' + petid
+      + '&petType=' + petType + '&petName=' + petName + '&petInfo=' + petInfo);
   }
 }
 

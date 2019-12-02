@@ -2,12 +2,12 @@ import {User} from './user';
 
 export class Order {
   orderid: number;
-  itemlist: [string];
-  storeadd: string;
-  destination: string;
-  state: string;
-  timelimit: number;
-  tip: number;
+  status: string;
+  // use credits?
+  orderType: boolean;
+  startDate: Date;
+  endDate: Date;
+  orderDescription: string;
   maker: User;
   recipient: User;
 }

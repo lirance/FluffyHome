@@ -1,7 +1,7 @@
 package edu.oregonstate.fluffyhome.model;
 
 public class UserOrder extends UserOrderKey {
-    private Boolean rateflag;
+    private Boolean rateflag = false;
 
     private Boolean makerType;
 

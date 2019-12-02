@@ -14,8 +14,8 @@ export class OrderService {
   }
 
   createOrder(order: Order) {
-    return this.http.post('http://localhost:8080/order/create?userid=' + order.maker + '&itemlist=' + order.itemlist +
-      '&storeadd=' + order.storeadd + '&destination=' + order.destination + '&timelimit=' + order.timelimit + '&tip=' + order.tip, order);
+    return this.http.post('http://localhost:8080/order/create?userid=' + order.maker + '&orderType=' + order.orderType +
+      '&startDate=' + order.startDate + '&endDate=' + order.endDate + '&orderDescription=' + order.orderDescription, order);
   }
 
   getOrderDetail(orderid: string) {

@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {OrderService} from "../_services/order.service";
-import {first} from "rxjs/operators";
-import {AlertService} from "../_services";
-import { Location } from '@angular/common';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {OrderService} from '../_services/order.service';
+import {first} from 'rxjs/operators';
+import {AlertService} from '../_services';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-create-order',
@@ -23,18 +23,16 @@ export class CreateOrderComponent implements OnInit {
     private orderServie: OrderService,
     private alertService: AlertService,
     private location: Location
-    ) {
+  ) {
   }
 
   ngOnInit() {
     this.orderForm = this.formBuilder.group({
       orderid: [],
-      itemlist: ['', Validators.compose([Validators.required, Validators.maxLength(200)])],
-      storeadd: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
-      destination: ['', Validators.maxLength(50)],
-      state: [],
-      timelimit: ['', Validators.compose([Validators.required, Validators.pattern('^\\d{1,3}?$')])],
-      tip: ['', Validators.compose([Validators.required,Validators.pattern('^\\d{0,5}(\\.\\d{1,2})?$')])],
+      orderType: false,
+      startDate: [],
+      endDate: [],
+      orderDescription: ['', Validators.required],
       maker: [],
       recipient: []
     });
@@ -47,19 +45,19 @@ export class CreateOrderComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.orderForm.value.maker = localStorage.getItem('currentUserID');
-    if(!this.orderForm.controls.itemlist.errors && !this.orderForm.controls.storeadd.errors &&
-      !this.orderForm.controls.destination.errors && !this.orderForm.controls.timelimit.errors &&
-      !this.orderForm.controls.tip.errors){
-    this.orderServie.createOrder(this.orderForm.value).pipe(first()).subscribe(
-      success=>{
-        console.log('success!');
-        this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
+    if (!this.orderForm.controls.orderType.errors && !this.orderForm.controls.startDate.errors &&
+      !this.orderForm.controls.endDate.errors && !this.orderForm.controls.orderDescription.errors) {
+      this.orderServie.createOrder(this.orderForm.value).pipe(first()).subscribe(
+        success => {
+          console.log('success!');
+          this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
         });
-      };
+    }
+    ;
     this.loading = true;
   }
 
-  backtolast(){
+  backtolast() {
     this.location.back();
   }
 }

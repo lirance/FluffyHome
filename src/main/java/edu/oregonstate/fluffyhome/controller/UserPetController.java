@@ -58,6 +58,15 @@ public class UserPetController {
         }
     }
 
+    @RequestMapping("/getPetInfoById")
+    public UserPet getPetById(int petid) {
+        try {
+            return userPetService.selectByPrimaryKey(petid);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
     @RequestMapping("/getUserPets")
     public List<UserPet> getUserPets(int userid) {

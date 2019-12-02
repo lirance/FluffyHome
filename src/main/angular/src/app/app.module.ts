@@ -34,6 +34,8 @@ import {PublicProfileComponent} from './public-profile/public-profile.component'
 import {MyProfileComponent} from './my-profile/my-profile.component';
 import {MyPetsComponent} from './my-pets/my-pets.component';
 import {AddPetComponent} from './add-pet/add-pet.component';
+import {EditPetInfoComponent} from './editpetInfo/editpetinfo.component';
+import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import {AddPetComponent} from './add-pet/add-pet.component';
     PublicProfileComponent,
     MyProfileComponent,
     MyPetsComponent,
-    AddPetComponent
+    AddPetComponent,
+    EditPetInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,9 @@ import {AddPetComponent} from './add-pet/add-pet.component';
     AppRoutingModule,
     MatDialogModule,
     NgbModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   providers: [
     OrderService,

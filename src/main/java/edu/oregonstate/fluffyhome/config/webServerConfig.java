@@ -1,4 +1,4 @@
-package edu.oregonstate.fluffyhome.Config;
+package edu.oregonstate.fluffyhome.config;
 
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;

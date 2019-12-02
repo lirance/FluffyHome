@@ -5,9 +5,9 @@ import java.util.Date;
 public class Order {
     private Integer orderid;
 
-    private Integer petid;
+    private String orderDescription;
 
-    private String destination;
+    private String destination = "";
 
     private String status;
 
@@ -19,7 +19,7 @@ public class Order {
 
     private Integer zip;
 
-    private String latlng;
+    private String latlng = "";
 
     private Date startdate;
 
@@ -33,12 +33,12 @@ public class Order {
         this.orderid = orderid;
     }
 
-    public Integer getPetid() {
-        return petid;
+    public String getorderDescription() {
+        return orderDescription;
     }
 
-    public void setPetid(Integer petid) {
-        this.petid = petid;
+    public void setorderDescription(String orderDescription) {
+        this.orderDescription = orderDescription;
     }
 
     public String getDestination() {

@@ -4,12 +4,14 @@ import edu.oregonstate.fluffyhome.model.*;
 import edu.oregonstate.fluffyhome.service.OrderService;
 import edu.oregonstate.fluffyhome.service.UserOrderService;
 import edu.oregonstate.fluffyhome.service.UserService;
+import edu.oregonstate.fluffyhome.utils.StaticParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,43 +37,54 @@ public class PersonalOrderController {
     }
 
     @RequestMapping("/create")
-    public boolean createOrder(List<String> itemlist, String storeadd, String destination, int timelimit, float tip, int userid) {
+    public String createOrder(Date startDate, Date endDate, String orderDescription, boolean orderType, int userid) {
 
         // check if the user already setup available time
         UserOrder userOrder = new UserOrder();
         Order order = new Order();
 
         userOrder.setUserid(userid);
-//        order.setItemlist(itemlist);
-//        order.setStoreadd(storeadd);
-        order.setDestination(destination);
-//        order.setTimelimit(timelimit);
-//        order.setTip(tip);
 
-        if (itemlist == null || storeadd == null) {
-            return false;
-        }
+        order.setStatus(Status.ORDERED.toString());
+        order.setStartdate(startDate);
+        order.setEnddate(endDate);
+        order.setorderDescription(orderDescription);
+        // false means normal order.
+        order.setOrdertype(orderType);
 
+        int days = (int) ((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
+        int credits = StaticParams.CREDITS_PER_DAY * days;
+        order.setCredits(StaticParams.CREDITS_PER_DAY * days);
 
         try {
+            User user = userService.selectByPrimaryKey(userid);
+            order.setZip(user.getZip());
+            order.setAddress(user.getAddress());
 
-            if (order.getDestination() == null || order.getDestination().isEmpty()) {
-                String destinationNew = userService.selectByPrimaryKey(userid).getAddress();
-                order.setDestination(destinationNew);
+            if (credits > user.getCredits() && !orderType) {
+                return "credit is not enough";
             }
+
             // insert into the order table
-            orderService.insert(order);
-            if (order.getOrderid() != null) {
-                // insert into the userOrder table
+
+
+            if (orderService.insert(order) == 1) {
+                userOrder.setMakerType(true);
                 userOrder.setOrderid(order.getOrderid());
-                return userOrderService.insert(userOrder) == 1;
+                if (userOrderService.insert(userOrder) == 1) {
+                    //new credits.
+                    user.setCredits(user.getCredits() - credits);
+                    return userService.updateByPrimaryKey(user) == 1 ? "true" : "somthing went wrong";
+                }
+
             }
+
         } catch (Exception e) {
 
-            return false;
+            return "something wrong";
         }
 
-        return false;
+        return "something wrong";
 
     }
 
