@@ -7,58 +7,70 @@
     <div class="card-body">
       <div class="col-center-block text-center">
         <dl class="row text-left">
-          <dt class="col-sm-3">Item list:</dt>
-          <dd class="col-sm-9"><p>{{orderDetail.itemlist}}</p>
+
+          <dt class="col-sm-3">credits :</dt>
+          <dd class="col-sm-9"><p>{{orderDetail.credits}}</p>
           </dd>
-          <dt class="col-sm-3">Store address:</dt>
-          <dd class="col-sm-9"><p>{{orderDetail.storeadd}}</p></dd>
 
-          <dt class="col-sm-3">Destination:</dt>
-          <dd class="col-sm-9"><p>{{orderDetail.destination}}</p></dd>
+          <dt class="col-sm-3">zip:</dt>
+          <dd class="col-sm-9"><p>{{orderDetail.zip}}</p></dd>
+          <dt class="col-sm-3">user address:</dt>
+          <dd class="col-sm-9"><p>{{orderDetail.address}}</p></dd>
 
-          <dt class="col-sm-3">Time limit:</dt>
-          <dd class="col-sm-9"><p>{{orderDetail.timelimit}}</p></dd>
+          <dt class="col-sm-3">start date:</dt>
+          <dd class="col-sm-9"><p>{{orderDetail.startDate | date}}</p></dd>
 
-          <dt class="col-sm-3">Tips:</dt>
-          <dd class="col-sm-9"><p>{{orderDetail.tip}}</p></dd>
+          <dt class="col-sm-3">end date:</dt>
+          <dd class="col-sm-9"><p>{{orderDetail.endDate | date}}</p></dd>
 
-          <dt class="col-sm-3">Poster:</dt>
+          <dt class="col-sm-3">order description:</dt>
+          <dd class="col-sm-9"><p>{{orderDetail.orderDescription}}</p></dd>
+
+          <dt class="col-sm-3">Poster & pets:</dt>
           <dd class="col-sm-9">
-            <a [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', orderDetail.maker.userid]}}]">{{orderDetail.maker.username}}</a>
+            <a
+              [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', orderDetail.maker.userid]}}]">{{orderDetail.maker.username}}</a>
           </dd>
 
           <dt class="col-sm-3">State:</dt>
-          <dd class="col-sm-9"><p>{{orderDetail.state}}</p></dd>
+          <dd class="col-sm-9"><p>{{orderDetail.status}}</p></dd>
 
           <dt class="col-sm-3">Accepter:</dt>
           <dd class="col-sm-9">
-            <a *ngIf="orderDetail.recipient != null" [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', orderDetail.recipient.userid]}}]">{{orderDetail.recipient.username}}</a>
-            <p *ngIf="orderDetail.recipient == null">Haven't accepted by other user!</p>
+            <a *ngIf="orderDetail.recipient != null"
+               [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', orderDetail.recipient.userid]}}]">{{orderDetail.recipient.username}}</a>
+            <p *ngIf="orderDetail.recipient == null">Haven't accepted by other user!
+              <a routerLink=" " *ngIf="orderDetail.maker.userid != currentUserId" class="card-link"
+                 (click)="accept(orderDetail.orderid)">Accept</a>
+            </p>
           </dd>
         </dl>
       </div>
 
       <div class="button-block">
-        <div  class="text-center row">
+        <div class="text-center row">
           <div *ngIf="orderDetail.maker != null && orderDetail.recipient !=null
-        && (orderDetail.maker.userid == currentUserId || orderDetail.recipient.userid == currentUserId)" class="text-center col">
+        && (orderDetail.maker.userid == currentUserId || orderDetail.recipient.userid == currentUserId)"
+               class="text-center col">
             <button type="button" class="btn btn-primary" (click)="complete()">
               Complete
             </button>
           </div>
 
 
-        <div class="text-center col " *ngIf='orderDetail.state == "ACCEPTED" && orderDetail.recipient.userid == currentUserId'>
-          <button  type="button" class="btn btn-primary" (click)="cancelAcceptedOrder()">
-            Cancel
-          </button>
-        </div>
+          <div class="text-center col "
+               *ngIf='orderDetail.state == "ACCEPTED" && orderDetail.recipient.userid == currentUserId'>
+            <button type="button" class="btn btn-primary" (click)="cancelAcceptedOrder()">
+              Cancel
+            </button>
+          </div>
 
-        <div class="text-center col" *ngIf='orderDetail.state == "ORDERED" && orderDetail.maker.userid == currentUserId'>
-          <button  type="button" class="btn btn-primary" (click)="deleteOrder()">
-            Delete
-          </button>
-        </div>
+          <div class="text-center col"
+               *ngIf='orderDetail.state == "ORDERED" && orderDetail.maker.userid == currentUserId'>
+            <button type="button" class="btn btn-primary" (click)="deleteOrder()">
+              Delete
+            </button>
+          </div>
         </div>
 
       </div>

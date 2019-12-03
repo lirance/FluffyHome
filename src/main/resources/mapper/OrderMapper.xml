@@ -5,17 +5,17 @@
         <id column="orderId" jdbcType="INTEGER" property="orderid"/>
 
         <result column="status" jdbcType="VARCHAR" property="status"/>
-        <result column="orderType" jdbcType="BIT" property="ordertype"/>
+        <result column="orderType" jdbcType="BIT" property="orderType"/>
         <result column="credits" jdbcType="INTEGER" property="credits"/>
         <result column="address" jdbcType="VARCHAR" property="address"/>
         <result column="zip" jdbcType="INTEGER" property="zip"/>
         <result column="latlng" jdbcType="VARCHAR" property="latlng"/>
-        <result column="startDate" jdbcType="DATE" property="startdate"/>
-        <result column="endDate" jdbcType="DATE" property="enddate"/>
+        <result column="startDate" jdbcType="DATE" property="startDate"/>
+        <result column="endDate" jdbcType="DATE" property="endDate"/>
         <result column="orderDescription" jdbcType="VARCHAR" property="orderDescription"/>
     </resultMap>
     <sql id="Base_Column_List">
-    orderId, orderDescription status, orderType, credits, address, zip, latlng, startDate,
+    orderId, orderDescription, status, orderType, credits, address, zip, latlng, startDate,
     endDate
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -35,9 +35,9 @@
       address, zip, latlng, 
       startDate, endDate)
     values (#{orderDescription, jdbcType=VARCHAR},
-      #{status,jdbcType=VARCHAR}, #{ordertype,jdbcType=BIT}, #{credits,jdbcType=INTEGER}, 
+      #{status,jdbcType=VARCHAR}, #{orderType,jdbcType=BIT}, #{credits,jdbcType=INTEGER},
       #{address,jdbcType=VARCHAR}, #{zip,jdbcType=INTEGER}, #{latlng,jdbcType=VARCHAR}, 
-      #{startdate,jdbcType=DATE}, #{enddate,jdbcType=DATE})
+      #{startDate,jdbcType=DATE}, #{endDate,jdbcType=DATE})
   </insert>
     <insert id="insertSelective" parameterType="edu.oregonstate.fluffyhome.model.Order">
         insert into `order`
@@ -51,7 +51,7 @@
             <if test="status != null">
                 status,
             </if>
-            <if test="ordertype != null">
+            <if test="orderType != null">
                 orderType,
             </if>
             <if test="credits != null">
@@ -66,10 +66,10 @@
             <if test="latlng != null">
                 latlng,
             </if>
-            <if test="startdate != null">
+            <if test="startDate != null">
                 startDate,
             </if>
-            <if test="enddate != null">
+            <if test="endDate != null">
                 endDate,
             </if>
         </trim>
@@ -84,8 +84,8 @@
             <if test="status != null">
                 #{status,jdbcType=VARCHAR},
             </if>
-            <if test="ordertype != null">
-                #{ordertype,jdbcType=BIT},
+            <if test="orderType != null">
+                #{orderType,jdbcType=BIT},
             </if>
             <if test="credits != null">
                 #{credits,jdbcType=INTEGER},
@@ -99,11 +99,11 @@
             <if test="latlng != null">
                 #{latlng,jdbcType=VARCHAR},
             </if>
-            <if test="startdate != null">
-                #{startdate,jdbcType=DATE},
+            <if test="startDate != null">
+                #{startDate,jdbcType=DATE},
             </if>
-            <if test="enddate != null">
-                #{enddate,jdbcType=DATE},
+            <if test="endDate != null">
+                #{endDate,jdbcType=DATE},
             </if>
         </trim>
     </insert>
@@ -116,8 +116,8 @@
             <if test="status != null">
                 status = #{status,jdbcType=VARCHAR},
             </if>
-            <if test="ordertype != null">
-                orderType = #{ordertype,jdbcType=BIT},
+            <if test="orderType != null">
+                orderType = #{orderType,jdbcType=BIT},
             </if>
             <if test="credits != null">
                 credits = #{credits,jdbcType=INTEGER},
@@ -131,11 +131,11 @@
             <if test="latlng != null">
                 latlng = #{latlng,jdbcType=VARCHAR},
             </if>
-            <if test="startdate != null">
-                startDate = #{startdate,jdbcType=DATE},
+            <if test="startDate != null">
+                startDate = #{startDate,jdbcType=DATE},
             </if>
-            <if test="enddate != null">
-                endDate = #{enddate,jdbcType=DATE},
+            <if test="endDate != null">
+                endDate = #{endDate,jdbcType=DATE},
             </if>
         </set>
         where orderId = #{orderid,jdbcType=INTEGER}
@@ -144,13 +144,13 @@
     update `order`
     set orderDescription = #{orderDescription, jdbcType=VARCHAR}},
       status = #{status,jdbcType=VARCHAR},
-      orderType = #{ordertype,jdbcType=BIT},
+      orderType = #{orderType,jdbcType=BIT},
       credits = #{credits,jdbcType=INTEGER},
       address = #{address,jdbcType=VARCHAR},
       zip = #{zip,jdbcType=INTEGER},
       latlng = #{latlng,jdbcType=VARCHAR},
-      startDate = #{startdate,jdbcType=DATE},
-      endDate = #{enddate,jdbcType=DATE}
+      startDate = #{startDate,jdbcType=DATE},
+      endDate = #{endDate,jdbcType=DATE}
     where orderId = #{orderid,jdbcType=INTEGER}
   </update>
 

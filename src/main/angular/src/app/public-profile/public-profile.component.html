@@ -1,6 +1,7 @@
 <div *ngIf='currentUser' class="text-center text-dark">
   <div class="card text-center">
     <div class="card-header text-muted">
+      <h5> personal info</h5>
       <p>User ID:  {{currentUser.userid}}</p>
     </div>
 
@@ -10,21 +11,59 @@
           <dt class="col-sm-3">User Name:</dt>
           <dd class="col-sm-9"><p>{{currentUser.username}}</p>
           </dd>
-          <dt class="col-sm-3">User address:</dt>
-          <dd class="col-sm-9"><p>{{currentUser.address}}</p></dd>
+
+          <dt class="col-sm-3">User email:</dt>
+          <dd class="col-sm-9"><p>{{currentUser.email}}</p></dd>
 
           <dt class="col-sm-3">User phone number:</dt>
           <dd class="col-sm-9"><p>{{currentUser.phone}}</p></dd>
 
+          <dt class="col-sm-3">credits:</dt>
+          <dd class="col-sm-9"><p>{{currentUser.credits}}</p></dd>
+
+          <dt class="col-sm-3">User zip:</dt>
+          <dd class="col-sm-9"><p>{{currentUser.zip}}</p></dd>
+
+          <dt class="col-sm-3">User address:</dt>
+          <dd class="col-sm-9"><p>{{currentUser.address}}</p></dd>
+
+          <dt class="col-sm-3">User type:</dt>
+          <dd class="col-sm-9"><p>{{currentUser.userType}}</p></dd>
+
+          <dt class="col-sm-3">User avaliableWeekday:</dt>
+          <dd class="col-sm-9"><p>{{currentUser.avaliableWeekday}}</p></dd>
+
           <dt class="col-sm-3">User average rate:</dt>
           <dd class="col-sm-9">
-            <p *ngIf="currentUser.averagerate != null">{{currentUser.averagerate}}</p>
-            <p *ngIf="currentUser.averagerate == null">This user have get any rate yet</p>
+            <p *ngIf="currentUser.averageRate != null">{{currentUser.averageRate}}</p>
+            <p *ngIf="currentUser.averageRate == null">This user have get any rate yet</p>
           </dd>
 
           <dt class="col-sm-3">User rate number:</dt>
-          <dd class="col-sm-9"><p>{{currentUser.ratenumber}}</p></dd>
+          <dd class="col-sm-9"><p>{{currentUser.rateNumber}}</p></dd>
         </dl>
+      </div>
+    </div>
+  </div>
+  <div class="card text-center">
+    <div class="card-header text-muted">
+      <h5> pets info</h5>
+    </div>
+    <div class=" row text-dark" *ngIf='userPets != []'>
+      <div *ngFor="let pet of userPets" class="col-md-4">
+        <div class="card mb-4 box-shadow">
+          <div class="card-body">
+            <h5 class="card-title"> {{pet.petid}}</h5>
+          </div>
+
+          <ul class="list-group list-group-flush text-left">
+            <li class="list-group-item">Pet Name: {{pet.petname}}</li>
+            <li class="list-group-item">Pet Type: {{pet.pettype}} </li>
+            <li class="list-group-item">Pet Info: {{pet.petinfo}} </li>
+          </ul>
+
+        </div>
+
       </div>
     </div>
 

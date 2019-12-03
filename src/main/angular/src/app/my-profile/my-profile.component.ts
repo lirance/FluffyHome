@@ -21,7 +21,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   getUser() {
-    let userid = this.route.snapshot.paramMap.get('userid');
+    const userid = this.route.snapshot.paramMap.get('userid');
     this.userService.getUserById(userid).pipe(first()).subscribe(result => {
       this.currentUser = result;
     });

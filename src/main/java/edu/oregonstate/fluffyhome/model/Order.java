@@ -9,7 +9,7 @@ public class Order {
 
     private String status;
 
-    private Boolean ordertype;
+    private Boolean orderType;
 
     private Integer credits;
 
@@ -19,9 +19,9 @@ public class Order {
 
     private String latlng = "";
 
-    private Date startdate;
+    private Date startDate;
 
-    private Date enddate;
+    private Date endDate;
 
     public Integer getOrderid() {
         return orderid;
@@ -47,12 +47,12 @@ public class Order {
         this.status = status == null ? null : status.trim();
     }
 
-    public Boolean getOrdertype() {
-        return ordertype;
+    public Boolean getOrderType() {
+        return orderType;
     }
 
-    public void setOrdertype(Boolean ordertype) {
-        this.ordertype = ordertype;
+    public void setOrderType(Boolean orderType) {
+        this.orderType = orderType;
     }
 
     public Integer getCredits() {
@@ -87,19 +87,19 @@ public class Order {
         this.latlng = latlng == null ? null : latlng.trim();
     }
 
-    public Date getStartdate() {
-        return startdate;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStartdate(Date startdate) {
-        this.startdate = startdate;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getEnddate() {
-        return enddate;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEnddate(Date enddate) {
-        this.enddate = enddate;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

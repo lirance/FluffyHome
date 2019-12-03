@@ -15,6 +15,14 @@ public class OrderShow extends Order {
 
     public OrderShow(Order order) {
         this.setOrderid(order.getOrderid());
+        this.setStatus(order.getStatus());
+        this.setOrderType(order.getOrderType());
+        this.setCredits(order.getCredits());
+        this.setAddress(order.getAddress());
+        this.setZip(order.getZip());
+        this.setStartDate(order.getStartDate());
+        this.setEndDate(order.getEndDate());
+        this.setorderDescription(order.getorderDescription());
     }
 
     public OrderShow() {

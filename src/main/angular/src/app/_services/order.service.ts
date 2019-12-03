@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Order} from '../_models/order';
+import {Order} from '../_models';
 import {PersonalOrderShow} from '../_models';
 
 @Injectable()
@@ -15,7 +15,8 @@ export class OrderService {
 
   createOrder(order: Order) {
     return this.http.get('http://localhost:8080/order/create?userid=' + order.maker + '&orderType=' + order.orderType +
-      '&startDate=' + order.startDate + '&endDate=' + order.endDate + '&orderDescription=' + order.orderDescription, {responseType: 'text'});
+      '&startDate=' + order.startDate + '&endDate=' + order.endDate + '&orderDescription=' + order.orderDescription,
+      {responseType: 'text'});
   }
 
   getOrderDetail(orderid: string) {

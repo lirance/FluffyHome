@@ -8,13 +8,10 @@ import edu.oregonstate.fluffyhome.utils.StaticParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author: Chendi Zhang
@@ -55,11 +52,11 @@ public class PersonalOrderController {
             userOrder.setUserid(userid);
 
             order.setStatus(Status.ORDERED.toString());
-            order.setStartdate(sDate);
-            order.setEnddate(eDate);
+            order.setStartDate(sDate);
+            order.setEndDate(eDate);
             order.setorderDescription(orderDescription);
             // false means normal order.
-            order.setOrdertype(orderType);
+            order.setOrderType(orderType);
 
             int days = (int) ((eDate.getTime() - sDate.getTime()) / (1000 * 3600 * 24));
             int credits = StaticParams.CREDITS_PER_DAY * days;
