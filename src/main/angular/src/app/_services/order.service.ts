@@ -14,8 +14,8 @@ export class OrderService {
   }
 
   createOrder(order: Order) {
-    return this.http.post('http://localhost:8080/order/create?userid=' + order.maker + '&orderType=' + order.orderType +
-      '&startDate=' + order.startDate + '&endDate=' + order.endDate + '&orderDescription=' + order.orderDescription, order);
+    return this.http.get('http://localhost:8080/order/create?userid=' + order.maker + '&orderType=' + order.orderType +
+      '&startDate=' + order.startDate + '&endDate=' + order.endDate + '&orderDescription=' + order.orderDescription, {responseType: 'text'});
   }
 
   getOrderDetail(orderid: string) {

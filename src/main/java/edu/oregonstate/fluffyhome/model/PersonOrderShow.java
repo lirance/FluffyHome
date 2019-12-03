@@ -21,7 +21,7 @@ public class PersonOrderShow extends OrderShow {
 
     public PersonOrderShow(Order order) {
 //        this.setState(order.getState());
-        this.setDestination(order.getDestination());
+
 //        this.setItemlist(order.getItemlist());
         this.setOrderid(order.getOrderid());
 //        this.setStoreadd(order.getStoreadd());
@@ -31,7 +31,6 @@ public class PersonOrderShow extends OrderShow {
 
     public PersonOrderShow(OrderShow order) {
 //        this.setState(order.getState());
-        this.setDestination(order.getDestination());
 //        this.setItemlist(order.getItemlist());
 //        this.setOrderid(order.getOrderid());
 //        this.setStoreadd(order.getStoreadd());

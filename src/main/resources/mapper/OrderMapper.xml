@@ -3,7 +3,7 @@
 <mapper namespace="edu.oregonstate.fluffyhome.mapper.OrderMapper">
     <resultMap id="BaseResultMap" type="edu.oregonstate.fluffyhome.model.Order">
         <id column="orderId" jdbcType="INTEGER" property="orderid"/>
-        <result column="destination" jdbcType="VARCHAR" property="destination"/>
+
         <result column="status" jdbcType="VARCHAR" property="status"/>
         <result column="orderType" jdbcType="BIT" property="ordertype"/>
         <result column="credits" jdbcType="INTEGER" property="credits"/>
@@ -15,40 +15,38 @@
         <result column="orderDescription" jdbcType="VARCHAR" property="orderDescription"/>
     </resultMap>
     <sql id="Base_Column_List">
-    orderId, orderDescription, destination, status, orderType, credits, address, zip, latlng, startDate, 
+    orderId, orderDescription status, orderType, credits, address, zip, latlng, startDate,
     endDate
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from order
+        from `order`
         where orderId = #{orderid,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from order
+    delete from `order`
     where orderId = #{orderid,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="edu.oregonstate.fluffyhome.model.Order">
-    insert into order (orderDescription,
+    <insert id="insert" parameterType="edu.oregonstate.fluffyhome.model.Order" useGeneratedKeys="true"
+            keyProperty="orderid">
+    insert into`order`(orderDescription,
       status, orderType, credits, 
       address, zip, latlng, 
       startDate, endDate)
-    values (#{orderDescription, jdbcType=VARCHAR}},
+    values (#{orderDescription, jdbcType=VARCHAR},
       #{status,jdbcType=VARCHAR}, #{ordertype,jdbcType=BIT}, #{credits,jdbcType=INTEGER}, 
       #{address,jdbcType=VARCHAR}, #{zip,jdbcType=INTEGER}, #{latlng,jdbcType=VARCHAR}, 
       #{startdate,jdbcType=DATE}, #{enddate,jdbcType=DATE})
   </insert>
     <insert id="insertSelective" parameterType="edu.oregonstate.fluffyhome.model.Order">
-        insert into order
+        insert into `order`
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="orderid != null">
                 orderId,
             </if>
             <if test="orderDescription != null">
                 orderDescription,
-            </if>
-            <if test="destination != null">
-                destination,
             </if>
             <if test="status != null">
                 status,
@@ -82,9 +80,7 @@
             <if test="orderDescription != null">
                 #{orderDescription, jdbcType=VARCHAR}},
             </if>
-            <if test="destination != null">
-                #{destination,jdbcType=VARCHAR},
-            </if>
+
             <if test="status != null">
                 #{status,jdbcType=VARCHAR},
             </if>
@@ -112,13 +108,10 @@
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="edu.oregonstate.fluffyhome.model.Order">
-        update order
+        update `order`
         <set>
             <if test="orderDescription != null">
                 orderDescription = #{orderDescription, jdbcType=VARCHAR}},
-            </if>
-            <if test="destination != null">
-                destination = #{destination,jdbcType=VARCHAR},
             </if>
             <if test="status != null">
                 status = #{status,jdbcType=VARCHAR},
@@ -148,9 +141,8 @@
         where orderId = #{orderid,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="edu.oregonstate.fluffyhome.model.Order">
-    update order
+    update `order`
     set orderDescription = #{orderDescription, jdbcType=VARCHAR}},
-      destination = #{destination,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       orderType = #{ordertype,jdbcType=BIT},
       credits = #{credits,jdbcType=INTEGER},

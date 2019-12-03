@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogModule} from '@angular/material';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -35,7 +35,7 @@ import {MyProfileComponent} from './my-profile/my-profile.component';
 import {MyPetsComponent} from './my-pets/my-pets.component';
 import {AddPetComponent} from './add-pet/add-pet.component';
 import {EditPetInfoComponent} from './editpetInfo/editpetinfo.component';
-import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
+import {NgTempusdominusBootstrapModule} from 'ngx-tempusdominus-bootstrap';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,8 @@ import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
     MyProfileComponent,
     MyPetsComponent,
     AddPetComponent,
-    EditPetInfoComponent
+    EditPetInfoComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -70,8 +71,9 @@ import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
     MatDialogModule,
     NgbModule,
     BrowserAnimationsModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    FormsModule,
+    NgTempusdominusBootstrapModule
+
   ],
   providers: [
     OrderService,

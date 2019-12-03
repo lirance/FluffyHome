@@ -15,6 +15,7 @@ import {PublicProfileComponent} from './public-profile/public-profile.component'
 import {MyProfileComponent} from './my-profile/my-profile.component';
 import {MyPetsComponent} from './my-pets/my-pets.component';
 import {AddPetComponent} from './add-pet/add-pet.component';
+import {EditPetInfoComponent} from './editpetInfo/editpetinfo.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -35,7 +36,8 @@ const routes: Routes = [
       {path: 'publicprofile/:userid', component: PublicProfileComponent, outlet: 'aux'},
       {path: 'myprofile/:userid', component: MyProfileComponent, outlet: 'aux'},
       {path: 'mypets/:userid', component: MyPetsComponent, outlet: 'aux'},
-      {path: 'addpet', component: AddPetComponent, outlet: 'aux'}
+      {path: 'addpet', component: AddPetComponent, outlet: 'aux'},
+      {path: 'editpet/:petid', component: EditPetInfoComponent, outlet: 'aux'}
     ]
   }];
 

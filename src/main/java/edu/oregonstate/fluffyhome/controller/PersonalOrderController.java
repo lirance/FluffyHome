@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -37,26 +39,32 @@ public class PersonalOrderController {
     }
 
     @RequestMapping("/create")
-    public String createOrder(Date startDate, Date endDate, String orderDescription, boolean orderType, int userid) {
+    public String createOrder(String startDate, String endDate, String orderDescription, boolean orderType, int userid) {
 
-        // check if the user already setup available time
-        UserOrder userOrder = new UserOrder();
-        Order order = new Order();
-
-        userOrder.setUserid(userid);
-
-        order.setStatus(Status.ORDERED.toString());
-        order.setStartdate(startDate);
-        order.setEnddate(endDate);
-        order.setorderDescription(orderDescription);
-        // false means normal order.
-        order.setOrdertype(orderType);
-
-        int days = (int) ((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
-        int credits = StaticParams.CREDITS_PER_DAY * days;
-        order.setCredits(StaticParams.CREDITS_PER_DAY * days);
-
+        SimpleDateFormat sdf = new SimpleDateFormat(StaticParams.PARSE_TIME_FORMAT);
         try {
+            Date sDate = sdf.parse(startDate);
+            Date eDate = sdf.parse(endDate);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+            // check if the user already setup available time
+            UserOrder userOrder = new UserOrder();
+            Order order = new Order();
+
+            userOrder.setUserid(userid);
+
+            order.setStatus(Status.ORDERED.toString());
+            order.setStartdate(sDate);
+            order.setEnddate(eDate);
+            order.setorderDescription(orderDescription);
+            // false means normal order.
+            order.setOrdertype(orderType);
+
+            int days = (int) ((eDate.getTime() - sDate.getTime()) / (1000 * 3600 * 24));
+            int credits = StaticParams.CREDITS_PER_DAY * days;
+            order.setCredits(StaticParams.CREDITS_PER_DAY * days);
+
             User user = userService.selectByPrimaryKey(userid);
             order.setZip(user.getZip());
             order.setAddress(user.getAddress());

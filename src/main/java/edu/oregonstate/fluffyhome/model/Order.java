@@ -7,8 +7,6 @@ public class Order {
 
     private String orderDescription;
 
-    private String destination = "";
-
     private String status;
 
     private Boolean ordertype;
@@ -39,14 +37,6 @@ public class Order {
 
     public void setorderDescription(String orderDescription) {
         this.orderDescription = orderDescription;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination == null ? null : destination.trim();
     }
 
     public String getStatus() {

@@ -3,21 +3,30 @@
 
   <div class="form-group">
     <label for="orderDescription"> order Description (anything your want others to know)</label>
-    <input type="text" placeholder="e.g. apple, banana" id="orderDescription" formControlName="orderDescription"
+    <input type="text" id="orderDescription" formControlName="orderDescription"
            class="form-control"
            [ngClass]="{ 'is-invalid': submitted && f.orderDescription.errors }"/>
     <div *ngIf="submitted && f.orderDescription.errors" class="invalid-feedback">
-      <div *ngIf="f.orderDescription.errors.required">Item list is required</div>
+      <div *ngIf="f.orderDescription.errors.required">oderDescription is required</div>
     </div>
   </div>
 
   <div class="form-group">
-    <div class="form-check">
-      <!--      <label class="form_datetime" for="startDate"></label>-->
-      <!--      <input type="checkbox" id="startDate" class="form-control" formControlName="startDate">-->
-      <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
-      <owl-date-time #dt1></owl-date-time>
-
+    <label for="startDate">Start date:</label>
+    <input type="date" max="3000-12-31"
+           min="1000-01-01" class="form-control" id="startDate" formControlName="startDate"
+           [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }"/>
+    <div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
+      <div *ngIf="f.startDate.errors.required">start Date is required</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="endDate">end date:</label>
+    <input type="date" max="3000-12-31"
+           min="1000-01-01" class="form-control" id="endDate" formControlName="endDate"
+           [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }"/>
+    <div *ngIf="submitted && f.endDate.errors" class="invalid-feedback">
+      <div *ngIf="f.endDate.errors.required">end Date is required</div>
     </div>
   </div>
 

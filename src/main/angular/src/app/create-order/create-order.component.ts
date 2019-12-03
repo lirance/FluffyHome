@@ -5,6 +5,8 @@ import {OrderService} from '../_services/order.service';
 import {first} from 'rxjs/operators';
 import {AlertService} from '../_services';
 import {Location} from '@angular/common';
+import 'moment/locale/ru';
+import 'moment-timezone';
 
 @Component({
   selector: 'app-create-order',
@@ -49,8 +51,12 @@ export class CreateOrderComponent implements OnInit {
       !this.orderForm.controls.endDate.errors && !this.orderForm.controls.orderDescription.errors) {
       this.orderServie.createOrder(this.orderForm.value).pipe(first()).subscribe(
         success => {
-          console.log('success!');
-          this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
+          if (success !== 'true') {
+            window.alert(success);
+          } else {
+            console.log('success!');
+            this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
+          }
         });
     }
     ;

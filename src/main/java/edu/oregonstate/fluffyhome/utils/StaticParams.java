@@ -9,4 +9,9 @@ package edu.oregonstate.fluffyhome.utils;
 public class StaticParams {
 
     public final static int CREDITS_PER_DAY = 5;
+
+
+    public final static String PARSE_TIME_FORMAT = "yyyy-MM-dd";
+
+
 }

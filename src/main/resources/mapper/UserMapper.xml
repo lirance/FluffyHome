@@ -187,6 +187,7 @@
       phone = #{phone,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       zip = #{zip,jdbcType=INTEGER},
+      credits = #{credits,jdbcType=INTEGER},
       avaliableWeekday = #{avaliableWeekday,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR}
     where userId = #{userid,jdbcType=INTEGER}

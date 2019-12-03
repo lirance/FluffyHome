@@ -14,7 +14,6 @@ public class OrderShow extends Order {
     private User recipient;
 
     public OrderShow(Order order) {
-        this.setDestination(order.getDestination());
         this.setOrderid(order.getOrderid());
     }
 

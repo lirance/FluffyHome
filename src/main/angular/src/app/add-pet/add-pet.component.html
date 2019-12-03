@@ -2,23 +2,23 @@
 <form [formGroup]="petForm" (ngSubmit)="onSubmit()" class="text-dark text-left">
 
   <div class="form-group">
-    <label for="petType">pet Type: </label>
-    <input type="text" placeholder="dog/cat/other" id="petType" formControlName="petType" class="form-control"/>
+    <label for="pettype">pet Type: </label>
+    <input type="text" placeholder="dog/cat/other" id="pettype" formControlName="pettype" class="form-control"/>
 
   </div>
 
   <div class="form-group">
-    <label for="petName"> pet Name: </label>
-    <input type="text" id="petName" formControlName="petName"
+    <label for="petname"> pet Name: </label>
+    <input type="text" id="petname" formControlName="petname"
            class="form-control"
     />
 
   </div>
 
   <div class="form-group">
-    <label for="petInfo">petInfo(some special about your pet)</label>
-    <input type="text" placeholder="XXX is shy but friendly, shel loves play with ball..." id="petInfo"
-           formControlName="petInfo"
+    <label for="petinfo">petInfo(some special about your pet)</label>
+    <input type="text" placeholder="XXX is shy but friendly, shel loves play with ball..." id="petinfo"
+           formControlName="petinfo"
            class="form-control"/>
 
   </div>

@@ -31,9 +31,9 @@ export class AddPetComponent implements OnInit {
     this.petForm = this.formBuilder.group({
       userid: [],
       petid: [],
-      petType: [],
-      petName: [],
-      petInfo: []
+      pettype: [],
+      petname: [],
+      petinfo: []
     })
     ;
   }
