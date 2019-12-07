@@ -19,5 +19,5 @@ public interface OrderMapper {
 
     int updateByPrimaryKey(Order record);
 
-    List<Order> getAllNotAcceptedOrders();
+    List<Order> getAllNotAcceptedOrders(boolean orderType);
 }

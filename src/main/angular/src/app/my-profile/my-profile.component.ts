@@ -12,6 +12,7 @@ import {Location} from '@angular/common';
 })
 export class MyProfileComponent implements OnInit {
   currentUser: User;
+  isSitter: boolean;
 
   constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private location: Location) {
   }
@@ -24,6 +25,7 @@ export class MyProfileComponent implements OnInit {
     const userid = this.route.snapshot.paramMap.get('userid');
     this.userService.getUserById(userid).pipe(first()).subscribe(result => {
       this.currentUser = result;
+      this.isSitter = result.userType === 'SITTER';
     });
   }
 

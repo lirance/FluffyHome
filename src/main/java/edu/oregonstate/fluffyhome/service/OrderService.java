@@ -12,5 +12,5 @@ import java.util.List;
 
 public interface OrderService extends BaseObjectService<Order, Integer> {
 
-    List<Order> getAllNotAcceptedOrders();
+    List<Order> getAllNotAcceptedOrders(boolean orderType);
 }

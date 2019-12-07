@@ -154,11 +154,12 @@
     where orderId = #{orderid,jdbcType=INTEGER}
   </update>
 
-    <select id="getAllNotAcceptedOrders" resultMap="BaseResultMap">
+    <select id="getAllNotAcceptedOrders" parameterType="boolean" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from `order`
         where status = 'ORDERED'
+        and orderType != #{orderType,jdbcType=BIT};
     </select>
 
 

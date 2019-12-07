@@ -6,7 +6,7 @@
       </div>
 
       <ul class="list-group list-group-flush text-left">
-        <li class="list-group-item">credits for this order: {{order.credits}} </li>
+        <li *ngIf="!isSitter" class="list-group-item">credits for this order: {{order.credits}} </li>
         <li class="list-group-item">order Description: {{order.orderDescription}} </li>
         <li class="list-group-item">zip: {{order.zip}} </li>
         <li class="list-group-item">start Date: {{order.startDate|date}} </li>

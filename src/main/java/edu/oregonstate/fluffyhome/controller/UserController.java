@@ -42,15 +42,15 @@ public class UserController {
     }
 
     @RequestMapping("/login/getId")
-    public int logInGetId(String phone, String password) {
+    public User logInGetId(String phone, String password) {
 
         try {
             User user = userService.getUserByPhone(phone);
             // hash password
             password = String.valueOf(password.hashCode());
-            return password.equals(user.getPassword()) ? user.getUserid() : -1;
+            return password.equals(user.getPassword()) ? user : null;
         } catch (Exception e) {
-            return -1;
+            return null;
         }
     }
 

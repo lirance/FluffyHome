@@ -13,7 +13,8 @@ import {User} from '../_models';
 
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  currentUserID: string;
+  currentUserID: number;
+  isSitter: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,14 +34,16 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.loginForm.controls['phone'].value, this.loginForm.controls['password'].value).pipe(first()).subscribe(
       data => {
 
-        if (data.toString() !== '-1') {
-          this.currentUserID = data;
+        if (data !== null) {
+          this.currentUserID = data.userid;
+          this.isSitter = data.userType === 'SITTER';
+          localStorage.setItem('isSitter', JSON.stringify(this.isSitter));
           localStorage.setItem('currentUserID', JSON.stringify(this.currentUserID));
           this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
         }
         ;
 
-        if (data.toString() === '-1') {
+        if (data === null) {
           this.loginForm.controls['password'].setErrors({
             invalidLogin: true
           });

@@ -14,13 +14,13 @@ export class UserService {
 
   login(phone: string, password: string) {
 
-    return this.http.get<string>(`http://localhost:8080/user/login/getId?phone=` + phone + `&password=` + password);
+    return this.http.get<User>(`http://localhost:8080/user/login/getId?phone=` + phone + `&password=` + password);
   }
 
   signup(user: User) {
     return this.http.post(`http://localhost:8080/user/register?phone=` + user.phone + `&email=`
       + user.email + `&password=` + user.password + `&username=` + user.username + `&address=`
-      + user.address + `&zip=` + user.zip + `&userType=` + user.userType, user);
+      + user.address + `&zip=` + user.zip + `&userType=` + user.usertype, user);
   }
 
   getUserByphone(phone: string) {

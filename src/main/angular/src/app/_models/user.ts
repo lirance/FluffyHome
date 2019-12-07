@@ -10,7 +10,8 @@ export class User {
   zip: number;
   latlng: number;
   email: string;
-  userType: boolean;
+  usertype: boolean;
+  userType: string;
   avaliableDate: string;
   avaliableWeekday: AvaliableWeekday;
   rateNumber: number;

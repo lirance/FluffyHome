@@ -36,13 +36,13 @@ public class OrdersController {
     }
 
     @RequestMapping("/getOrders")
-    public List<OrderShow> getAllNotAcceptedOrders() {
+    public List<OrderShow> getAllNotAcceptedOrders(boolean isSitter) {
 
         List<OrderShow> orderShowList = new ArrayList<>();
 
         try {
 
-            List<Order> orders = orderService.getAllNotAcceptedOrders();
+            List<Order> orders = orderService.getAllNotAcceptedOrders(!isSitter);
             Map<Integer, Integer> userOrders = userOrderService.getOrderMakers();
 
             for (Order order : orders) {

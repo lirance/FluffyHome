@@ -8,8 +8,8 @@
       <div class="col-center-block text-center">
         <dl class="row text-left">
 
-          <dt class="col-sm-3">credits :</dt>
-          <dd class="col-sm-9"><p>{{orderDetail.credits}}</p>
+          <dt *ngIf="!ifSitter" class="col-sm-3">credits :</dt>
+          <dd *ngIf="!ifSitter" class="col-sm-9"><p>{{orderDetail.credits}}</p>
           </dd>
 
           <dt class="col-sm-3">zip:</dt>

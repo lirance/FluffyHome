@@ -46,7 +46,7 @@ public class OderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getAllNotAcceptedOrders() {
-        return orderMapper.getAllNotAcceptedOrders();
+    public List<Order> getAllNotAcceptedOrders(boolean orderType) {
+        return orderMapper.getAllNotAcceptedOrders(orderType);
     }
 }

@@ -17,8 +17,8 @@
           <dt class="col-sm-3">User phone number:</dt>
           <dd class="col-sm-9"><p>{{currentUser.phone}}</p></dd>
 
-          <dt class="col-sm-3">credits:</dt>
-          <dd class="col-sm-9"><p>{{currentUser.credits}}</p></dd>
+          <dt *ngIf="!isSitter" class="col-sm-3">credits:</dt>
+          <dd *ngIf="!isSitter" class="col-sm-9"><p>{{currentUser.credits}}</p></dd>
 
           <dt class="col-sm-3">User zip:</dt>
           <dd class="col-sm-9"><p>{{currentUser.zip}}</p></dd>
@@ -36,7 +36,7 @@
           <dt class="col-sm-3">User average rate:</dt>
           <dd class="col-sm-9">
             <p *ngIf="currentUser.averageRate != null">{{currentUser.averageRate}}</p>
-            <p *ngIf="currentUser.averageRate == null">This user have get any rate yet</p>
+            <p *ngIf="currentUser.averageRate == null">This user haven't get any rate yet</p>
           </dd>
 
           <dt class="col-sm-3">User rate number:</dt>

@@ -16,6 +16,7 @@ import {MyProfileComponent} from './my-profile/my-profile.component';
 import {MyPetsComponent} from './my-pets/my-pets.component';
 import {AddPetComponent} from './add-pet/add-pet.component';
 import {EditPetInfoComponent} from './editpetInfo/editpetinfo.component';
+import {SitterOrderComponent} from './sitter-order/sitter-order.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -32,6 +33,7 @@ const routes: Routes = [
       {path: 'profile', component: UserprofileComponent, outlet: 'aux'},
       {path: 'createorder', component: CreateOrderComponent, outlet: 'aux'},
       {path: 'myorder', component: MyOrderComponent, outlet: 'aux'},
+      {path: 'sitterorder', component: SitterOrderComponent, outlet: 'aux'},
       {path: 'orderdetail/:orderid', component: OrderDetailComponent, outlet: 'aux'},
       {path: 'publicprofile/:userid', component: PublicProfileComponent, outlet: 'aux'},
       {path: 'myprofile/:userid', component: MyProfileComponent, outlet: 'aux'},

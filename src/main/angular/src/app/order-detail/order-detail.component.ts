@@ -22,6 +22,7 @@ export class OrderDetailComponent implements OnInit {
   cancelResult = false;
   deleteResult = false;
   acceptResult: string;
+  ifSitter = false;
 
 
   // tslint:disable-next-line:max-line-length
@@ -31,6 +32,7 @@ export class OrderDetailComponent implements OnInit {
   ngOnInit() {
     this.getOrder();
     this.currentUserId = localStorage.getItem('currentUserID');
+    this.ifSitter = localStorage.getItem('isSitter') === 'true';
   }
 
   getOrder() {

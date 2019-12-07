@@ -119,10 +119,10 @@
                 #{email,jdbcType=VARCHAR},
             </if>
             <if test="ratenumber != null">
-                #{ratenumber,jdbcType=INTEGER},
+                #{rateNumber,jdbcType=INTEGER},
             </if>
             <if test="averagerate != null">
-                #{averagerate,jdbcType=REAL},
+                #{averageRate,jdbcType=REAL},
             </if>
             <if test="usertype != null">
                 #{usertype,jdbcType=VARCHAR},
@@ -188,6 +188,8 @@
       address = #{address,jdbcType=VARCHAR},
       zip = #{zip,jdbcType=INTEGER},
       credits = #{credits,jdbcType=INTEGER},
+      rateNumber = #{rateNumber,jdbcType=INTEGER},
+      averageRate = #{averageRate,jdbcType=REAL},
       avaliableWeekday = #{avaliableWeekday,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR}
     where userId = #{userid,jdbcType=INTEGER}

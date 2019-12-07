@@ -9,8 +9,8 @@ export class OrderService {
   constructor(private http: HttpClient) {
   }
 
-  getOrderlist() {
-    return this.http.get<Order[]>('http://localhost:8080/orders/getOrders');
+  getOrderlist(isSitter: string) {
+    return this.http.get<Order[]>('http://localhost:8080/orders/getOrders?isSitter=' + isSitter);
   }
 
   createOrder(order: Order) {

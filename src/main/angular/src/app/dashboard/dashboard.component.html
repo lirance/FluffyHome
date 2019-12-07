@@ -14,25 +14,35 @@
             <a class="nav-link" [routerLink]="['/dashboard', {outlets: {'aux': ['dashhome']}}]">Home<span
               class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
+          <li *ngIf="!ifSitter" class="nav-item">
             <a class="nav-link" [routerLink]="['/dashboard', {outlets: {'aux': ['createorder']}}]">Create Order</a>
           </li>
-          <li classs="nav-item">
-            <a class="nav-link" [routerLink]="['/dashboard', {outlets: {'aux': ['myorder']}}]">My order</a>
+          <li *ngIf="!ifSitter" classs="nav-item">
+            <a class="nav-link" [routerLink]="['/dashboard', {outlets: {'aux': ['myorder']}}]">My orders</a>
           </li>
+
+          <li *ngIf="ifSitter" classs="nav-item">
+            <a class="nav-link" [routerLink]="['/dashboard', {outlets: {'aux': ['sitterorder']}}]">My orders</a>
+          </li>
+
 
         </ul>
 
         <div class="nav-item dropdown">
-          <button *ngIf="currentUser" class=" btn dropdown-toggle text-primary" id="dropdownMenuButton" type="button"
+          <button *ngIf="currentUser;else elseBlock" class=" btn dropdown-toggle text-primary" id="dropdownMenuButton"
+                  type="button"
                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{currentUser.username}}
           </button>
+          <ng-template #elseBlock>
+            <!--            <button [routerLink]="" ]></button>-->
+            <a class="nav-link text-dark" routerLink="/login" routerLinkActive="active">Log in</a>
+          </ng-template>
 
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item text-dark"
                [routerLink]="['/dashboard', {outlets: {'aux': ['myprofile', currentUserID]}}]">MyProfile</a>
-            <a class="dropdown-item text-dark"
+            <a *ngIf="!ifSitter" class="dropdown-item text-dark"
                [routerLink]="['/dashboard', {outlets: {'aux': ['mypets', currentUserID]}}]">MyPets</a>
             <a class="dropdown-item text-dark" (click)="userLogout()">Log Out</a>
           </div>

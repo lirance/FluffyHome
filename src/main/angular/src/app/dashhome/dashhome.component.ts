@@ -17,6 +17,7 @@ export class DashhomeComponent implements OnInit {
   orderList: Order[] = [];
   currentUserID: string;
   acceptResult: string;
+  isSitter: boolean;
 
 
   constructor(private orderService: OrderService, private router: Router, private dialog: MatDialog) {
@@ -28,7 +29,9 @@ export class DashhomeComponent implements OnInit {
   }
 
   getOrderList() {
-    this.orderService.getOrderlist().pipe(first()).subscribe(orderList => {
+    const isSitter = localStorage.getItem('isSitter');
+    this.isSitter = isSitter === 'true';
+    this.orderService.getOrderlist(isSitter).pipe(first()).subscribe(orderList => {
       this.orderList = orderList;
     });
   }

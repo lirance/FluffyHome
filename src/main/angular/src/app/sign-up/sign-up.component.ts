@@ -39,7 +39,7 @@ export class SignUpComponent implements OnInit {
       address: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
       password: ['', [Validators.required, Validators.maxLength(20)]],
       confirmPassword: ['', [Validators.required, EqualValidator('password')]],
-      userType: false// default to not sitter
+      usertype: false// default to not sitter
     });
   }
 

@@ -42,9 +42,7 @@ public class PersonalOrderController {
         try {
             Date sDate = sdf.parse(startDate);
             Date eDate = sdf.parse(endDate);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+
             // check if the user already setup available time
             UserOrder userOrder = new UserOrder();
             Order order = new Order();
@@ -104,6 +102,8 @@ public class PersonalOrderController {
             if (!order.getStatus().equals(Status.ORDERED.toString())) {
                 return false;
             }
+            User u = userService.selectByPrimaryKey(userId);
+            u.setCredits(order.getCredits() + u.getCredits());
 
             UserOrderKey userOrderKey = new UserOrderKey();
             userOrderKey.setUserid(userId);
@@ -114,12 +114,13 @@ public class PersonalOrderController {
                 return false;
             }
 
+
             // delete user order
             if (userOrderService.deleteByPrimaryKey(userOrderKey) != 1) {
                 return false;
             }
-            //delete order
-            return orderService.deleteByPrimaryKey(orderId) == 1;
+            //delete order & update user credits.
+            return orderService.deleteByPrimaryKey(orderId) == 1 && userService.updateByPrimaryKey(u) == 1;
         } catch (Exception e) {
             return false;
         }
