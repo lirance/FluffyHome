@@ -1,13 +1,16 @@
-import {User} from "./user";
+import {User} from './user';
 
 export class PersonalOrderShow {
   orderid: number;
-  itemlist: [string];
-  storeadd: string;
-  destination: string;
-  state: string;
-  timelimit: number;
-  tip: number;
+  status: string;
+  // use credits?
+  credits: number;
+  address: string;
+  zip: number;
+  orderType: boolean;
+  startDate: Date;
+  endDate: Date;
+  orderDescription: string;
   maker: User;
   recipient: User;
   rated: string;

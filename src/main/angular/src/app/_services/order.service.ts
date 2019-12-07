@@ -27,8 +27,9 @@ export class OrderService {
     return this.http.get<string>('http://localhost:8080/order/accept?userId=' + userid + '&orderId=' + orderid);
   }
 
-  completeOrder(userid: string, orderid: string) {
-    return this.http.get<string>('http://localhost:8080/order/complete?userId=' + userid + '&orderId=' + orderid);
+  completeOrder(userid: string, orderid: string, recipientId: number) {
+    return this.http.get<string>('http://localhost:8080/order/complete?userId=' + userid + '&orderId=' + orderid +
+      '&recipientId=' + recipientId);
   }
 
   rateOrder(userid: string, orderid: string, rate: string) {

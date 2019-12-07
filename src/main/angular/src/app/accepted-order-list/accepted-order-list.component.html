@@ -3,18 +3,20 @@
     <div class="card mb-4 box-shadow">
       <div class="card-body">
         <h5 class="card-title"> {{order.orderid}} </h5>
-        <h6 class="card-subtitle mb-2 text-muted">Time limit: {{order.timelimit}} hours.</h6>
       </div>
 
       <ul class="list-group list-group-flush text-left">
-        <li class="list-group-item">Store address: {{order.storeadd}} </li>
-        <li class="list-group-item">Destination adress: {{order.destination}} </li>
-        <li class="list-group-item">Tips: {{order.tip}} dollar</li>
+        <li class="list-group-item">credits for this order: {{order.credits}} </li>
+        <li class="list-group-item">order Description: {{order.orderDescription}} </li>
+        <li class="list-group-item">zip: {{order.zip}} </li>
+        <li class="list-group-item">start Date: {{order.startDate|date}} </li>
+        <li class="list-group-item">end Date: {{order.endDate|date}} </li>
       </ul>
 
       <div class="card-body">
-        <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderid]}}]" class="card-link">See Detail</a>
-        <a *ngIf= "!order.rated" (click)="rate(order.orderid, order.state)" class="card-link text-primary">Rate</a>
+        <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderid]}}]" class="card-link">See
+          Detail</a>
+        <a *ngIf="!order.rated" (click)="rate(order.orderid, order.status)" class="card-link text-primary">Rate</a>
       </div>
 
     </div>

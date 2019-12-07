@@ -55,20 +55,23 @@ public class PersonalOrderController {
             order.setStartDate(sDate);
             order.setEndDate(eDate);
             order.setorderDescription(orderDescription);
+            int days = (int) ((eDate.getTime() - sDate.getTime()) / (1000 * 3600 * 24));
+            int credits = StaticParams.CREDITS_PER_DAY * days;
             // false means normal order.
             order.setOrderType(orderType);
 
-            int days = (int) ((eDate.getTime() - sDate.getTime()) / (1000 * 3600 * 24));
-            int credits = StaticParams.CREDITS_PER_DAY * days;
+            User user = userService.selectByPrimaryKey(userid);
+
+            if (orderType) {
+                credits = 0;
+            } else if (credits > user.getCredits()) {
+                return "credit is not enough";
+            }
             order.setCredits(StaticParams.CREDITS_PER_DAY * days);
 
-            User user = userService.selectByPrimaryKey(userid);
             order.setZip(user.getZip());
             order.setAddress(user.getAddress());
 
-            if (credits > user.getCredits() && !orderType) {
-                return "credit is not enough";
-            }
 
             // insert into the order table
 
@@ -79,7 +82,7 @@ public class PersonalOrderController {
                 if (userOrderService.insert(userOrder) == 1) {
                     //new credits.
                     user.setCredits(user.getCredits() - credits);
-                    return userService.updateByPrimaryKey(user) == 1 ? "true" : "somthing went wrong";
+                    return userService.updateByPrimaryKey(user) == 1 ? "true" : "something went wrong";
                 }
 
             }
@@ -183,7 +186,7 @@ public class PersonalOrderController {
     }
 
     @RequestMapping("/complete")
-    public boolean completeOrder(int orderId, int userId) {
+    public boolean completeOrder(int orderId, int userId, int recipientId) {
         UserOrderKey userOrderKey = new UserOrderKey();
         userOrderKey.setUserid(userId);
         userOrderKey.setOrderid(orderId);
@@ -201,8 +204,12 @@ public class PersonalOrderController {
             }
 
             order.setStatus(Status.COMPLETED.toString());
-            orderService.updateByPrimaryKey(order);
-            return true;
+
+            User recipient = userService.selectByPrimaryKey(recipientId);
+            recipient.setCredits(recipient.getCredits() + order.getCredits());
+
+            return orderService.updateByPrimaryKey(order) == 1 && userService.updateByPrimaryKey(recipient) == 1;
+//            return true;
 
         } catch (Exception e) {
             return false;

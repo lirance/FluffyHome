@@ -20,22 +20,28 @@ public class PersonOrderShow extends OrderShow {
 
 
     public PersonOrderShow(Order order) {
-//        this.setState(order.getState());
-
-//        this.setItemlist(order.getItemlist());
         this.setOrderid(order.getOrderid());
-//        this.setStoreadd(order.getStoreadd());
-//        this.setTimelimit(order.getTimelimit());
-//        this.setTip(order.getTip());
+        this.setStatus(order.getStatus());
+        this.setOrderType(order.getOrderType());
+        this.setCredits(order.getCredits());
+        this.setAddress(order.getAddress());
+        this.setZip(order.getZip());
+        this.setStartDate(order.getStartDate());
+        this.setEndDate(order.getEndDate());
+        this.setorderDescription(order.getorderDescription());
     }
 
     public PersonOrderShow(OrderShow order) {
-//        this.setState(order.getState());
-//        this.setItemlist(order.getItemlist());
-//        this.setOrderid(order.getOrderid());
-//        this.setStoreadd(order.getStoreadd());
-//        this.setTimelimit(order.getTimelimit());
-//        this.setTip(order.getTip());
+        this.setOrderid(order.getOrderid());
+        this.setStatus(order.getStatus());
+        this.setOrderType(order.getOrderType());
+        this.setCredits(order.getCredits());
+        this.setAddress(order.getAddress());
+        this.setZip(order.getZip());
+        this.setStartDate(order.getStartDate());
+        this.setEndDate(order.getEndDate());
+        this.setorderDescription(order.getorderDescription());
+
         this.setMaker(order.getMaker());
         this.setRecipient(order.getRecipient());
     }

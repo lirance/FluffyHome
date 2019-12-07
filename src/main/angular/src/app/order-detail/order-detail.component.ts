@@ -42,7 +42,7 @@ export class OrderDetailComponent implements OnInit {
 
   complete() {
     const orderid = this.route.snapshot.paramMap.get('orderid');
-    this.orderService.completeOrder(this.currentUserId, orderid).pipe(first()).subscribe(result => {
+    this.orderService.completeOrder(this.currentUserId, orderid, this.orderDetail.recipient.userid).pipe(first()).subscribe(result => {
       result.toString();
       this.completeResult = result;
       this.openCompleteDialog();
@@ -69,7 +69,7 @@ export class OrderDetailComponent implements OnInit {
         this.deleteResult = true;
         this.backtolast();
       }
-      ;
+
     });
   }
 

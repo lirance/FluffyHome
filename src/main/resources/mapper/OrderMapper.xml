@@ -142,7 +142,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="edu.oregonstate.fluffyhome.model.Order">
     update `order`
-    set orderDescription = #{orderDescription, jdbcType=VARCHAR}},
+    set orderDescription = #{orderDescription, jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       orderType = #{orderType,jdbcType=BIT},
       credits = #{credits,jdbcType=INTEGER},
