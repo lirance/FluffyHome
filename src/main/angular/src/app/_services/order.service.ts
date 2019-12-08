@@ -2,6 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Order} from '../_models';
 import {PersonalOrderShow} from '../_models';
+import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable()
 
@@ -13,9 +14,9 @@ export class OrderService {
     return this.http.get<Order[]>('http://localhost:8080/orders/getOrders?isSitter=' + isSitter);
   }
 
-  createOrder(order: Order) {
+  createOrder(order: Order, fromDate: Date, toDate: Date) {
     return this.http.get('http://localhost:8080/order/create?userid=' + order.maker + '&orderType=' + order.orderType +
-      '&startDate=' + order.startDate + '&endDate=' + order.endDate + '&orderDescription=' + order.orderDescription,
+      '&startDate=' + fromDate + '&endDate=' + toDate.toDateString() + '&orderDescription=' + order.orderDescription,
       {responseType: 'text'});
   }
 

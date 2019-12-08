@@ -36,12 +36,9 @@ public class PersonalOrderController {
     }
 
     @RequestMapping("/create")
-    public String createOrder(String startDate, String endDate, String orderDescription, boolean orderType, int userid) {
+    public String createOrder(Date startDate, Date endDate, String orderDescription, boolean orderType, int userid) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat(StaticParams.PARSE_TIME_FORMAT);
         try {
-            Date sDate = sdf.parse(startDate);
-            Date eDate = sdf.parse(endDate);
 
             // check if the user already setup available time
             UserOrder userOrder = new UserOrder();
@@ -50,10 +47,10 @@ public class PersonalOrderController {
             userOrder.setUserid(userid);
 
             order.setStatus(Status.ORDERED.toString());
-            order.setStartDate(sDate);
-            order.setEndDate(eDate);
+            order.setStartDate(startDate);
+            order.setEndDate(endDate);
             order.setorderDescription(orderDescription);
-            int days = (int) ((eDate.getTime() - sDate.getTime()) / (1000 * 3600 * 24));
+            int days = (int) ((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
             int credits = StaticParams.CREDITS_PER_DAY * days;
             // false means normal order.
             order.setOrderType(orderType);
