@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author: Chendi Zhang
  * @date: 2019-10-24
@@ -119,5 +121,15 @@ public class UserController {
     @RequestMapping("/getUserByPhone")
     public User getUserByPhone(String phone) {
         return userService.getUserByPhone(phone);
+    }
+
+    @RequestMapping("/getP2PSitters")
+    public List<User> getp2pSitters(int userid) {
+        return userService.getSitters(userid, false);
+    }
+
+    @RequestMapping("/getSitters")
+    public List<User> getSitters() {
+        return userService.getSitters(-1, true);
     }
 }

@@ -17,4 +17,7 @@ public interface UserService extends BaseObjectService<User, Integer> {
     User getUserByPhone(String phone);
 
     String getLatlng(String address);
+
+    List<User> getSitters(int userId, boolean isSitter);
+
 }

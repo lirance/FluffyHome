@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-my-order',
@@ -10,19 +10,20 @@ export class MyOrderComponent implements OnInit {
   created_active: string = 'active';
   accepted_active: string = '';
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
 
   }
 
-  switch_created(): void{
+  switch_created(): void {
     this.switch_flag = 0;
     this.accepted_active = '';
     this.created_active = 'active';
   }
 
-  switch_accepted(): void{
+  switch_accepted(): void {
     this.switch_flag = 1;
     this.accepted_active = 'active';
     this.created_active = '';

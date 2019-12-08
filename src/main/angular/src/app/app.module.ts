@@ -37,6 +37,7 @@ import {AddPetComponent} from './add-pet/add-pet.component';
 import {EditPetInfoComponent} from './editpetInfo/editpetinfo.component';
 import {NgTempusdominusBootstrapModule} from 'ngx-tempusdominus-bootstrap';
 import {SitterOrderComponent} from './sitter-order/sitter-order.component';
+import {OrderlistsComponent} from './orderlists/orderlists.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import {SitterOrderComponent} from './sitter-order/sitter-order.component';
     MyPetsComponent,
     AddPetComponent,
     EditPetInfoComponent,
+    OrderlistsComponent,
 
   ],
   imports: [

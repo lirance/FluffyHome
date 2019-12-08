@@ -1,0 +1,28 @@
+<h2 class="text-dark">orders</h2>
+<br/>
+<br/>
+
+<div class="row text-dark" *ngIf='orderList != []'>
+  <div *ngFor="let order of orderList" class="col-md-4">
+    <div class="card mb-4 box-shadow">
+      <div class="card-body">
+        <h5 class="card-title"> {{order.orderid}} </h5>
+      </div>
+
+      <ul class="list-group list-group-flush text-left">
+        <li *ngIf="!isSitter" class="list-group-item">credits for this order: {{order.credits}} </li>
+        <li class="list-group-item">order Description: {{order.orderDescription}} </li>
+        <li class="list-group-item">zip: {{order.zip}} </li>
+        <li class="list-group-item">start Date: {{order.startDate|date}} </li>
+        <li class="list-group-item">end Date: {{order.endDate|date}} </li>
+      </ul>
+
+      <div class="card-body">
+        <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderid]}}]" class="card-link">See
+          Detail</a>
+        <a routerLink=" " *ngIf="order.maker.userid != currentUserID" class="card-link" (click)="accept(order.orderid)">Accept</a>
+      </div>
+
+    </div>
+  </div>
+</div>

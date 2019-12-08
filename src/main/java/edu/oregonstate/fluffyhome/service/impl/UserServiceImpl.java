@@ -2,6 +2,7 @@ package edu.oregonstate.fluffyhome.service.impl;
 
 import edu.oregonstate.fluffyhome.mapper.UserMapper;
 import edu.oregonstate.fluffyhome.model.User;
+import edu.oregonstate.fluffyhome.model.UserType;
 import edu.oregonstate.fluffyhome.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,4 +66,14 @@ public class UserServiceImpl implements UserService {
     public String getLatlng(String address) {
         return address;
     }
+
+    @Override
+    public List<User> getSitters(int userid, boolean isSitter) {
+        String sitter = UserType.NORMAL.toString();
+        if (isSitter) {
+            sitter = UserType.SITTER.toString();
+        }
+        return userMapper.getSitters(userid, sitter);
+    }
+
 }

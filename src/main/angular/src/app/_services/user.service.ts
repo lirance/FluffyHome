@@ -31,6 +31,14 @@ export class UserService {
     return this.http.get<User>(`http://localhost:8080/user/getUserById?userid=` + id);
   }
 
+  getP2PSitters(id: string) {
+    return this.http.get<User[]>(`http://localhost:8080/user/getP2PSitters?userid=` + id);
+  }
+
+  getSitters() {
+    return this.http.get<User[]>(`http://localhost:8080/user/getSitters`);
+  }
+
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('user');

@@ -200,4 +200,12 @@
         from user
         where phone = #{phone,jdbcType=VARCHAR} limit 1
     </select>
+
+    <select id="getSitters" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where userType=#{1}
+        and userid!=#{0}
+    </select>
 </mapper>

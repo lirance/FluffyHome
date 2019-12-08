@@ -1,24 +1,61 @@
-<div class="row text-dark" *ngIf='orderList != []'>
-  <div *ngFor="let order of orderList" class="col-md-4">
-    <div class="card mb-4 box-shadow">
-      <div class="card-body">
-        <h5 class="card-title"> {{order.orderid}} </h5>
+<h2 class="text-dark">find a person for pet-sitting</h2>
+<br/><br/>
+<p class="text-dark text-left">Choose <strong>Peer-to-Peer</strong> to find sitter for free (use credits), <strong>Sitters</strong>
+  to find profession sitters(cost money)</p>
+<ul class="nav nav-tabs text-dark">
+  <li class="nav-item">
+    <a class="nav-link {{created_active}}" (click)="switch_created()"><strong>Peer-to-Peer</strong> </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{accepted_active}}" (click)="switch_accepted()"><strong>Sitters</strong> </a>
+</ul>
+<br><br>
+<div *ngIf='switch_flag == 0'>
+  <div class="row text-dark" *ngIf='p2psitters != []'>
+    <div *ngFor="let sitter of p2psitters" class="col-md-4">
+      <div class="card mb-4 box-shadow">
+        <div class="card-body">
+          <h5 class="card-title"> {{sitter.username}} </h5>
+        </div>
+
+        <ul class="list-group list-group-flush text-left">
+          <li class="list-group-item">credits for this order: {{sitter.averageRate}} </li>
+          <li class="list-group-item">phone:{{sitter.phone}}</li>
+          <li class="list-group-item">email:{{sitter.email}}</li>
+          <li class="list-group-item">zip: {{sitter.zip}} </li>
+          <li class="list-group-item">address: {{sitter.address}} </li>
+        </ul>
+
+        <div class="card-body">
+          <a [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', sitter.userid]}}]">user Profile</a>
+        </div>
+
       </div>
+    </div>
+  </div>
+</div>
 
-      <ul class="list-group list-group-flush text-left">
-        <li *ngIf="!isSitter" class="list-group-item">credits for this order: {{order.credits}} </li>
-        <li class="list-group-item">order Description: {{order.orderDescription}} </li>
-        <li class="list-group-item">zip: {{order.zip}} </li>
-        <li class="list-group-item">start Date: {{order.startDate|date}} </li>
-        <li class="list-group-item">end Date: {{order.endDate|date}} </li>
-      </ul>
+<div *ngIf='switch_flag == 1'>
+  <div class="row text-dark" *ngIf='sitters != []'>
+    <div *ngFor="let sitter of sitters" class="col-md-4">
+      <div class="card mb-4 box-shadow">
+        <div class="card-body">
+          <h5 class="card-title"> {{sitter.username}} </h5>
+        </div>
 
-      <div class="card-body">
-        <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderid]}}]" class="card-link">See
-          Detail</a>
-        <a routerLink=" " *ngIf="order.maker.userid != currentUserID" class="card-link" (click)="accept(order.orderid)">Accept</a>
+        <ul class="list-group list-group-flush text-left">
+          <li class="list-group-item">credits for this order: {{sitter.averageRate}} </li>
+          <li class="list-group-item">phone:{{sitter.phone}}</li>
+          <li class="list-group-item">email:{{sitter.email}}</li>
+          <li class="list-group-item">zip: {{sitter.zip}} </li>
+          <li class="list-group-item">address: {{sitter.address}} </li>
+        </ul>
+
+        <div class="card-body">
+          <a [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', sitter.userid]}}]">user Profile</a>
+        </div>
+
       </div>
-
     </div>
   </div>
 </div>
