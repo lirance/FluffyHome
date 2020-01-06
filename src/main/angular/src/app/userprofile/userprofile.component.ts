@@ -102,7 +102,8 @@ export class UserprofileComponent implements OnInit {
               this.currentUser = user;
               localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
             });
-            this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
+            // this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
+            this.location.back();
           }
 
           if (!data) {

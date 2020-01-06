@@ -51,7 +51,8 @@ export class AddPetComponent implements OnInit {
     this.userServie.addPet(this.petForm.value).pipe(first()).subscribe(
       success => {
         console.log('success!');
-        this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
+        // this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
+        this.location.back();
       });
     ;
     this.loading = true;

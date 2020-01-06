@@ -11,37 +11,46 @@
           <dd class="col-sm-9"><p>{{currentUser.username}}</p>
           </dd>
 
-          <dt class="col-sm-3">User Email:</dt>
+          <dt class="col-sm-3">Email:</dt>
           <dd class="col-sm-9"><p>{{currentUser.email}}</p></dd>
 
-          <dt class="col-sm-3">User Phone Number:</dt>
+          <dt class="col-sm-3">Phone Number:</dt>
           <dd class="col-sm-9"><p>{{currentUser.phone}}</p></dd>
 
-          <dt *ngIf="!isSitter" class="col-sm-3">credits:</dt>
+          <dt *ngIf="!isSitter" class="col-sm-3">Credits:</dt>
           <dd *ngIf="!isSitter" class="col-sm-9"><p>{{currentUser.credits}}</p></dd>
 
-          <dt class="col-sm-3">User Zip:</dt>
+          <dt class="col-sm-3">Zip:</dt>
           <dd class="col-sm-9"><p>{{currentUser.zip}}</p></dd>
 
-          <dt class="col-sm-3">User Address:</dt>
+          <dt class="col-sm-3">Address:</dt>
           <dd class="col-sm-9"><p>{{currentUser.address}}</p></dd>
 
           <dt class="col-sm-3">User Type:</dt>
           <dd class="col-sm-9"><p>{{currentUser.userType}}</p></dd>
 
-          <dt class="col-sm-3">User AvaliableWeekday:</dt>
+          <dt class="col-sm-3">AvaliableWeekday:</dt>
           <dd class="col-sm-9"><p>{{avaliableWDS}}</p></dd>
-
 
           <dt class="col-sm-3">Average Rating:</dt>
           <dd class="col-sm-9">
-            <!--            TODO show rating in starts for rateNumbers person..-->
-            <p *ngIf="currentUser.averageRate != null">{{currentUser.averageRate}}</p>
+
+            <p *ngIf="currentUser.averageRate != null">
+              <ng-template #t let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                </span>
+              </ng-template>
+              <ngb-rating [(rate)]="currentUser.averageRate" [starTemplate]="t" [readonly]="true" max="5">
+              </ngb-rating>
+              {{currentUser.averageRate}} /5.0
+              ({{currentUser.rateNumber}} ratings)
+            </p>
             <p *ngIf="currentUser.averageRate == null">This user haven't get any rate yet</p>
           </dd>
 
-          <dt class="col-sm-3">User Rating Number:</dt>
-          <dd class="col-sm-9"><p>{{currentUser.rateNumber}}</p></dd>
+          <!--          <dt class="col-sm-3">User Rating Number:</dt>-->
+          <!--          <dd class="col-sm-9"><p>{{currentUser.rateNumber}}</p></dd>-->
         </dl>
       </div>
     </div>

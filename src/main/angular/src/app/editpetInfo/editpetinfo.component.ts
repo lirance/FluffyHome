@@ -84,7 +84,8 @@ export class EditPetInfoComponent implements OnInit {
             this.userService.getPetById(this.currentPetId).pipe(first()).subscribe(pet => {
               this.currentPet = pet;
             });
-            this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
+            // this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
+            this.backtolast();
           }
 
           if (!data) {
@@ -92,6 +93,7 @@ export class EditPetInfoComponent implements OnInit {
           }
 
         });
+
   }
 
   backtolast() {
