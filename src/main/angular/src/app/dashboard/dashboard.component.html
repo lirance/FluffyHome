@@ -28,11 +28,11 @@
             <a class="nav-link" [routerLink]="['/dashboard', {outlets: {'aux': ['createorder']}}]">Create Order</a>
           </li>
           <li *ngIf="!ifSitter" classs="nav-item">
-            <a class="nav-link" [routerLink]="['/dashboard', {outlets: {'aux': ['myorder']}}]">My orders</a>
+            <a class="nav-link" [routerLink]="['/dashboard', {outlets: {'aux': ['myorder']}}]">My Orders</a>
           </li>
 
           <li *ngIf="ifSitter" classs="nav-item">
-            <a class="nav-link" [routerLink]="['/dashboard', {outlets: {'aux': ['sitterorder']}}]">My orders</a>
+            <a class="nav-link" [routerLink]="['/dashboard', {outlets: {'aux': ['sitterorder']}}]">My Orders</a>
           </li>
 
 
@@ -46,14 +46,14 @@
           </button>
           <ng-template #elseBlock>
             <!--            <button [routerLink]="" ]></button>-->
-            <a class="nav-link text-dark" routerLink="/login" routerLinkActive="active">Log in</a>
+            <a class="nav-link text-dark" routerLink="/login" routerLinkActive="active">Log In</a>
           </ng-template>
 
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item text-dark"
-               [routerLink]="['/dashboard', {outlets: {'aux': ['myprofile', currentUserID]}}]">MyProfile</a>
+               [routerLink]="['/dashboard', {outlets: {'aux': ['myprofile', currentUserID]}}]">My Profile</a>
             <a *ngIf="!ifSitter" class="dropdown-item text-dark"
-               [routerLink]="['/dashboard', {outlets: {'aux': ['mypets', currentUserID]}}]">MyPets</a>
+               [routerLink]="['/dashboard', {outlets: {'aux': ['mypets', currentUserID]}}]">My Pets</a>
             <a class="dropdown-item text-dark" (click)="userLogout()">Log Out</a>
           </div>
         </div>

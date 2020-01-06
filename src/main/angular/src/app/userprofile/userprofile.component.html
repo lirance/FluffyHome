@@ -26,7 +26,7 @@
   </div>
 
   <div class="form-group">
-    <label>email</label>
+    <label>Email</label>
     <input type="text" formControlName="email" class="form-control"
            [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
@@ -35,7 +35,7 @@
   </div>
 
   <div class="form-group">
-    <label>zip</label>
+    <label>Zip</label>
     <input type="text" formControlName="zip" class="form-control"
            [ngClass]="{ 'is-invalid': submitted && f.zip.errors }"/>
     <div *ngIf="submitted && f.zip.errors" class="invalid-feedback">
@@ -53,7 +53,7 @@
   </div>
 
   <div class="form-group">
-    <label>avaliable weekdays</label> <br/>
+    <label>Avaliable Weekdays</label> <br/>
     <div class="form-check form-check-inline">
       <input type="checkbox" formControlName="monday" [checked]="currentUser.avaliableWeekday.monday"
              class="form-check-input" id="a1">
@@ -91,17 +91,17 @@
     </div>
   </div>
   <div class="form-group">
-    <label>credits</label>
+    <label>Credits</label>
     <input type="text" formControlName="credits" readonly="readonly" class="form-control"/>
   </div>
   <div class="form-group">
-    <label>Rate Number</label>
+    <label>Rating Number</label>
     <input type="text" formControlName="rateNumber" readonly="readonly" class="form-control"
            [ngClass]="{ 'is-invalid': submitted && f.rateNumber.errors }"/>
   </div>
 
   <div class="form-group">
-    <label>Average Rate</label>
+    <label>Average Rating</label>
     <input type="text" formControlName="averageRate" readonly="readonly" class="form-control"/>
   </div>
 

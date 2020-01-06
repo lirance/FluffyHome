@@ -1,14 +1,14 @@
-<h2 class="text-dark">add a pet</h2>
+<h2 class="text-dark">Add a Pet</h2>
 <form [formGroup]="petForm" (ngSubmit)="onSubmit()" class="text-dark text-left">
 
   <div class="form-group">
-    <label for="pettype">pet Type: </label>
+    <label for="pettype">Pet Type: </label>
     <input type="text" placeholder="dog/cat/other" id="pettype" formControlName="pettype" class="form-control"/>
 
   </div>
 
   <div class="form-group">
-    <label for="petname"> pet Name: </label>
+    <label for="petname"> Pet Name: </label>
     <input type="text" id="petname" formControlName="petname"
            class="form-control"
     />
@@ -16,7 +16,7 @@
   </div>
 
   <div class="form-group">
-    <label for="petinfo">petInfo(some special about your pet)</label>
+    <label for="petinfo">PetInfo(some special about your pet)</label>
     <input type="text" placeholder="XXX is shy but friendly, shel loves play with ball..." id="petinfo"
            formControlName="petinfo"
            class="form-control"/>

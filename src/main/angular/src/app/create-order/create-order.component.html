@@ -5,7 +5,7 @@
   <div>
     <label>date of order</label>
     <div *ngIf="submitted" class="invalid-feedback">
-      date of order is required
+      Date of order is required !!
     </div>
     <form class="form-inline">
       <div class="form-group hidden">
@@ -63,9 +63,9 @@
   </div>
   <br/>
   <div class="form-group">
-    <label for="orderDescription"> order Description (anything your want others to know)</label>
+    <label for="orderDescription"> Order Description: </label>
     <input type="text" id="orderDescription" formControlName="orderDescription"
-           class="form-control"
+           class="form-control" placeholder ="anything your want others to know"
            [ngClass]="{ 'is-invalid': submitted && f.orderDescription.errors }"/>
     <div *ngIf="submitted && f.orderDescription.errors" class="invalid-feedback">
       <div *ngIf="f.orderDescription.errors.required">oderDescription is required</div>

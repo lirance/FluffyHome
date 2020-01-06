@@ -8,34 +8,34 @@
       <div class="col-center-block text-center">
         <dl class="row text-left">
 
-          <dt *ngIf="!ifSitter" class="col-sm-3">credits :</dt>
+          <dt *ngIf="!ifSitter" class="col-sm-3">Credits :</dt>
           <dd *ngIf="!ifSitter" class="col-sm-9"><p>{{orderDetail.credits}}</p>
           </dd>
 
-          <dt class="col-sm-3">zip:</dt>
+          <dt class="col-sm-3">Zip :</dt>
           <dd class="col-sm-9"><p>{{orderDetail.zip}}</p></dd>
-          <dt class="col-sm-3">user address:</dt>
+          <dt class="col-sm-3">Address :</dt>
           <dd class="col-sm-9"><p>{{orderDetail.address}}</p></dd>
 
-          <dt class="col-sm-3">start date:</dt>
+          <dt class="col-sm-3">Start Date :</dt>
           <dd class="col-sm-9"><p>{{orderDetail.startDate | date}}</p></dd>
 
-          <dt class="col-sm-3">end date:</dt>
+          <dt class="col-sm-3">End Date :</dt>
           <dd class="col-sm-9"><p>{{orderDetail.endDate | date}}</p></dd>
 
-          <dt class="col-sm-3">order description:</dt>
+          <dt class="col-sm-3">Order Description :</dt>
           <dd class="col-sm-9"><p>{{orderDetail.orderDescription}}</p></dd>
 
-          <dt class="col-sm-3">Poster & pets:</dt>
+          <dt class="col-sm-3">Poster & Pets :</dt>
           <dd class="col-sm-9">
             <a
               [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', orderDetail.maker.userid]}}]">{{orderDetail.maker.username}}</a>
           </dd>
 
-          <dt class="col-sm-3">State:</dt>
+          <dt class="col-sm-3">State :</dt>
           <dd class="col-sm-9"><p>{{orderDetail.status}}</p></dd>
 
-          <dt class="col-sm-3">Accepter:</dt>
+          <dt class="col-sm-3">Acceptor :</dt>
           <dd class="col-sm-9">
             <a *ngIf="orderDetail.recipient != null"
                [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', orderDetail.recipient.userid]}}]">{{orderDetail.recipient.username}}</a>
@@ -49,7 +49,7 @@
 
       <div class="button-block">
         <div class="text-center row">
-          <div *ngIf="orderDetail.maker != null && orderDetail.recipient !=null
+          <div *ngIf="orderDetail.status!='COMPLETED'&&orderDetail.maker != null && orderDetail.recipient !=null
         && (orderDetail.maker.userid == currentUserId )"
                class="text-center col">
             <button type="button" class="btn btn-primary" (click)="complete()">

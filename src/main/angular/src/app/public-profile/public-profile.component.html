@@ -8,38 +8,38 @@
     <div class="card-body">
       <div class="col-center-block text-center">
         <dl class="row text-left">
-          <dt class="col-sm-3">User Name:</dt>
+          <dt class="col-sm-3">User Name :</dt>
           <dd class="col-sm-9"><p>{{currentUser.username}}</p>
           </dd>
 
-          <dt class="col-sm-3">User email:</dt>
+          <dt class="col-sm-3">User Email :</dt>
           <dd class="col-sm-9"><p>{{currentUser.email}}</p></dd>
 
-          <dt class="col-sm-3">User phone number:</dt>
+          <dt class="col-sm-3">User Phone Number :</dt>
           <dd class="col-sm-9"><p>{{currentUser.phone}}</p></dd>
 
-          <dt class="col-sm-3">credits:</dt>
+          <dt class="col-sm-3">Credits :</dt>
           <dd class="col-sm-9"><p>{{currentUser.credits}}</p></dd>
 
-          <dt class="col-sm-3">User zip:</dt>
+          <dt class="col-sm-3">User Zip:</dt>
           <dd class="col-sm-9"><p>{{currentUser.zip}}</p></dd>
 
           <dt class="col-sm-3">User address:</dt>
           <dd class="col-sm-9"><p>{{currentUser.address}}</p></dd>
 
-          <dt class="col-sm-3">User type:</dt>
+          <dt class="col-sm-3">User Type:</dt>
           <dd class="col-sm-9"><p>{{currentUser.userType}}</p></dd>
 
-          <dt class="col-sm-3">User avaliableWeekday:</dt>
+          <dt class="col-sm-3">User AvaliableWeekday:</dt>
           <dd class="col-sm-9"><p>{{avaliableWDS}}</p></dd>
 
-          <dt class="col-sm-3">User average rate:</dt>
+          <dt class="col-sm-3">User Average Rating:</dt>
           <dd class="col-sm-9">
             <p *ngIf="currentUser.averageRate != null">{{currentUser.averageRate}}</p>
             <p *ngIf="currentUser.averageRate == null">This user have get any rate yet</p>
           </dd>
 
-          <dt class="col-sm-3">User rate number:</dt>
+          <dt class="col-sm-3">User Rate Number:</dt>
           <dd class="col-sm-9"><p>{{currentUser.rateNumber}}</p></dd>
         </dl>
       </div>
@@ -47,7 +47,7 @@
   </div>
   <div class="card text-center" *ngIf="currentUser.userType!='SITTER'">
     <div class="card-header text-muted">
-      <h5> pets info</h5>
+      <h5> Pets Info</h5>
     </div>
     <div class=" row text-dark" *ngIf='userPets != []'>
       <div *ngFor="let pet of userPets" class="col-md-4">
