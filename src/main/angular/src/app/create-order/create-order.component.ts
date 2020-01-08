@@ -35,8 +35,8 @@ export class CreateOrderComponent implements OnInit {
     public formatter: NgbDateParserFormatter,
     private config: NgbDatepickerConfig
   ) {
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 1);
+    this.fromDate = calendar.getNext(calendar.getToday(), 'd', 1);
+    this.toDate = calendar.getNext(calendar.getToday(), 'd', 2);
     config.minDate = this.fromDate;
     config.outsideDays = 'hidden';
     // config.markDisabled(date:NgbDate)=>calendar.getwe
