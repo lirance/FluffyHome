@@ -1,15 +1,18 @@
+<h2 class="text-dark">Public Profile for {{currentUser.username}}</h2>
+<br/><br/>
+
 <div *ngIf='currentUser' class="text-center text-dark">
   <div class="card text-center">
     <div class="card-header text-muted">
-      <h5> personal info</h5>
-      <p>User ID:  {{currentUser.userid}}</p>
+      <h5> Personal Info</h5>
+
     </div>
 
     <div class="card-body">
       <div class="col-center-block text-center">
         <dl class="row text-left">
-          <dt class="col-sm-3">User Name :</dt>
-          <dd class="col-sm-9"><p>{{currentUser.username}}</p>
+          <dt class="col-sm-3">User ID :</dt>
+          <dd class="col-sm-9"><p>{{currentUser.userid}}</p>
           </dd>
 
           <dt class="col-sm-3">User Email :</dt>
@@ -21,35 +24,53 @@
           <dt class="col-sm-3">Credits :</dt>
           <dd class="col-sm-9"><p>{{currentUser.credits}}</p></dd>
 
-          <dt class="col-sm-3">User Zip:</dt>
+          <dt class="col-sm-3">User Zip :</dt>
           <dd class="col-sm-9"><p>{{currentUser.zip}}</p></dd>
 
-          <dt class="col-sm-3">User address:</dt>
+          <dt class="col-sm-3">User address :</dt>
           <dd class="col-sm-9"><p>{{currentUser.address}}</p></dd>
 
-          <dt class="col-sm-3">User Type:</dt>
+          <dt class="col-sm-3">User Type :</dt>
           <dd class="col-sm-9"><p>{{currentUser.userType}}</p></dd>
 
-          <dt class="col-sm-3">User AvaliableWeekday:</dt>
+          <dt class="col-sm-3">User AvaliableWeekday :</dt>
           <dd class="col-sm-9"><p>{{avaliableWDS}}</p></dd>
 
-          <dt class="col-sm-3">User Average Rating:</dt>
+          <dt class="col-sm-3">User Average Rating :</dt>
           <dd class="col-sm-9">
-            <p *ngIf="currentUser.averageRate != null">{{currentUser.averageRate}}</p>
+            <!--            <p *ngIf="currentUser.averageRate != null">{{currentUser.averageRate}}</p>-->
+            <p *ngIf="currentUser.averageRate != null">
+              <ng-template #t let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                </span>
+              </ng-template>
+              <ngb-rating [(rate)]="currentUser.averageRate" [starTemplate]="t" [readonly]="true" max="5">
+              </ngb-rating>
+              {{currentUser.averageRate}} /5.0
+              ({{currentUser.rateNumber}} ratings)
+            </p>
+
             <p *ngIf="currentUser.averageRate == null">This user have get any rate yet</p>
           </dd>
-
-          <dt class="col-sm-3">User Rate Number:</dt>
-          <dd class="col-sm-9"><p>{{currentUser.rateNumber}}</p></dd>
         </dl>
       </div>
     </div>
   </div>
-  <div class="card text-center" *ngIf="currentUser.userType!='SITTER'">
+  <div class="card text-center" *ngIf="currentUser.userType!='SITTER' ">
     <div class="card-header text-muted">
       <h5> Pets Info</h5>
     </div>
-    <div class=" row text-dark" *ngIf='userPets != []'>
+    <div class="card-body" *ngIf="userPets.length <= 0">
+
+      <div class="col-center-block text-center">
+        <dl class="row text-left">
+          <dt class="list-group-item">This user doesn't have any pets now.</dt>
+        </dl>
+
+      </div>
+    </div>
+    <div class=" row text-dark" *ngIf="userPets.length > 0">
       <div *ngFor="let pet of userPets" class="col-md-4">
         <div class="card mb-4 box-shadow">
           <div class="card-body">
@@ -57,9 +78,9 @@
           </div>
 
           <ul class="list-group list-group-flush text-left">
-            <li class="list-group-item">Pet Name: {{pet.petname}}</li>
-            <li class="list-group-item">Pet Type: {{pet.pettype}} </li>
-            <li class="list-group-item">Pet Info: {{pet.petinfo}} </li>
+            <li class="list-group-item"><b>Pet Name: </b>{{pet.petname}}</li>
+            <li class="list-group-item"><b>Pet Type: </b>{{pet.pettype}} </li>
+            <li class="list-group-item"><b>Pet Info: </b>{{pet.petinfo}} </li>
           </ul>
 
         </div>

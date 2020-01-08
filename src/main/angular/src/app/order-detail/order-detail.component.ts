@@ -16,6 +16,7 @@ import {AcceptDialogComponent} from '../accept-dialog/accept-dialog.component';
 export class OrderDetailComponent implements OnInit {
 
   orderDetail: Order;
+  maplink: string;
   orderid: string;
   currentUserId: string;
   completeResult: string;
@@ -39,6 +40,7 @@ export class OrderDetailComponent implements OnInit {
     const orderid = this.route.snapshot.paramMap.get('orderid');
     this.orderService.getOrderDetail(orderid).pipe(first()).subscribe(order => {
       this.orderDetail = order;
+      this.maplink = 'https://www.google.com/maps/search/' + order.address + ' ,' + order.zip;
     });
   }
 

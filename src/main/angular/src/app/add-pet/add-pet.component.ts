@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {OrderService} from '../_services/order.service';
 import {first} from 'rxjs/operators';
 import {AlertService, UserService} from '../_services';
 import {Location} from '@angular/common';
@@ -31,8 +30,8 @@ export class AddPetComponent implements OnInit {
     this.petForm = this.formBuilder.group({
       userid: [],
       petid: [],
-      pettype: [],
-      petname: [],
+      pettype: ['', Validators.required],
+      petname: ['', Validators.required],
       petinfo: []
     })
     ;
@@ -46,7 +45,9 @@ export class AddPetComponent implements OnInit {
     this.submitted = true;
     this.petForm.value.userid = localStorage.getItem('currentUserID');
     this.petForm.value.petid = '0';
-
+    if (this.petForm.invalid) {
+      return;
+    }
 
     this.userServie.addPet(this.petForm.value).pipe(first()).subscribe(
       success => {
@@ -54,7 +55,7 @@ export class AddPetComponent implements OnInit {
         // this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
         this.location.back();
       });
-    ;
+
     this.loading = true;
   }
 

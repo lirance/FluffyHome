@@ -5,12 +5,20 @@
         <h5 class="card-title"> {{order.orderid}} </h5>
       </div>
 
+<!--      <ul class="list-group list-group-flush text-left">-->
+<!--        <li class="list-group-item">Credits for this order: {{order.credits}} </li>-->
+<!--        <li class="list-group-item">Order Description: {{order.orderDescription}} </li>-->
+<!--        <li class="list-group-item">Zip: {{order.zip}} </li>-->
+<!--        <li class="list-group-item">Start Date: {{order.startDate|date}} </li>-->
+<!--        <li class="list-group-item">End Date: {{order.endDate|date}} </li>-->
+<!--      </ul>-->
+
       <ul class="list-group list-group-flush text-left">
-        <li class="list-group-item">Credits for this order: {{order.credits}} </li>
-        <li class="list-group-item">Order Description: {{order.orderDescription}} </li>
-        <li class="list-group-item">Zip: {{order.zip}} </li>
-        <li class="list-group-item">Start Date: {{order.startDate|date}} </li>
-        <li class="list-group-item">End Date: {{order.endDate|date}} </li>
+        <li class="list-group-item"><b>Credits : </b>{{order.credits}} </li>
+        <li class="list-group-item"><b>Order Description :</b> {{order.orderDescription}} </li>
+        <li class="list-group-item"><b>Zip :</b> {{order.zip}} </li>
+        <li class="list-group-item"><b>Start Date :</b> {{order.startDate|date}} </li>
+        <li class="list-group-item"><b>End Date : </b>{{order.endDate|date}} </li>
       </ul>
 
 

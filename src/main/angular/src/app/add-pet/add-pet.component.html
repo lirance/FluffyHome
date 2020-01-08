@@ -2,26 +2,31 @@
 <form [formGroup]="petForm" (ngSubmit)="onSubmit()" class="text-dark text-left">
 
   <div class="form-group">
-    <label for="pettype">Pet Type: </label>
-    <input type="text" placeholder="dog/cat/other" id="pettype" formControlName="pettype" class="form-control"/>
-
-  </div>
-
-  <div class="form-group">
     <label for="petname"> Pet Name: </label>
     <input type="text" id="petname" formControlName="petname"
            class="form-control"
     />
-
+    <div *ngIf="petForm.controls.petname.touched&&!petForm.controls.petname.valid" class="alert alert-danger">
+      Pet Name is required
+    </div>
   </div>
 
   <div class="form-group">
-    <label for="petinfo">PetInfo(some special about your pet)</label>
+    <label for="pettype">Pet Type: </label>
+    <input type="text" placeholder="dog/cat/other" id="pettype" formControlName="pettype" class="form-control"/>
+    <div *ngIf="petForm.controls.pettype.touched&&!petForm.controls.pettype.valid" class="alert alert-danger">
+      Pet Type is required
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="petinfo">Pet Info: (Something special about your pet)</label>
     <input type="text" placeholder="XXX is shy but friendly, shel loves play with ball..." id="petinfo"
            formControlName="petinfo"
            class="form-control"/>
 
   </div>
+
 
   <div class="form-group text-center">
     <button class="btn btn-primary">Submit</button>
