@@ -159,7 +159,8 @@
         <include refid="Base_Column_List"/>
         from `order`
         where status = 'ORDERED'
-        and orderType != #{orderType,jdbcType=BIT};
+        and orderType != #{orderType,jdbcType=BIT}
+        and startDate >= NOW();
     </select>
 
 

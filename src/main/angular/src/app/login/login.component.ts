@@ -39,9 +39,12 @@ export class LoginComponent implements OnInit {
           this.isSitter = data.userType === 'SITTER';
           localStorage.setItem('isSitter', JSON.stringify(this.isSitter));
           localStorage.setItem('currentUserID', JSON.stringify(this.currentUserID));
-          this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
+          if (data.userType === 'SITTER') {
+            this.router.navigate(['/dashboard', {outlets: {'aux': ['orderlists']}}]);
+          } else {
+            this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
+          }
         }
-        ;
 
         if (data === null) {
           this.loginForm.controls['password'].setErrors({

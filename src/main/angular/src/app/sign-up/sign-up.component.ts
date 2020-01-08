@@ -61,7 +61,6 @@ export class SignUpComponent implements OnInit {
         if (!data) {
           this.invalidsignup = true;
         }
-        ;
       },
       error => {
         console.log('error');
