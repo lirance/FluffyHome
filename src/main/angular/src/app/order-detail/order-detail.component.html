@@ -1,15 +1,16 @@
 <div *ngIf='orderDetail' class="text-center text-dark">
   <div class="card text-center">
     <div class="card-header text-muted">
-      <p>Order ID:  {{orderDetail.orderid}}</p>
+      <p>Order ID:  {{orderDetail.orderId}}</p>
+      <p *ngIf="orderDetail.orderType"> This is a Charged Order (not using credits)</p>
     </div>
 
     <div class="card-body">
       <div class="col-center-block text-center">
         <dl class="row text-left">
 
-          <dt *ngIf="!ifSitter" class="col-sm-3">Credits :</dt>
-          <dd *ngIf="!ifSitter" class="col-sm-9"><p>{{orderDetail.credits}}</p>
+          <dt *ngIf="!orderDetail.orderType" class="col-sm-3">Credits :</dt>
+          <dd *ngIf="!orderDetail.orderType" class="col-sm-9"><p>{{orderDetail.credits}}</p>
           </dd>
 
           <dt class="col-sm-3">Zip :</dt>
@@ -33,7 +34,7 @@
           <dt class="col-sm-3">Poster & Pets :</dt>
           <dd class="col-sm-9">
             <a
-              [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', orderDetail.maker.userid]}}]">{{orderDetail.maker.username}}</a>
+              [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', orderDetail.maker.userId]}}]">{{orderDetail.maker.username}}</a>
           </dd>
 
           <dt class="col-sm-3">State :</dt>
@@ -42,10 +43,10 @@
           <dt class="col-sm-3">Acceptor :</dt>
           <dd class="col-sm-9">
             <a *ngIf="orderDetail.recipient != null"
-               [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', orderDetail.recipient.userid]}}]">{{orderDetail.recipient.username}}</a>
+               [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', orderDetail.recipient.userId]}}]">{{orderDetail.recipient.username}}</a>
             <p *ngIf="orderDetail.recipient == null">Haven't accepted by other user!
-              <a routerLink=" " *ngIf="orderDetail.maker.userid != currentUserId" class="card-link"
-                 (click)="accept(orderDetail.orderid)">Accept</a>
+              <a routerLink=" " *ngIf="orderDetail.maker.userId != currentUserId" class="card-link"
+                 (click)="accept(orderDetail.orderId)">Accept</a>
             </p>
           </dd>
         </dl>
@@ -54,7 +55,7 @@
       <div class="button-block">
         <div class="text-center row">
           <div *ngIf="orderDetail.status!='COMPLETED'&&orderDetail.maker != null && orderDetail.recipient !=null
-        && (orderDetail.maker.userid == currentUserId )"
+        && (orderDetail.maker.userId == currentUserId )"
                class="text-center col">
             <button type="button" class="btn btn-primary" (click)="complete()">
               Complete
@@ -63,14 +64,14 @@
 
 
           <div class="text-center col "
-               *ngIf='orderDetail.status == "ACCEPTED" && orderDetail.recipient.userid == currentUserId'>
+               *ngIf='orderDetail.status == "ACCEPTED" && orderDetail.recipient.userId == currentUserId'>
             <button type="button" class="btn btn-primary" (click)="cancelAcceptedOrder()">
               Cancel
             </button>
           </div>
 
           <div class="text-center col"
-               *ngIf='orderDetail.status == "ORDERED" && orderDetail.maker.userid == currentUserId'>
+               *ngIf='orderDetail.status == "ORDERED" && orderDetail.maker.userId == currentUserId'>
             <button type="button" class="btn btn-primary" (click)="deleteOrder()">
               Delete
             </button>

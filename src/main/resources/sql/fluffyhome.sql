@@ -1,76 +1,87 @@
 
 ------------------------------------
-
+DROP TABLE IF EXISTS `order_request`
 DROP TABLE IF EXISTS `user_order`;
 DROP TABLE IF EXISTS `order`;
 DROP TABLE IF EXISTS `user_pet`;
 DROP TABLE IF EXISTS `user`;
 
 
-------------------------------------
---user table
-CREATE TABLE `user` (
-  `userId` int(20) NOT NULL AUTO_INCREMENT,
-  `userName` varchar(40) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `phone` varchar(255) NOT NULL unique ,
-  `credits` int(20) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `zip` int(255) NOT NULL ,
-  `latlng` varchar (255) NOT NULL,
-  `email`  varchar (255) NOT NULL ,
-  `rateNumber` int(20) NOT NULL ,
-  `averageRate` float (7,2) NOT NULL ,
-  `userType` varchar (255) NOT NULL ,
-  `avaliableDate` varchar (255),
-  `avaliableWeekday` varchar (255),
-  PRIMARY KEY (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+create table `order`
+(
+  orderId          int(20) auto_increment
+    primary key,
+  status           varchar(255)         not null,
+  orderType        tinyint(1) default 0 null,
+  credits          int(20)              not null,
+  address          varchar(255)         not null,
+  zip              int(255)             not null,
+  latlng           varchar(255)         not null,
+  startDate        timestamp            not null,
+  endDate          timestamp            not null,
+  orderDescription varchar(255)         null
+);
 
---------------------------------------
---user_pet table
-CREATE TABLE `user_pet` (
-  `userId` int(20) NOT NULL ,
-  `petId` int (20) NOT NULL AUTO_INCREMENT,
-  `petType` varchar (255) NOT NULL ,
-  `petName` varchar (255) NOT NULL ,
-  `petInfo` varchar (255) NOT NULL,
-  PRIMARY KEY (`petId`),
-  FOREIGN KEY fk_uId(userId) REFERENCES `user`(userId)
-)ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+create table user
+(
+  userId           int(20) auto_increment
+    primary key,
+  userName         varchar(40)  not null,
+  password         varchar(255) not null,
+  phone            varchar(255) not null,
+  credits          int(20)      not null,
+  address          varchar(255) not null,
+  zip              int(255)     not null,
+  latlng           varchar(255) not null,
+  email            varchar(255) not null,
+  rateNumber       int(20)      not null,
+  averageRate      float(7, 2)  not null,
+  userType         varchar(255) not null,
+  avaliableDate    varchar(255) null,
+  avaliableWeekday varchar(255) null,
+  constraint phone
+    unique (phone)
+);
 
+create table user_order
+(
+  userId    int(20)              not null,
+  orderId   int(20)              not null,
+  rateFlag  tinyint(1) default 0 null,
+  makerType tinyint(1) default 1 null,
+  rate      float(7, 2)          null,
+  primary key (orderId, userId),
+  constraint fk_uoId
+    foreign key (orderId) references `order` (orderId),
+  constraint fk_uouId
+    foreign key (userId) references user (userId)
+);
 
-------------------------------------
---order table
+create table user_pet
+(
+  userId  int(20)      not null,
+  petId   int(20) auto_increment
+    primary key,
+  petType varchar(255) not null,
+  petName varchar(255) not null,
+  petInfo varchar(255) not null,
+  constraint fk_uId
+    foreign key (userId) references user (userId)
+);
 
-CREATE TABLE `order` (
-  `orderId` int(20) NOT NULL AUTO_INCREMENT,
-  `petId` int(20) NOT NULL ,
-  `destination` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
-  `orderType` boolean DEFAULT 0,
-  `credits` int(20) NOT NULL ,
-  `address` varchar(255) NOT NULL,
-  `zip` int(255) NOT NULL ,
-  `latlng` varchar (255) NOT NULL,
-  `startDate` date NOT NULL,
-  `endDate` date NOT NULL,
-  PRIMARY KEY (`orderId`),
-  FOREIGN KEY fk_pId(petId) REFERENCES `user_pet`(petId)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--------------------------------------
---user_order table
-
-CREATE TABLE `user_order` (
-  `userId` int(20) NOT NULL,
-  `orderId` int(20) NOT NULL,
-  `rateFlag` boolean DEFAULT 0,
-  `makerType` boolean DEFAULT 1,
-  `rate`  float (7,2),
-  CONSTRAINT PK_UO PRIMARY KEY (`orderId`,`userId`),
-  FOREIGN KEY fk_uoId(orderId) REFERENCES `order`(orderId),
-  FOREIGN KEY fk_uouId(userId) REFERENCES `user`(userId)
-)ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
+create table order_request
+(
+  fuId int(20)      not null,
+  tuId int(20)      not null,
+  orderId int (20)  not null,
+  status varchar(255)  not null,
+  expire timestamp  not null,
+  primary key (tuId, orderId),
+  constraint fk_fuId
+    foreign key (fuId) references user (userId),
+  constraint fk_tuId
+    foreign key (tuId) references user (userId),
+  constraint fk_roId
+    foreign key (orderId) references  `order` (orderId)
+)
 

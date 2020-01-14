@@ -95,14 +95,14 @@ public class UserController {
     }
 
     @RequestMapping("/getUserById")
-    public User getUserById(int userid) {
-        return userService.selectByPrimaryKey(userid);
+    public User getUserById(int userId) {
+        return userService.selectByPrimaryKey(userId);
     }
 
     @RequestMapping("/editProfile")
-    public boolean editProfile(String username, String phone, String address, int userid, int zip, String email, String avaliableWeekday) {
+    public boolean editProfile(String username, String phone, String address, int userId, int zip, String email, String avaliableWeekday) {
         try {
-            User user = userService.selectByPrimaryKey(userid);
+            User user = userService.selectByPrimaryKey(userId);
 
             user.setUsername(username);
             user.setAddress(address);
@@ -124,8 +124,8 @@ public class UserController {
     }
 
     @RequestMapping("/getP2PSitters")
-    public List<User> getp2pSitters(int userid) {
-        return userService.getSitters(userid, false);
+    public List<User> getp2pSitters(int userId) {
+        return userService.getSitters(userId, false);
     }
 
     @RequestMapping("/getSitters")

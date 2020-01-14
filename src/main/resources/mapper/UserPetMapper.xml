@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.oregonstate.fluffyhome.mapper.UserPetMapper">
     <resultMap id="BaseResultMap" type="edu.oregonstate.fluffyhome.model.UserPet">
-        <id column="petId" jdbcType="INTEGER" property="petid"/>
-        <result column="userId" jdbcType="INTEGER" property="userid"/>
-        <result column="petType" jdbcType="VARCHAR" property="pettype"/>
-        <result column="petName" jdbcType="VARCHAR" property="petname"/>
-        <result column="petInfo" jdbcType="VARCHAR" property="petinfo"/>
+        <id column="petId" jdbcType="INTEGER" property="petId"/>
+        <result column="userId" jdbcType="INTEGER" property="userId"/>
+        <result column="petType" jdbcType="VARCHAR" property="petType"/>
+        <result column="petName" jdbcType="VARCHAR" property="petName"/>
+        <result column="petInfo" jdbcType="VARCHAR" property="petInfo"/>
     </resultMap>
     <sql id="Base_Column_List">
     petId, userId, petType, petName, petInfo
@@ -15,86 +15,86 @@
         select
         <include refid="Base_Column_List"/>
         from user_pet
-        where petId = #{petid,jdbcType=INTEGER}
+        where petId = #{petId,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_pet
-    where petId = #{petid,jdbcType=INTEGER}
+    where petId = #{petId,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="edu.oregonstate.fluffyhome.model.UserPet">
     insert into user_pet (userId, petType,
       petName, petInfo)
-    values (#{userid,jdbcType=INTEGER}, #{pettype,jdbcType=VARCHAR},
-      #{petname,jdbcType=VARCHAR}, #{petinfo,jdbcType=VARCHAR})
+    values (#{userId,jdbcType=INTEGER}, #{petType,jdbcType=VARCHAR},
+      #{petName,jdbcType=VARCHAR}, #{petInfo,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="edu.oregonstate.fluffyhome.model.UserPet">
         insert into user_pet
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="petid != null">
+            <if test="petId != null">
                 petId,
             </if>
-            <if test="userid != null">
+            <if test="userId != null">
                 userId,
             </if>
-            <if test="pettype != null">
+            <if test="petType != null">
                 petType,
             </if>
-            <if test="petname != null">
+            <if test="petName != null">
                 petName,
             </if>
-            <if test="petinfo != null">
+            <if test="petInfo != null">
                 petInfo,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="petid != null">
-                #{petid,jdbcType=INTEGER},
+            <if test="petId != null">
+                #{petId,jdbcType=INTEGER},
             </if>
-            <if test="userid != null">
-                #{userid,jdbcType=INTEGER},
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
             </if>
-            <if test="pettype != null">
-                #{pettype,jdbcType=VARCHAR},
+            <if test="petType != null">
+                #{petType,jdbcType=VARCHAR},
             </if>
-            <if test="petname != null">
-                #{petname,jdbcType=VARCHAR},
+            <if test="petName != null">
+                #{petName,jdbcType=VARCHAR},
             </if>
-            <if test="petinfo != null">
-                #{petinfo,jdbcType=VARCHAR},
+            <if test="petInfo != null">
+                #{petInfo,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="edu.oregonstate.fluffyhome.model.UserPet">
         update user_pet
         <set>
-            <if test="userid != null">
-                userId = #{userid,jdbcType=INTEGER},
+            <if test="userId != null">
+                userId = #{userId,jdbcType=INTEGER},
             </if>
-            <if test="pettype != null">
-                petType = #{pettype,jdbcType=VARCHAR},
+            <if test="petType != null">
+                petType = #{petType,jdbcType=VARCHAR},
             </if>
-            <if test="petname != null">
-                petName = #{petname,jdbcType=VARCHAR},
+            <if test="petName != null">
+                petName = #{petName,jdbcType=VARCHAR},
             </if>
-            <if test="petinfo != null">
-                petInfo = #{petinfo,jdbcType=VARCHAR},
+            <if test="petInfo != null">
+                petInfo = #{petInfo,jdbcType=VARCHAR},
             </if>
         </set>
-        where petId = #{petid,jdbcType=INTEGER}
+        where petId = #{petId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="edu.oregonstate.fluffyhome.model.UserPet">
     update user_pet
     set
-      petType = #{pettype,jdbcType=VARCHAR},
-      petName = #{petname,jdbcType=VARCHAR},
-      petInfo = #{petinfo,jdbcType=VARCHAR}
-    where petId = #{petid,jdbcType=INTEGER}
+      petType = #{petType,jdbcType=VARCHAR},
+      petName = #{petName,jdbcType=VARCHAR},
+      petInfo = #{petInfo,jdbcType=VARCHAR}
+    where petId = #{petId,jdbcType=INTEGER}
   </update>
 
     <select id="getUserPets" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from `user_pet`
-        where userId = #{userid,jdbcType=INTEGER}
+        where userId = #{userId,jdbcType=INTEGER}
     </select>
 </mapper>

@@ -27,12 +27,12 @@ public class UserPetController {
     }
 
     @RequestMapping("/addPet")
-    public boolean addPet(int userid, String petType, String petName, String petInfo) {
+    public boolean addPet(int userId, String petType, String petName, String petInfo) {
         UserPet userPet = new UserPet();
-        userPet.setPetname(petName);
-        userPet.setUserid(userid);
-        userPet.setPetinfo(petInfo);
-        userPet.setPettype(petType);
+        userPet.setPetName(petName);
+        userPet.setUserId(userId);
+        userPet.setPetInfo(petInfo);
+        userPet.setPetType(petType);
 
         try {
 
@@ -43,12 +43,12 @@ public class UserPetController {
     }
 
     @RequestMapping("/editPetInfo")
-    public boolean editPetInfo(int petid, String petType, String petName, String petInfo) {
+    public boolean editPetInfo(int petId, String petType, String petName, String petInfo) {
         UserPet userPet = new UserPet();
-        userPet.setPetid(petid);
-        userPet.setPetname(petName);
-        userPet.setPetinfo(petInfo);
-        userPet.setPettype(petType);
+        userPet.setPetId(petId);
+        userPet.setPetName(petName);
+        userPet.setPetInfo(petInfo);
+        userPet.setPetType(petType);
 
         try {
 
@@ -59,9 +59,9 @@ public class UserPetController {
     }
 
     @RequestMapping("/getPetInfoById")
-    public UserPet getPetById(int petid) {
+    public UserPet getPetById(int petId) {
         try {
-            return userPetService.selectByPrimaryKey(petid);
+            return userPetService.selectByPrimaryKey(petId);
         } catch (Exception e) {
             return null;
         }
@@ -69,9 +69,9 @@ public class UserPetController {
 
 
     @RequestMapping("/getUserPets")
-    public List<UserPet> getUserPets(int userid) {
+    public List<UserPet> getUserPets(int userId) {
         try {
-            return userPetService.getUserPets(userid);
+            return userPetService.getUserPets(userId);
         } catch (Exception e) {
             return null;
         }

@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {Order, User} from '../_models';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {AcceptDialogComponent} from '../accept-dialog/accept-dialog.component';
+import {RequestDialogComponent} from '../request-dialog/request-dialog.component';
 
 @Component({
   selector: 'app-dashhome',
@@ -63,29 +64,26 @@ export class DashhomeComponent implements OnInit {
     });
   }
 
-  // accept(orderid: string) {
-  //   this.orderService.acceptOrder(this.currentUserID, orderid).pipe(first()).subscribe(result => {
-  //     result.toString();
-  //     console.log(result);
-  //     this.acceptResult = result;
-  //     this.openAcceptDialog();
-  //   });
-  //
-  // }
-  //
-  // openAcceptDialog(): void {
-  //
-  //   const dialogConfig = new MatDialogConfig();
-  //
-  //   dialogConfig.disableClose = true;
-  //   dialogConfig.autoFocus = true;
-  //
-  //   dialogConfig.data = {
-  //     acceptResult: this.acceptResult
-  //   };
-  //
-  //   this.dialog.open(AcceptDialogComponent, dialogConfig);
-  // }
+  sendRequest(userId: number, sitterType: boolean) {
+    this.openRequestDialog(userId, sitterType);
+
+  }
+
+  openRequestDialog(userId: number, sitterType: boolean): void {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      userId: userId,
+      sitterType: sitterType,
+      acceptResult: this.acceptResult
+    };
+
+    this.dialog.open(RequestDialogComponent, dialogConfig);
+  }
 
 
 }

@@ -1,7 +1,7 @@
 ﻿import {AvaliableWeekday} from './avaliableWeekday';
 
 export class User {
-  userid: number;
+  userId: number;
   username: string;
   password: string;
   phone: string;

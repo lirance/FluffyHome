@@ -12,7 +12,7 @@
       <div class="col-center-block text-center">
         <dl class="row text-left">
           <dt class="col-sm-3">User ID :</dt>
-          <dd class="col-sm-9"><p>{{currentUser.userid}}</p>
+          <dd class="col-sm-9"><p>{{currentUser.userId}}</p>
           </dd>
 
           <dt class="col-sm-3">User Email :</dt>
@@ -74,13 +74,13 @@
       <div *ngFor="let pet of userPets" class="col-md-4">
         <div class="card mb-4 box-shadow">
           <div class="card-body">
-            <h5 class="card-title"> {{pet.petid}}</h5>
+            <h5 class="card-title"> {{pet.petId}}</h5>
           </div>
 
           <ul class="list-group list-group-flush text-left">
-            <li class="list-group-item"><b>Pet Name: </b>{{pet.petname}}</li>
-            <li class="list-group-item"><b>Pet Type: </b>{{pet.pettype}} </li>
-            <li class="list-group-item"><b>Pet Info: </b>{{pet.petinfo}} </li>
+            <li class="list-group-item"><b>Pet Name: </b>{{pet.petName}}</li>
+            <li class="list-group-item"><b>Pet Type: </b>{{pet.petType}} </li>
+            <li class="list-group-item"><b>Pet Info: </b>{{pet.petInfo}} </li>
           </ul>
 
         </div>

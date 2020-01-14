@@ -1,4 +1,5 @@
 <h2 class="text-dark">Orders</h2>
+<h5 class="text-dark">accept orders to get credits!</h5>
 <br/>
 <br/>
 
@@ -6,7 +7,7 @@
   <div *ngFor="let order of orderList" class="col-md-4">
     <div class="card mb-4 box-shadow">
       <div class="card-body">
-        <h5 class="card-title"> {{order.orderid}} </h5>
+        <h5 class="card-title"> {{order.orderId}} </h5>
       </div>
 
       <ul class="list-group list-group-flush text-left">
@@ -18,9 +19,9 @@
       </ul>
 
       <div class="card-body">
-        <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderid]}}]" class="card-link">See
+        <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]" class="card-link">See
           Detail</a>
-        <a routerLink=" " *ngIf="order.maker.userid != currentUserID" class="card-link" (click)="accept(order.orderid)">Accept</a>
+        <a routerLink=" " *ngIf="order.maker.userId != currentUserID" class="card-link" (click)="accept(order.orderId)">Accept</a>
       </div>
 
     </div>

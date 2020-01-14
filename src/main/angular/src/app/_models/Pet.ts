@@ -1,7 +1,7 @@
 export class Pet {
-  userid: number;
-  petid: number;
-  pettype: string;
-  petname: string;
-  petinfo: string;
+  userId: number;
+  petId: number;
+  petType: string;
+  petName: string;
+  petInfo: string;
 }

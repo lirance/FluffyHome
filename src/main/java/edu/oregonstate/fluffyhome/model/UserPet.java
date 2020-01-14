@@ -1,53 +1,53 @@
 package edu.oregonstate.fluffyhome.model;
 
 public class UserPet {
-    private Integer petid;
+    private Integer petId;
 
-    private Integer userid;
+    private Integer userId;
 
-    private String pettype;
+    private String petType;
 
-    private String petname;
+    private String petName;
 
-    private String petinfo;
+    private String petInfo;
 
-    public Integer getPetid() {
-        return petid;
+    public Integer getPetId() {
+        return petId;
     }
 
-    public void setPetid(Integer petid) {
-        this.petid = petid;
+    public void setPetId(Integer petId) {
+        this.petId = petId;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getPettype() {
-        return pettype;
+    public String getPetType() {
+        return petType;
     }
 
-    public void setPettype(String pettype) {
-        this.pettype = pettype == null ? null : pettype.trim();
+    public void setPetType(String petType) {
+        this.petType = petType == null ? null : petType.trim();
     }
 
-    public String getPetname() {
-        return petname;
+    public String getPetName() {
+        return petName;
     }
 
-    public void setPetname(String petname) {
-        this.petname = petname == null ? null : petname.trim();
+    public void setPetName(String petName) {
+        this.petName = petName == null ? null : petName.trim();
     }
 
-    public String getPetinfo() {
-        return petinfo;
+    public String getPetInfo() {
+        return petInfo;
     }
 
-    public void setPetinfo(String petinfo) {
-        this.petinfo = petinfo == null ? null : petinfo.trim();
+    public void setPetInfo(String petInfo) {
+        this.petInfo = petInfo == null ? null : petInfo.trim();
     }
 }

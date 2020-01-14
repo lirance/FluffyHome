@@ -28,11 +28,11 @@ export class AddPetComponent implements OnInit {
 
   ngOnInit() {
     this.petForm = this.formBuilder.group({
-      userid: [],
-      petid: [],
-      pettype: ['', Validators.required],
-      petname: ['', Validators.required],
-      petinfo: []
+      userId: [],
+      petId: [],
+      petType: ['', Validators.required],
+      petName: ['', Validators.required],
+      petInfo: []
     })
     ;
   }
@@ -43,8 +43,8 @@ export class AddPetComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.petForm.value.userid = localStorage.getItem('currentUserID');
-    this.petForm.value.petid = '0';
+    this.petForm.value.userId = localStorage.getItem('currentUserID');
+    this.petForm.value.petId = '0';
     if (this.petForm.invalid) {
       return;
     }

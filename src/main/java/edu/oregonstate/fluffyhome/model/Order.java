@@ -3,7 +3,7 @@ package edu.oregonstate.fluffyhome.model;
 import java.util.Date;
 
 public class Order {
-    private Integer orderid;
+    private Integer orderId;
 
     private String orderDescription;
 
@@ -23,12 +23,12 @@ public class Order {
 
     private Date endDate;
 
-    public Integer getOrderid() {
-        return orderid;
+    public Integer getOrderId() {
+        return orderId;
     }
 
-    public void setOrderid(Integer orderid) {
-        this.orderid = orderid;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
     public String getorderDescription() {

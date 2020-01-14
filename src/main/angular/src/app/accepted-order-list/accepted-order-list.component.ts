@@ -32,18 +32,18 @@ export class AcceptedOrderListComponent implements OnInit {
     });
   }
 
-  rate(orderid: number, state: string) {
-    this.openRateDialog(orderid, state);
+  rate(orderId: number, state: string) {
+    this.openRateDialog(orderId, state);
 
   }
 
-  openRateDialog(orderid: number, state: string): void {
+  openRateDialog(orderId: number, state: string): void {
 
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = {orderid: orderid, state: state};
+    dialogConfig.data = {orderId: orderId, state: state};
 
     this.dialog.open(RateOrderDialogComponent, dialogConfig);
   }

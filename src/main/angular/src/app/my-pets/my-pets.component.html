@@ -4,18 +4,18 @@
   <div *ngFor="let pet of petList" class="col-md-4">
     <div class="card mb-4 box-shadow">
       <div class="card-body">
-        <h5 class="card-title"> {{pet.petid}}</h5>
-        <!--        <h6 class="card-subtitle mb-2 text-muted">Pet Name: {{pet.petname}} </h6>-->
+        <h5 class="card-title"> {{pet.petId}}</h5>
+        <!--        <h6 class="card-subtitle mb-2 text-muted">Pet Name: {{pet.petName}} </h6>-->
       </div>
 
       <ul class="list-group list-group-flush text-left">
-        <li class="list-group-item">Pet Name: {{pet.petname}}</li>
-        <li class="list-group-item">Pet Type: {{pet.pettype}} </li>
-        <li class="list-group-item">Pet Info: {{pet.petinfo}} </li>
+        <li class="list-group-item">Pet Name: {{pet.petName}}</li>
+        <li class="list-group-item">Pet Type: {{pet.petType}} </li>
+        <li class="list-group-item">Pet Info: {{pet.petInfo}} </li>
       </ul>
 
       <div class="card-body">
-        <a [routerLink]="['/dashboard', {outlets: {'aux': ['editpet', pet.petid]}}]" class="card-link">Edit</a>
+        <a [routerLink]="['/dashboard', {outlets: {'aux': ['editpet', pet.petId]}}]" class="card-link">Edit</a>
       </div>
 
     </div>

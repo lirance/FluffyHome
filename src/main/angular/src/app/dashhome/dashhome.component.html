@@ -15,7 +15,10 @@
     <div *ngFor="let sitter of p2psitters" class="col-md-4">
       <div class="card mb-4 box-shadow">
         <div class="card-body">
-          <h5 class="card-title"> {{sitter.username}} </h5>
+          <h5 class="card-title">
+            <a [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', sitter.userId]}}]">
+              {{sitter.username}}</a>
+          </h5>
         </div>
 
         <ul class="list-group list-group-flush text-left">
@@ -27,7 +30,9 @@
         </ul>
 
         <div class="card-body">
-          <a [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', sitter.userid]}}]">User Profile</a>
+          <button type="button" class="btn btn-outline-primary"
+                  (click)="sendRequest(sitter.userId,false)">Send Request
+          </button>
         </div>
 
       </div>
@@ -40,7 +45,10 @@
     <div *ngFor="let sitter of sitters" class="col-md-4">
       <div class="card mb-4 box-shadow">
         <div class="card-body">
-          <h5 class="card-title"> {{sitter.username}} </h5>
+          <h5 class="card-title">
+            <a [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', sitter.userId]}}]">
+              {{sitter.username}}</a>
+          </h5>
         </div>
 
         <ul class="list-group list-group-flush text-left">
@@ -52,7 +60,9 @@
         </ul>
 
         <div class="card-body">
-          <a [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', sitter.userid]}}]">User Profile</a>
+          <button type="button" class="btn btn-outline-primary"
+                  (click)="sendRequest(sitter.userId,true)">Send Request
+          </button>
         </div>
 
       </div>

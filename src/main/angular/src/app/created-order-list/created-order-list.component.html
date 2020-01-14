@@ -2,19 +2,12 @@
   <div *ngFor="let order of createdOrderList" class="col-md-4">
     <div class="card mb-4 box-shadow">
       <div class="card-body">
-        <h5 class="card-title"> {{order.orderid}} </h5>
+        <h5 class="card-title"> {{order.orderId}} </h5>
       </div>
 
-      <!--      <ul class="list-group list-group-flush text-left">-->
-      <!--        <li class="list-group-item">Credits for this order: {{order.credits}} </li>-->
-      <!--        <li class="list-group-item">Order Description: {{order.orderDescription}} </li>-->
-      <!--        <li class="list-group-item">Zip: {{order.zip}} </li>-->
-      <!--        <li class="list-group-item">Start Date: {{order.startDate|date}} </li>-->
-      <!--        <li class="list-group-item">End Date: {{order.endDate|date}} </li>-->
-      <!--      </ul>-->
-
       <ul class="list-group list-group-flush text-left">
-        <li class="list-group-item"><b>Credits : </b>{{order.credits}} </li>
+        <li *ngIf="!order.orderType" class="list-group-item"><b>Credits : </b>{{order.credits}} </li>
+        <li *ngIf="order.orderType" class="list-group-item">Charged Order</li>
         <li class="list-group-item"><b>Order Description :</b> {{order.orderDescription}} </li>
         <li class="list-group-item"><b>Zip :</b> {{order.zip}} </li>
         <li class="list-group-item"><b>Start Date :</b> {{order.startDate|date}} </li>
@@ -23,10 +16,13 @@
 
 
       <div class="card-body">
-        <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderid]}}]" class="card-link">See
+        <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]" class="card-link">See
           Detail</a>
-        <a *ngIf="order.status=='COMPLETED'&&!order.rated" (click)="rate(order.orderid, order.status)"
+        <a *ngIf="order.status=='COMPLETED'&&!order.rated" (click)="rate(order.orderId, order.status)"
            class="card-link text-primary">Rate</a>
+
+        <a *ngIf="order.status=='ORDERED'&&!order.orderType" (click)="changeOrderType(order.orderId)"
+           class="card-link text-primary">Change to Charged Order</a>
       </div>
 
     </div>

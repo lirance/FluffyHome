@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       data => {
 
         if (data !== null) {
-          this.currentUserID = data.userid;
+          this.currentUserID = data.userId;
           this.isSitter = data.userType === 'SITTER';
           localStorage.setItem('isSitter', JSON.stringify(this.isSitter));
           localStorage.setItem('currentUserID', JSON.stringify(this.currentUserID));

@@ -2,7 +2,7 @@ package edu.oregonstate.fluffyhome.model;
 
 public class User extends BaseModelObject {
 
-    private Integer userid;
+    private Integer userId;
 
     private String username;
 
@@ -30,12 +30,12 @@ public class User extends BaseModelObject {
 
     private Float averageRate;
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {

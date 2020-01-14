@@ -36,7 +36,7 @@ const routes: Routes = [
       {path: 'createorder', component: CreateOrderComponent, outlet: 'aux'},
       {path: 'myorder', component: MyOrderComponent, outlet: 'aux'},
       {path: 'sitterorder', component: SitterOrderComponent, outlet: 'aux'},
-      {path: 'orderdetail/:orderid', component: OrderDetailComponent, outlet: 'aux'},
+      {path: 'orderdetail/:orderId', component: OrderDetailComponent, outlet: 'aux'},
       {path: 'publicprofile/:userid', component: PublicProfileComponent, outlet: 'aux'},
       {path: 'myprofile/:userid', component: MyProfileComponent, outlet: 'aux'},
       {path: 'mypets/:userid', component: MyPetsComponent, outlet: 'aux'},

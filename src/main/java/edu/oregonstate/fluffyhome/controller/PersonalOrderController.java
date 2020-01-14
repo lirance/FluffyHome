@@ -1,6 +1,7 @@
 package edu.oregonstate.fluffyhome.controller;
 
 import edu.oregonstate.fluffyhome.model.*;
+import edu.oregonstate.fluffyhome.service.OrderRequestService;
 import edu.oregonstate.fluffyhome.service.OrderService;
 import edu.oregonstate.fluffyhome.service.UserOrderService;
 import edu.oregonstate.fluffyhome.service.UserService;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -27,16 +27,18 @@ public class PersonalOrderController {
     private final UserOrderService userOrderService;
     private final OrderService orderService;
     private final UserService userService;
+    private final OrderRequestService orderRequestService;
 
     @Autowired
-    public PersonalOrderController(UserOrderService userOrderService, OrderService orderService, UserService userService) {
+    public PersonalOrderController(UserOrderService userOrderService, OrderService orderService, UserService userService, OrderRequestService orderRequestService) {
         this.userOrderService = userOrderService;
         this.orderService = orderService;
         this.userService = userService;
+        this.orderRequestService = orderRequestService;
     }
 
     @RequestMapping("/create")
-    public String createOrder(Date startDate, Date endDate, String orderDescription, boolean orderType, int userid) {
+    public String createOrder(Date startDate, Date endDate, String orderDescription, boolean orderType, int userId) {
 
         try {
 
@@ -44,7 +46,7 @@ public class PersonalOrderController {
             UserOrder userOrder = new UserOrder();
             Order order = new Order();
 
-            userOrder.setUserid(userid);
+            userOrder.setUserId(userId);
 
             order.setStatus(Status.ORDERED.toString());
             order.setStartDate(startDate);
@@ -55,14 +57,14 @@ public class PersonalOrderController {
             // false means normal order.
             order.setOrderType(orderType);
 
-            User user = userService.selectByPrimaryKey(userid);
+            User user = userService.selectByPrimaryKey(userId);
 
             if (orderType) {
                 credits = 0;
             } else if (credits > user.getCredits()) {
                 return "credit is not enough";
             }
-            order.setCredits(StaticParams.CREDITS_PER_DAY * days);
+            order.setCredits(credits);
 
             order.setZip(user.getZip());
             order.setAddress(user.getAddress());
@@ -73,7 +75,7 @@ public class PersonalOrderController {
 
             if (orderService.insert(order) == 1) {
                 userOrder.setMakerType(true);
-                userOrder.setOrderid(order.getOrderid());
+                userOrder.setOrderId(order.getOrderId());
                 if (userOrderService.insert(userOrder) == 1) {
                     //new credits.
                     user.setCredits(user.getCredits() - credits);
@@ -103,8 +105,8 @@ public class PersonalOrderController {
             u.setCredits(order.getCredits() + u.getCredits());
 
             UserOrderKey userOrderKey = new UserOrderKey();
-            userOrderKey.setUserid(userId);
-            userOrderKey.setOrderid(orderId);
+            userOrderKey.setUserId(userId);
+            userOrderKey.setOrderId(orderId);
 
             UserOrder userOrder = userOrderService.selectByPrimaryKey(userOrderKey);
             if (userOrder == null || !userOrder.getMakerType()) {
@@ -126,11 +128,11 @@ public class PersonalOrderController {
 
 
     @RequestMapping("/accept")
-    public boolean AcceptOrder(int orderId, int userId) {
+    public boolean acceptOrder(int orderId, int userId) {
 
         UserOrder userOrder = new UserOrder();
-        userOrder.setOrderid(orderId);
-        userOrder.setUserid(userId);
+        userOrder.setOrderId(orderId);
+        userOrder.setUserId(userId);
         // not order maker, order accepter
         userOrder.setMakerType(false);
 
@@ -169,8 +171,8 @@ public class PersonalOrderController {
             }
 
             UserOrderKey userOrderKey = new UserOrderKey();
-            userOrderKey.setOrderid(orderId);
-            userOrderKey.setUserid(userId);
+            userOrderKey.setOrderId(orderId);
+            userOrderKey.setUserId(userId);
             if (userOrderService.deleteByPrimaryKey(userOrderKey) != 1) {
                 return false;
             }
@@ -186,8 +188,8 @@ public class PersonalOrderController {
     @RequestMapping("/complete")
     public boolean completeOrder(int orderId, int userId, int recipientId) {
         UserOrderKey userOrderKey = new UserOrderKey();
-        userOrderKey.setUserid(userId);
-        userOrderKey.setOrderid(orderId);
+        userOrderKey.setUserId(userId);
+        userOrderKey.setOrderId(orderId);
 
         try {
             if (userOrderService.selectByPrimaryKey(userOrderKey) == null) {
@@ -218,8 +220,8 @@ public class PersonalOrderController {
     @RequestMapping("/rate")
     public boolean RateOrder(int orderId, int userId, float rate) {
         UserOrderKey userOrderKey = new UserOrderKey();
-        userOrderKey.setUserid(userId);
-        userOrderKey.setOrderid(orderId);
+        userOrderKey.setUserId(userId);
+        userOrderKey.setOrderId(orderId);
 
         try {
             // the order status is not completed.
@@ -233,7 +235,7 @@ public class PersonalOrderController {
             }
 
             if (userOrderService.setRate(orderId, userId, rate)) {
-                int rateUserId = userOrderService.getRateUser(userOrderKey).getUserid();
+                int rateUserId = userOrderService.getRateUser(userOrderKey).getUserId();
                 User user = userService.selectByPrimaryKey(rateUserId);
 
 
@@ -256,4 +258,80 @@ public class PersonalOrderController {
 
         return false;
     }
+
+    /**
+     * this function let user can change their credits order to none-credits order, this cannot be undo.
+     *
+     * @return
+     */
+    @RequestMapping("/changeOrderType")
+    public boolean changeOrderType(int orderId, int userId) {
+        try {
+            Order order = orderService.selectByPrimaryKey(orderId);
+
+            if (order.getStatus().equals(Status.ORDERED.toString()) && !order.getOrderType()) {
+
+                User u = userService.selectByPrimaryKey(userId);
+                u.setCredits(order.getCredits() + u.getCredits());
+
+                order.setCredits(0);
+                order.setOrderType(true);
+                //delete order & update user credits.
+                return orderService.updateByPrimaryKey(order) == 1 && userService.updateByPrimaryKey(u) == 1;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+
+    }
+
+
+
+    @RequestMapping("request/create")
+    public boolean createRequest(int orderId, Date startDate, int fuId, int tuId) {
+        try {
+
+            OrderRequest orderRequest = new OrderRequest();
+            orderRequest.setExpire(startDate);
+            orderRequest.setFuId(fuId);
+            orderRequest.setStatus(Status.REQUESTED.toString());
+            orderRequest.setTuId(tuId);
+            orderRequest.setOrderId(orderId);
+
+            return orderRequestService.insert(orderRequest) == 1;
+
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @RequestMapping("request/response")
+    public boolean acceptRequest(int orderId, int tuId, boolean accept) {
+        try {
+            OrderRequestKey orderRequestKey = new OrderRequestKey();
+            orderRequestKey.setTuId(tuId);
+            orderRequestKey.setOrderId(orderId);
+
+            OrderRequest orderRequest = orderRequestService.selectByPrimaryKey(orderRequestKey);
+
+            if (orderRequest != null) {
+                // set request status
+                if (accept) {
+                    // accept
+                    orderRequest.setStatus(Status.ACCEPTED.toString());
+                    return this.acceptOrder(orderId, tuId) && orderRequestService.updateByPrimaryKey(orderRequest) == 1;
+                } else {
+                    // decline
+                    orderRequest.setStatus(Status.REFUSED.toString());
+                    return orderRequestService.updateByPrimaryKey(orderRequest) == 1;
+                }
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
+
 }

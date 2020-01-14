@@ -8,8 +8,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AboutUsComponent} from './aboutUs/aboutUs.component';
 import {HomeComponent} from './home/home.component';
-import {LoginComponent} from './login/login.component';
-import {SignUpComponent} from './sign-up/sign-up.component';
+import {LoginComponent} from './login';
+import {SignUpComponent} from './sign-up';
 
 import {UserService} from './_services';
 
@@ -17,7 +17,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {DashhomeComponent} from './dashhome/dashhome.component';
 import {CreateOrderComponent} from './create-order/create-order.component';
 import {OrderDetailComponent} from './order-detail/order-detail.component';
-import {OrderService} from './_services/order.service';
+import {OrderService} from './_services';
 
 import {AlertService} from './_services';
 import {AlertComponent} from './_directives';
@@ -38,6 +38,7 @@ import {EditPetInfoComponent} from './editpetInfo/editpetinfo.component';
 import {NgTempusdominusBootstrapModule} from 'ngx-tempusdominus-bootstrap';
 import {SitterOrderComponent} from './sitter-order/sitter-order.component';
 import {OrderlistsComponent} from './orderlists/orderlists.component';
+import {RequestDialogComponent} from './request-dialog/request-dialog.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import {OrderlistsComponent} from './orderlists/orderlists.component';
     AddPetComponent,
     EditPetInfoComponent,
     OrderlistsComponent,
+    RequestDialogComponent
 
   ],
   imports: [
@@ -85,7 +87,7 @@ import {OrderlistsComponent} from './orderlists/orderlists.component';
     AlertService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [AcceptDialogComponent, CompleteDialogComponent, RateOrderDialogComponent]
+  entryComponents: [AcceptDialogComponent, CompleteDialogComponent, RateOrderDialogComponent, RequestDialogComponent]
 })
 
 export class AppModule {

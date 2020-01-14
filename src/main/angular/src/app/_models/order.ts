@@ -1,7 +1,7 @@
 import {User} from './user';
 
 export class Order {
-  orderid: number;
+  orderId: number;
   status: string;
   // use credits?
   credits: number;

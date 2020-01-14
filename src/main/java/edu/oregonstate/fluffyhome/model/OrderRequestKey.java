@@ -1,9 +1,17 @@
 package edu.oregonstate.fluffyhome.model;
 
-public class UserOrderKey {
+public class OrderRequestKey {
+    private Integer tuId;
+
     private Integer orderId;
 
-    private Integer userId;
+    public Integer getTuId() {
+        return tuId;
+    }
+
+    public void setTuId(Integer tuId) {
+        this.tuId = tuId;
+    }
 
     public Integer getOrderId() {
         return orderId;
@@ -11,13 +19,5 @@ public class UserOrderKey {
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 }

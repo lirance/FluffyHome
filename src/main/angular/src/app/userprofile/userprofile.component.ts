@@ -44,7 +44,7 @@ export class UserprofileComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.profileForm = this.formBuilder.group({
-      userId: [this.currentUser.userid, Validators.required],
+      userId: [this.currentUser.userId, Validators.required],
       userName: [this.currentUser.username, Validators.required],
       phone: [this.currentUser.phone, Validators.required],
       email: [this.currentUser.email, Validators.required],

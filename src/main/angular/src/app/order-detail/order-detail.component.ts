@@ -17,7 +17,7 @@ export class OrderDetailComponent implements OnInit {
 
   orderDetail: Order;
   maplink: string;
-  orderid: string;
+  orderId: string;
   currentUserId: string;
   completeResult: string;
   cancelResult = false;
@@ -37,16 +37,16 @@ export class OrderDetailComponent implements OnInit {
   }
 
   getOrder() {
-    const orderid = this.route.snapshot.paramMap.get('orderid');
-    this.orderService.getOrderDetail(orderid).pipe(first()).subscribe(order => {
+    const orderId = this.route.snapshot.paramMap.get('orderId');
+    this.orderService.getOrderDetail(orderId).pipe(first()).subscribe(order => {
       this.orderDetail = order;
       this.maplink = 'https://www.google.com/maps/search/' + order.address + ' ,' + order.zip;
     });
   }
 
   complete() {
-    const orderid = this.route.snapshot.paramMap.get('orderid');
-    this.orderService.completeOrder(this.currentUserId, orderid, this.orderDetail.recipient.userid).pipe(first()).subscribe(result => {
+    const orderId = this.route.snapshot.paramMap.get('orderId');
+    this.orderService.completeOrder(this.currentUserId, orderId, this.orderDetail.recipient.userId).pipe(first()).subscribe(result => {
       result.toString();
       this.completeResult = result;
       this.openCompleteDialog();
@@ -54,9 +54,9 @@ export class OrderDetailComponent implements OnInit {
   }
 
   cancelAcceptedOrder() {
-    const orderid = this.route.snapshot.paramMap.get('orderid');
+    const orderId = this.route.snapshot.paramMap.get('orderId');
     const userid = localStorage.getItem('currentUserID');
-    this.orderService.cancelAcceptedOrder(userid, orderid).pipe(first()).subscribe(result => {
+    this.orderService.cancelAcceptedOrder(userid, orderId).pipe(first()).subscribe(result => {
       if (result) {
         this.cancelResult = true;
         this.backtolast();
@@ -66,9 +66,9 @@ export class OrderDetailComponent implements OnInit {
   }
 
   deleteOrder() {
-    const orderid = this.route.snapshot.paramMap.get('orderid');
+    const orderId = this.route.snapshot.paramMap.get('orderId');
     const userid = localStorage.getItem('currentUserID');
-    this.orderService.deleteOrder(userid, orderid).pipe(first()).subscribe(result => {
+    this.orderService.deleteOrder(userid, orderId).pipe(first()).subscribe(result => {
       if (result) {
         this.deleteResult = true;
         this.backtolast();
@@ -91,8 +91,8 @@ export class OrderDetailComponent implements OnInit {
     this.dialog.open(CompleteDialogComponent, dialogConfig);
   }
 
-  accept(orderid: string) {
-    this.orderService.acceptOrder(this.currentUserId, orderid).pipe(first()).subscribe(result => {
+  accept(orderId: string) {
+    this.orderService.acceptOrder(this.currentUserId, orderId).pipe(first()).subscribe(result => {
       result.toString();
       console.log(result);
       this.acceptResult = result;

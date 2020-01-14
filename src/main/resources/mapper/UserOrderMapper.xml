@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.oregonstate.fluffyhome.mapper.UserOrderMapper">
     <resultMap id="BaseResultMap" type="edu.oregonstate.fluffyhome.model.UserOrder">
-        <id column="orderId" jdbcType="INTEGER" property="orderid"/>
-        <id column="userId" jdbcType="INTEGER" property="userid"/>
+        <id column="orderId" jdbcType="INTEGER" property="orderId"/>
+        <id column="userId" jdbcType="INTEGER" property="userId"/>
         <result column="rateFlag" jdbcType="BIT" property="rateflag"/>
         <result column="makerType" jdbcType="BIT" property="makerType"/>
         <result column="rate" jdbcType="REAL" property="rate"/>
@@ -16,27 +16,27 @@
         select
         <include refid="Base_Column_List"/>
         from user_order
-        where orderId = #{orderid,jdbcType=INTEGER}
-        and userId = #{userid,jdbcType=INTEGER}
+        where orderId = #{orderId,jdbcType=INTEGER}
+        and userId = #{userId,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="edu.oregonstate.fluffyhome.model.UserOrderKey">
     delete from user_order
-    where orderId = #{orderid,jdbcType=INTEGER}
-      and userId = #{userid,jdbcType=INTEGER}
+    where orderId = #{orderId,jdbcType=INTEGER}
+      and userId = #{userId,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="edu.oregonstate.fluffyhome.model.UserOrder">
-    insert into user_order (orderId, userId, rateFlag, 
+    insert into user_order (orderId, userId, rateFlag,
       makerType, rate)
-    values (#{orderid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{rateflag,jdbcType=BIT}, 
+    values (#{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{rateflag,jdbcType=BIT},
       #{makerType,jdbcType=BIT}, #{rate,jdbcType=REAL})
   </insert>
     <insert id="insertSelective" parameterType="edu.oregonstate.fluffyhome.model.UserOrder">
         insert into user_order
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="orderid != null">
+            <if test="orderId != null">
                 orderId,
             </if>
-            <if test="userid != null">
+            <if test="userId != null">
                 userId,
             </if>
             <if test="rateflag != null">
@@ -50,11 +50,11 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="orderid != null">
-                #{orderid,jdbcType=INTEGER},
+            <if test="orderId != null">
+                #{orderId,jdbcType=INTEGER},
             </if>
-            <if test="userid != null">
-                #{userid,jdbcType=INTEGER},
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
             </if>
             <if test="rateflag != null">
                 #{rateflag,jdbcType=BIT},
@@ -80,28 +80,28 @@
                 rate = #{rate,jdbcType=REAL},
             </if>
         </set>
-        where orderId = #{orderid,jdbcType=INTEGER}
-        and userId = #{userid,jdbcType=INTEGER}
+        where orderId = #{orderId,jdbcType=INTEGER}
+        and userId = #{userId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="edu.oregonstate.fluffyhome.model.UserOrder">
     update user_order
     set rateFlag = #{rateflag,jdbcType=BIT},
       makerType = #{makerType,jdbcType=BIT},
       rate = #{rate,jdbcType=REAL}
-    where orderId = #{orderid,jdbcType=INTEGER}
-      and userId = #{userid,jdbcType=INTEGER}
+    where orderId = #{orderId,jdbcType=INTEGER}
+      and userId = #{userId,jdbcType=INTEGER}
   </update>
     <update id="rate" parameterType="edu.oregonstate.fluffyhome.model.UserOrder">
     update user_order
     set rate = #{rate,jdbcType=REAL}
-    where orderId = #{orderid,jdbcType=INTEGER}
-    and userId != #{userid,jdbcType=INTEGER};
+    where orderId = #{orderId,jdbcType=INTEGER}
+    and userId != #{userId,jdbcType=INTEGER};
   </update>
     <update id="setRateFlag" parameterType="edu.oregonstate.fluffyhome.model.UserOrder">
     update user_order
     set rateFlag = #{rateflag,jdbcType=BIT}
-    where orderId = #{orderid,jdbcType=INTEGER}
-    and userId = #{userid,jdbcType=INTEGER}
+    where orderId = #{orderId,jdbcType=INTEGER}
+    and userId = #{userId,jdbcType=INTEGER}
     </update>
 
 
@@ -110,8 +110,8 @@
         select
         <include refid="Base_Column_List"/>
         from user_order
-        where orderId = #{orderid,jdbcType=INTEGER}
-        and userId != #{userid,jdbcType=INTEGER}
+        where orderId = #{orderId,jdbcType=INTEGER}
+        and userId != #{userId,jdbcType=INTEGER}
     </select>
 
     <select id="getAllOrderMakers" resultMap="BaseResultMap">
@@ -125,7 +125,7 @@
         select
         <include refid="Base_Column_List"/>
         from user_order
-        where orderId = #{orderid,jdbcType=INTEGER}
+        where orderId = #{orderId,jdbcType=INTEGER}
     </select>
 
     <select id="getOrdersByUser" resultMap="BaseResultMap">

@@ -55,8 +55,8 @@ public class UserOrderServiceImpl implements UserOrderService {
     @Override
     public boolean setRate(int orderId, int userId, float rate) {
         UserOrder userOrder = new UserOrder();
-        userOrder.setOrderid(orderId);
-        userOrder.setUserid(userId);
+        userOrder.setOrderId(orderId);
+        userOrder.setUserId(userId);
         userOrder.setRate(rate);
         userOrder.setRateflag(true);
         return userOrderMapper.rate(userOrder) == 1 && userOrderMapper.setRateFlag(userOrder) == 1;
@@ -74,7 +74,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         Map<Integer, Integer> resultMap = new HashMap<>();
 
         for (UserOrder uo : userOrders) {
-            resultMap.put(uo.getOrderid(), uo.getUserid());
+            resultMap.put(uo.getOrderId(), uo.getUserId());
         }
 
         return resultMap;

@@ -48,10 +48,10 @@ export class EditPetInfoComponent implements OnInit {
     this.userService.getPetById(this.currentPetId).pipe(first()).subscribe(pet => {
         this.currentPet = pet;
         this.petInfoForm = this.formBuilder.group({
-          petId: [this.currentPet.petid],
-          petName: [this.currentPet.petname, Validators.required],
-          petType: [this.currentPet.pettype, Validators.required],
-          petInfo: [this.currentPet.petinfo, Validators.required]
+          petId: [this.currentPet.petId],
+          petName: [this.currentPet.petName, Validators.required],
+          petType: [this.currentPet.petType, Validators.required],
+          petInfo: [this.currentPet.petInfo, Validators.required]
         });
       }
     );

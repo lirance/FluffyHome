@@ -2,7 +2,7 @@
   <div *ngFor="let order of acceptOrderList" class="col-md-4">
     <div class="card mb-4 box-shadow">
       <div class="card-body">
-        <h5 class="card-title"> {{order.orderid}} </h5>
+        <h5 class="card-title"> {{order.orderId}} </h5>
       </div>
 
       <ul class="list-group list-group-flush text-left">
@@ -14,9 +14,9 @@
       </ul>
 
       <div class="card-body">
-        <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderid]}}]" class="card-link">See
+        <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]" class="card-link">See
           Detail</a>
-        <a *ngIf="order.status=='COMPLETED'&&!order.rated" (click)="rate(order.orderid, order.status)"
+        <a *ngIf="order.status=='COMPLETED'&&!order.rated" (click)="rate(order.orderId, order.status)"
            class="card-link text-primary">Rate</a>
       </div>
 

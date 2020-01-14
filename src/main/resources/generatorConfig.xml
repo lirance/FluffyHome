@@ -15,7 +15,7 @@
 
         <!-- connect the databse -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/testData?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC"
+                        connectionURL="jdbc:mysql://localhost:3306/testData?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=PST"
                         userId="root"
                         password="">
         </jdbcConnection>
@@ -25,13 +25,13 @@
         </javaTypeResolver>
 
 
-        <javaModelGenerator targetPackage="edu.oregonstate.fluffyhome.model1" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="edu.oregonstate.fluffyhome.model" targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
         <!-- sql mapper  -->
-        <sqlMapGenerator targetPackage="mapper1"  targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
 
@@ -60,7 +60,7 @@
                <!--selectByExampleQueryId="false">-->
         <!--</table>-->
 
-        <!--<table schema="fluffyhome" tableName="user_pet" domainObjectName="UserPet"-->
+        <!--<table schema="fluffyhome" tableName="order_request" domainObjectName="OrderRequest"-->
                <!--enableCountByExample="false" enableUpdateByExample="false"-->
                <!--enableDeleteByExample="false" enableSelectByExample="false"-->
                <!--selectByExampleQueryId="false">-->

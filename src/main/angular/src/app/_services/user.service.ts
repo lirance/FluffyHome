@@ -29,11 +29,11 @@ export class UserService {
   }
 
   getUserById(id: string) {
-    return this.http.get<User>(backurl + `user/getUserById?userid=` + id);
+    return this.http.get<User>(backurl + `user/getUserById?userId=` + id);
   }
 
   getP2PSitters(id: string) {
-    return this.http.get<User[]>(backurl + `user/getP2PSitters?userid=` + id);
+    return this.http.get<User[]>(backurl + `user/getP2PSitters?userId=` + id);
   }
 
   getSitters() {
@@ -48,30 +48,30 @@ export class UserService {
 
   }
 
-  profileEdit(userid: string, phone: string, username: string, email: string,
+  profileEdit(userId: string, phone: string, username: string, email: string,
               zip: string, address: string, avaliableWeekday: AvaliableWeekday) {
 
-    return this.http.get<string>(backurl + 'user/editProfile?userid=' + userid
+    return this.http.get<string>(backurl + 'user/editProfile?userId=' + userId
       + '&phone=' + phone + '&email=' + email + '&username=' + username + '&zip=' + zip + '&address='
       + address + '&avaliableWeekday=' + JSON.stringify(avaliableWeekday));
   }
 
 
   getPets(userId: string) {
-    return this.http.get<Pet[]>(backurl + 'userPet/getUserPets?userid=' + userId);
+    return this.http.get<Pet[]>(backurl + 'userPet/getUserPets?userId=' + userId);
   }
 
   addPet(pet: Pet) {
-    return this.http.get<string>(backurl + 'userPet/addPet?userid=' + pet.userid +
-      '&petType=' + pet.pettype + '&petName=' + pet.petname + '&petInfo=' + pet.petinfo);
+    return this.http.get<string>(backurl + 'userPet/addPet?userId=' + pet.userId +
+      '&petType=' + pet.petType + '&petName=' + pet.petName + '&petInfo=' + pet.petInfo);
   }
 
-  getPetById(petid: String) {
-    return this.http.get<Pet>(backurl + 'userPet/getPetInfoById?petid=' + petid);
+  getPetById(petId: String) {
+    return this.http.get<Pet>(backurl + 'userPet/getPetInfoById?petId=' + petId);
   }
 
-  editPetInfo(petid: string, petName: string, petType: string, petInfo: string) {
-    return this.http.get<string>(backurl + 'userPet/editPetInfo?petid=' + petid
+  editPetInfo(petId: string, petName: string, petType: string, petInfo: string) {
+    return this.http.get<string>(backurl + 'userPet/editPetInfo?petId=' + petId
       + '&petType=' + petType + '&petName=' + petName + '&petInfo=' + petInfo);
   }
 }

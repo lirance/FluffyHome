@@ -72,7 +72,7 @@ export class CreateOrderComponent implements OnInit {
 
   ngOnInit() {
     this.orderForm = this.formBuilder.group({
-      orderid: [],
+      orderId: [],
       orderType: false,
       // startDate: ['', Validators.required],
       // endDate: ['', Validators.required],
