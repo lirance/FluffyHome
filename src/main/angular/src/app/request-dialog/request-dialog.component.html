@@ -1,33 +1,46 @@
 <h2 mat-dialog-title class="text-center">Send a Request</h2>
 
 <mat-dialog-content class="text-center text-light">
-  <p>Please select order that you want request:</p>
 
-  <form [formGroup]="requestForm">
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="order">OrderId:</label>
+
+  <div *ngIf="orderList.length<=0">
+    <p>You don't have an avaliable order to request.</p>
+
+  </div>
+
+  <div *ngIf="orderList.length>0">
+    <p>Please select order that you want request:</p>
+    <form [formGroup]="requestForm">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="order">OrderId:</label>
+        </div>
+        <select class="custom-select" id="order" formControlName="orderId"
+                placeholder="format: OrderId --- order startDate">
+          <option *ngFor="let od of orderList" [value]=od.orderId>
+            {{od.orderId}} --- start from {{od.startDate | date}}
+          </option>
+        </select>
+
+
       </div>
-      <select class="custom-select" id="order" formControlName="orderId"
-              placeholder="format: OrderId --- order startDate">
-        <option *ngFor="let od of orderList" [value]=od.orderId>
-          {{od.orderId}} --- start from {{od.startDate | date}}
-        </option>
-      </select>
+    </form>
+  </div>
 
-
-    </div>
-  </form>
 
   <!--  <p>You selected:{{order.orderId}}</p>-->
 </mat-dialog-content>
 
 
 <div class="row">
-  <div class="col-6 text-center ">
+  <div *ngIf="orderList.length>0" class="col-6 text-center ">
     <button class="btn btn-info" (click)="submit()">Submit</button>
+  </div>
+  <div *ngIf="orderList.length<=0" class="col-6 text-center ">
+    <button class="btn btn-info" (click)="createOrder()">Create Order</button>
   </div>
   <div class="col text-center">
     <button class="btn btn-info" (click)="close()">cancel</button>
   </div>
 </div>
+

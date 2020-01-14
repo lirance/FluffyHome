@@ -39,6 +39,7 @@ import {NgTempusdominusBootstrapModule} from 'ngx-tempusdominus-bootstrap';
 import {SitterOrderComponent} from './sitter-order/sitter-order.component';
 import {OrderlistsComponent} from './orderlists/orderlists.component';
 import {RequestDialogComponent} from './request-dialog/request-dialog.component';
+import {RequestsComponent} from './requests/requests.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import {RequestDialogComponent} from './request-dialog/request-dialog.component'
     AddPetComponent,
     EditPetInfoComponent,
     OrderlistsComponent,
+    RequestsComponent,
     RequestDialogComponent
 
   ],

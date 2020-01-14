@@ -65,10 +65,6 @@ export class RequestDialogComponent implements OnInit {
 
   submit() {
     this.submitResult = true;
-    // this.order = this.requestForm.value.order;
-
-    // TODO finish the request dialog. both front and back end???
-    // data base and stuff
     this.setDate(this.requestForm.value.orderId);
     this.orderService.sendRequest(this.currentUserID, this.userId, this.requestForm.value.orderId,
       new Date(this.expireDate)).pipe(first()).subscribe(result => {
@@ -87,4 +83,8 @@ export class RequestDialogComponent implements OnInit {
     }
   }
 
+  createOrder() {
+    this.router.navigate(['/dashboard', {outlets: {'aux': ['createorder']}}]);
+    this.dialogRef.close();
+  }
 }

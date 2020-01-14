@@ -4,6 +4,7 @@ import {Order} from '../_models';
 import {PersonalOrderShow} from '../_models';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import {backurl} from './const';
+import {OrderRequest} from '../_models/orderRequest';
 
 @Injectable()
 
@@ -63,13 +64,17 @@ export class OrderService {
       + '&orderId=' + orderId + '&startDate=' + expireDate);
   }
 
-  responseRequest(orderId: number, tuId: string, accept: boolean) {
+  responseRequest(orderId: number, tuId: number, accept: boolean) {
     return this.http.get<string>(backurl + 'order/request/response?orderId=' + orderId + '&tuId=' + tuId + '&accept=' + accept);
   }
 
   getRequestOrder(userId: string, sitterType: boolean, tuId: number) {
     return this.http.get<PersonalOrderShow[]>(backurl + 'orders/getRequestOrders?userId=' + userId + '' +
       '&sitterType=' + sitterType + '&tuId=' + tuId);
+  }
+
+  getRequests(userId: string) {
+    return this.http.get<OrderRequest[]>(backurl + 'order/request/getUserRequests?userId=' + userId);
   }
 
 }

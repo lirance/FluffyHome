@@ -7,6 +7,8 @@ import edu.oregonstate.fluffyhome.service.OrderRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author: Chendi Zhang
  * @date: 2020-01-09
@@ -41,5 +43,15 @@ public class OrderRequestServiceImpl implements OrderRequestService {
     @Override
     public int deleteByPrimaryKey(OrderRequestKey orderRequestKey) {
         return orderRequestMapper.deleteByPrimaryKey(orderRequestKey);
+    }
+
+    @Override
+    public List<OrderRequest> getUserRequests(int tuId) {
+        return orderRequestMapper.getUserRequests(tuId);
+    }
+
+    @Override
+    public int disableOrderRequest(int orderId, int userId) {
+        return orderRequestMapper.disableOrderRequest(orderId,userId);
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: Chendi Zhang
@@ -119,7 +120,7 @@ public class PersonalOrderController {
                 return false;
             }
             //delete order & update user credits.
-            return orderService.deleteByPrimaryKey(orderId) == 1 && userService.updateByPrimaryKey(u) == 1;
+            return orderService.deleteByPrimaryKey(orderId) == 1 && userService.updateByPrimaryKey(u) == 1 && disableOrderRequest(orderId, userId);
         } catch (Exception e) {
             return false;
         }
@@ -150,7 +151,7 @@ public class PersonalOrderController {
 
             // update order state
             order.setStatus(Status.ACCEPTED.toString());
-            return orderService.updateByPrimaryKey(order) == 1;
+            return orderService.updateByPrimaryKey(order) == 1 && disableOrderRequest(orderId, userId);
 
 
         } catch (Exception e) {
@@ -287,7 +288,6 @@ public class PersonalOrderController {
     }
 
 
-
     @RequestMapping("request/create")
     public boolean createRequest(int orderId, Date startDate, int fuId, int tuId) {
         try {
@@ -304,6 +304,15 @@ public class PersonalOrderController {
 
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    @RequestMapping("request/getUserRequests")
+    public List<OrderRequest> getUserRequests(int userId) {
+        try {
+            return orderRequestService.getUserRequests(userId);
+        } catch (Exception e) {
+            return null;
         }
     }
 
@@ -332,6 +341,15 @@ public class PersonalOrderController {
             return false;
         }
         return false;
+    }
+
+    private boolean disableOrderRequest(int orderId, int userId) {
+        try {
+            orderRequestService.disableOrderRequest(orderId, userId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

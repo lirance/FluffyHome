@@ -1,88 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.oregonstate.fluffyhome.mapper.OrderRequestMapper">
-  <resultMap id="BaseResultMap" type="edu.oregonstate.fluffyhome.model.OrderRequest">
-    <id column="tuId" jdbcType="INTEGER" property="tuId" />
-    <id column="orderId" jdbcType="INTEGER" property="orderId" />
-    <result column="fuId" jdbcType="INTEGER" property="fuId" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
-    <result column="expire" jdbcType="TIMESTAMP" property="expire" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="edu.oregonstate.fluffyhome.model.OrderRequest">
+        <id column="tuId" jdbcType="INTEGER" property="tuId"/>
+        <id column="orderId" jdbcType="INTEGER" property="orderId"/>
+        <result column="fuId" jdbcType="INTEGER" property="fuId"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="expire" jdbcType="TIMESTAMP" property="expire"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     tuId, orderId, fuId, status, expire
   </sql>
-  <select id="selectByPrimaryKey" parameterType="edu.oregonstate.fluffyhome.model.OrderRequestKey" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from order_request
-    where tuId = #{tuId,jdbcType=INTEGER}
-      and orderId = #{orderId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="edu.oregonstate.fluffyhome.model.OrderRequestKey">
+    <select id="selectByPrimaryKey" parameterType="edu.oregonstate.fluffyhome.model.OrderRequestKey"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from order_request
+        where tuId = #{tuId,jdbcType=INTEGER}
+        and orderId = #{orderId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="edu.oregonstate.fluffyhome.model.OrderRequestKey">
     delete from order_request
     where tuId = #{tuId,jdbcType=INTEGER}
       and orderId = #{orderId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="edu.oregonstate.fluffyhome.model.OrderRequest">
+    <insert id="insert" parameterType="edu.oregonstate.fluffyhome.model.OrderRequest">
     insert into order_request (tuId, orderId, fuId, 
       status, expire)
     values (#{tuId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{fuId,jdbcType=INTEGER},
       #{status,jdbcType=VARCHAR}, #{expire,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="edu.oregonstate.fluffyhome.model.OrderRequest">
-    insert into order_request
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="tuId != null">
-        tuId,
-      </if>
-      <if test="orderId != null">
-        orderId,
-      </if>
-      <if test="fuId != null">
-        fuId,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="expire != null">
-        expire,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="tuId != null">
-        #{tuId,jdbcType=INTEGER},
-      </if>
-      <if test="orderId != null">
-        #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="fuId != null">
-        #{fuId,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="expire != null">
-        #{expire,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="edu.oregonstate.fluffyhome.model.OrderRequest">
-    update order_request
-    <set>
-      <if test="fuId != null">
-        fuId = #{fuId,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="expire != null">
-        expire = #{expire,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where tuId = #{tuId,jdbcType=INTEGER}
-      and orderId = #{orderId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="edu.oregonstate.fluffyhome.model.OrderRequest">
+    <insert id="insertSelective" parameterType="edu.oregonstate.fluffyhome.model.OrderRequest">
+        insert into order_request
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tuId != null">
+                tuId,
+            </if>
+            <if test="orderId != null">
+                orderId,
+            </if>
+            <if test="fuId != null">
+                fuId,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="expire != null">
+                expire,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tuId != null">
+                #{tuId,jdbcType=INTEGER},
+            </if>
+            <if test="orderId != null">
+                #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="fuId != null">
+                #{fuId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="expire != null">
+                #{expire,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="edu.oregonstate.fluffyhome.model.OrderRequest">
+        update order_request
+        <set>
+            <if test="fuId != null">
+                fuId = #{fuId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="expire != null">
+                expire = #{expire,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where tuId = #{tuId,jdbcType=INTEGER}
+        and orderId = #{orderId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="edu.oregonstate.fluffyhome.model.OrderRequest">
     update order_request
     set fuId = #{fuId,jdbcType=INTEGER},
       status = #{status,jdbcType=VARCHAR},
@@ -90,4 +91,21 @@
     where tuId = #{tuId,jdbcType=INTEGER}
       and orderId = #{orderId,jdbcType=INTEGER}
   </update>
+
+    <select id="getUserRequests" resultMap="BaseResultMap" parameterType="integer">
+        select
+        <include refid="Base_Column_List"/>
+        from order_request
+        where tuId=#{tuId,jdbcType=INTEGER}
+        and status='REQUESTED'
+        and expire>= NOW();
+
+    </select>
+
+    <update id="disableOrderRequest">
+        update order_request
+        set status = 'INVALID'
+        where orderId=#{0}
+        and tuId!=#{1}
+    </update>
 </mapper>

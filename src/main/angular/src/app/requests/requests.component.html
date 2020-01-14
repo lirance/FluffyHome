@@ -1,0 +1,35 @@
+<h2 class="text-dark">Requests</h2>
+<h6 class="text-dark">Click to see request detail</h6>
+<br/>
+<br/>
+
+<div class="text-dark" *ngIf='requests != []'>
+  <div *ngFor="let request of requests">
+
+
+    <div class="list-group text-left">
+      <a class="list-group-item list-group-item-action flex-column align-items-start ">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Request from user
+            <a
+              [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', request.fuId]}}]">{{request.fuId}}</a>
+          </h5>
+
+          <!--          <span class="badge badge-primary badge-pill">see detail</span>-->
+          <span>
+            <button class="btn btn-outline-success" (click)="response(request.orderId,true)">Accept</button>
+            <button class="btn btn-outline-danger" (click)="response(request.orderId,false)">Decline</button>
+          </span>
+          <!--          <span class="btn btn-outline-danger" (click)="accept(request.requestId)">Decline</span>-->
+        </div>
+        <p>Order <b>{{request.orderId}}</b>
+          start from {{request.expire|date}}</p>
+        <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', request.orderId]}}]" class="card-link">See
+          Order
+          Detail</a>
+      </a>
+
+    </div>
+    <br/>
+  </div>
+</div>

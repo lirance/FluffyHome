@@ -485,6 +485,21 @@ var AlertService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/_services/const.ts":
+/*!************************************!*\
+  !*** ./src/app/_services/const.ts ***!
+  \************************************/
+/*! exports provided: backurl */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "backurl", function() { return backurl; });
+var backurl = 'http://18.191.103.130:8080/';
+
+
+/***/ }),
+
 /***/ "./src/app/_services/index.ts":
 /*!************************************!*\
   !*** ./src/app/_services/index.ts ***!
@@ -523,6 +538,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _const__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./const */ "./src/app/_services/const.ts");
+
 
 
 
@@ -531,36 +548,36 @@ var OrderService = /** @class */ (function () {
         this.http = http;
     }
     OrderService.prototype.getOrderlist = function (isSitter) {
-        return this.http.get('http://localhost:8080/orders/getOrders?isSitter=' + isSitter);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'orders/getOrders?isSitter=' + isSitter);
     };
     OrderService.prototype.createOrder = function (order, fromDate, toDate) {
-        return this.http.get('http://localhost:8080/order/create?userid=' + order.maker + '&orderType=' + order.orderType +
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/create?userid=' + order.maker + '&orderType=' + order.orderType +
             '&startDate=' + fromDate + '&endDate=' + toDate.toDateString() + '&orderDescription=' + order.orderDescription, { responseType: 'text' });
     };
     OrderService.prototype.getOrderDetail = function (orderid) {
-        return this.http.get('http://localhost:8080/orders/getOrderDetailById?orderId=' + orderid);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'orders/getOrderDetailById?orderId=' + orderid);
     };
     OrderService.prototype.acceptOrder = function (userid, orderid) {
-        return this.http.get('http://localhost:8080/order/accept?userId=' + userid + '&orderId=' + orderid);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/accept?userId=' + userid + '&orderId=' + orderid);
     };
     OrderService.prototype.completeOrder = function (userid, orderid, recipientId) {
-        return this.http.get('http://localhost:8080/order/complete?userId=' + userid + '&orderId=' + orderid +
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/complete?userId=' + userid + '&orderId=' + orderid +
             '&recipientId=' + recipientId);
     };
     OrderService.prototype.rateOrder = function (userid, orderid, rate) {
-        return this.http.get('http://localhost:8080/order/rate?orderId=' + orderid + '&userId=' + userid + '&rate=' + rate);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/rate?orderId=' + orderid + '&userId=' + userid + '&rate=' + rate);
     };
     OrderService.prototype.getCreatedOrder = function (userid) {
-        return this.http.get('http://localhost:8080/orders/getCreateOrder?userId=' + userid);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'orders/getCreateOrder?userId=' + userid);
     };
     OrderService.prototype.getAcceptedOrder = function (userid) {
-        return this.http.get('http://localhost:8080/orders/getAcceptedOrder?userId=' + userid);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'orders/getAcceptedOrder?userId=' + userid);
     };
     OrderService.prototype.cancelAcceptedOrder = function (userid, orderid) {
-        return this.http.get('http://localhost:8080/order/cancel?userId=' + userid + '&orderId=' + orderid);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/cancel?userId=' + userid + '&orderId=' + orderid);
     };
     OrderService.prototype.deleteOrder = function (userid, orderid) {
-        return this.http.get('http://localhost:8080/order/delete?userId=' + userid + '&orderId=' + orderid);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/delete?userId=' + userid + '&orderId=' + orderid);
     };
     OrderService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])(),
@@ -586,6 +603,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _const__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./const */ "./src/app/_services/const.ts");
+
 
 
 
@@ -594,24 +613,24 @@ var UserService = /** @class */ (function () {
         this.http = http;
     }
     UserService.prototype.login = function (phone, password) {
-        return this.http.get("http://localhost:8080/user/login/getId?phone=" + phone + "&password=" + password);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + "user/login/getId?phone=" + phone + "&password=" + password);
     };
     UserService.prototype.signup = function (user) {
-        return this.http.post("http://localhost:8080/user/register?phone=" + user.phone + "&email="
+        return this.http.post(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + "user/register?phone=" + user.phone + "&email="
             + user.email + "&password=" + user.password + "&username=" + user.username + "&address="
             + user.address + "&zip=" + user.zip + "&userType=" + user.usertype, user);
     };
     UserService.prototype.getUserByphone = function (phone) {
-        return this.http.post("http://localhost:8080/user/getUserByPhone?phone=" + phone, phone);
+        return this.http.post(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + "user/getUserByPhone?phone=" + phone, phone);
     };
     UserService.prototype.getUserById = function (id) {
-        return this.http.get("http://localhost:8080/user/getUserById?userid=" + id);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + "user/getUserById?userid=" + id);
     };
     UserService.prototype.getP2PSitters = function (id) {
-        return this.http.get("http://localhost:8080/user/getP2PSitters?userid=" + id);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + "user/getP2PSitters?userid=" + id);
     };
     UserService.prototype.getSitters = function () {
-        return this.http.get("http://localhost:8080/user/getSitters");
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + "user/getSitters");
     };
     UserService.prototype.logout = function () {
         // remove user from local storage to log user out
@@ -620,22 +639,22 @@ var UserService = /** @class */ (function () {
         localStorage.clear();
     };
     UserService.prototype.profileEdit = function (userid, phone, username, email, zip, address, avaliableWeekday) {
-        return this.http.get('http://localhost:8080/user/editProfile?userid=' + userid
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'user/editProfile?userid=' + userid
             + '&phone=' + phone + '&email=' + email + '&username=' + username + '&zip=' + zip + '&address='
             + address + '&avaliableWeekday=' + JSON.stringify(avaliableWeekday));
     };
     UserService.prototype.getPets = function (userId) {
-        return this.http.get('http://localhost:8080/userPet/getUserPets?userid=' + userId);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'userPet/getUserPets?userid=' + userId);
     };
     UserService.prototype.addPet = function (pet) {
-        return this.http.get('http://localhost:8080/userPet/addPet?userid=' + pet.userid +
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'userPet/addPet?userid=' + pet.userid +
             '&petType=' + pet.pettype + '&petName=' + pet.petname + '&petInfo=' + pet.petinfo);
     };
     UserService.prototype.getPetById = function (petid) {
-        return this.http.get('http://localhost:8080/userPet/getPetInfoById?petid=' + petid);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'userPet/getPetInfoById?petid=' + petid);
     };
     UserService.prototype.editPetInfo = function (petid, petName, petType, petInfo) {
-        return this.http.get('http://localhost:8080/userPet/editPetInfo?petid=' + petid
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'userPet/editPetInfo?petid=' + petid
             + '&petType=' + petType + '&petName=' + petName + '&petInfo=' + petInfo);
     };
     UserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

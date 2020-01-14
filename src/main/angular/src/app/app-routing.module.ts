@@ -18,6 +18,7 @@ import {AddPetComponent} from './add-pet/add-pet.component';
 import {EditPetInfoComponent} from './editpetInfo/editpetinfo.component';
 import {SitterOrderComponent} from './sitter-order/sitter-order.component';
 import {OrderlistsComponent} from './orderlists/orderlists.component';
+import {RequestsComponent} from './requests/requests.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -32,7 +33,7 @@ const routes: Routes = [
       {path: '', redirectTo: 'dashhome', pathMatch: 'full'},
       {path: 'dashhome', component: DashhomeComponent, outlet: 'aux'},
       {path: 'orderlists', component: OrderlistsComponent, outlet: 'aux'},
-      {path: 'profile', component: UserprofileComponent, outlet: 'aux'},
+      {path: 'requests', component: RequestsComponent, outlet: 'aux'},
       {path: 'createorder', component: CreateOrderComponent, outlet: 'aux'},
       {path: 'myorder', component: MyOrderComponent, outlet: 'aux'},
       {path: 'sitterorder', component: SitterOrderComponent, outlet: 'aux'},

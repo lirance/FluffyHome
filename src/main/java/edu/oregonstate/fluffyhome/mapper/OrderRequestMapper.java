@@ -4,6 +4,8 @@ import edu.oregonstate.fluffyhome.model.OrderRequest;
 import edu.oregonstate.fluffyhome.model.OrderRequestKey;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface OrderRequestMapper {
     int deleteByPrimaryKey(OrderRequestKey key);
@@ -17,4 +19,8 @@ public interface OrderRequestMapper {
     int updateByPrimaryKeySelective(OrderRequest record);
 
     int updateByPrimaryKey(OrderRequest record);
+
+    List<OrderRequest> getUserRequests(int tuId);
+
+    int disableOrderRequest(int orderId, int tuId);
 }
