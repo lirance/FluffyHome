@@ -51,7 +51,23 @@ public class OrderRequestServiceImpl implements OrderRequestService {
     }
 
     @Override
-    public int disableOrderRequest(int orderId, int userId) {
-        return orderRequestMapper.disableOrderRequest(orderId,userId);
+    public int disableOrderRequest(int orderId, boolean disable) {
+        if (disable){
+
+            return orderRequestMapper.disableOrderRequest(orderId);
+        }else {
+            return orderRequestMapper.enableOrderRequest(orderId);
+
+        }
+    }
+
+    @Override
+    public List<OrderRequest> getMyRequests(int fuId) {
+        return orderRequestMapper.getMyRequests(fuId);
+    }
+
+    @Override
+    public int deleteByOrderId(int orderId) {
+        return orderRequestMapper.deleteByOrderId(orderId);
     }
 }

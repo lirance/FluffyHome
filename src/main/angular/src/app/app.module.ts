@@ -41,6 +41,7 @@ import {OrderlistsComponent} from './orderlists/orderlists.component';
 import {RequestDialogComponent} from './request-dialog/request-dialog.component';
 import {RequestsComponent} from './requests/requests.component';
 import {ChangeOrderTypeDialogComponent} from './change-orderType-dialog/change-order-type-dialog.component';
+import {MyRequestsComponent} from './my-requests/my-requests.component';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import {ChangeOrderTypeDialogComponent} from './change-orderType-dialog/change-o
     EditPetInfoComponent,
     OrderlistsComponent,
     RequestsComponent,
+    MyRequestsComponent,
     RequestDialogComponent
 
   ],

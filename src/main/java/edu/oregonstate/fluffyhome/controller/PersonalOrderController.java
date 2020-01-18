@@ -114,13 +114,16 @@ public class PersonalOrderController {
                 return false;
             }
 
+            if (orderRequestService.deleteByOrderId(orderId) != 1) {
+                return false;
+            }
 
             // delete user order
             if (userOrderService.deleteByPrimaryKey(userOrderKey) != 1) {
                 return false;
             }
             //delete order & update user credits.
-            return orderService.deleteByPrimaryKey(orderId) == 1 && userService.updateByPrimaryKey(u) == 1 && disableOrderRequest(orderId, userId);
+            return orderService.deleteByPrimaryKey(orderId) == 1 && userService.updateByPrimaryKey(u) == 1;
         } catch (Exception e) {
             return false;
         }
@@ -151,7 +154,7 @@ public class PersonalOrderController {
 
             // update order state
             order.setStatus(Status.ACCEPTED.toString());
-            return orderService.updateByPrimaryKey(order) == 1 && disableOrderRequest(orderId, userId);
+            return orderService.updateByPrimaryKey(order) == 1 && disableOrderRequest(orderId, true);
 
 
         } catch (Exception e) {
@@ -178,7 +181,7 @@ public class PersonalOrderController {
                 return false;
             }
             order.setStatus(Status.ORDERED.toString());
-            return (orderService.updateByPrimaryKey(order) == 1);
+            return (orderService.updateByPrimaryKey(order) == 1) && disableOrderRequest(orderId, false);
 
         } catch (Exception e) {
             return false;
@@ -278,7 +281,7 @@ public class PersonalOrderController {
                 order.setCredits(0);
                 order.setOrderType(true);
                 //delete order & update user credits.
-                return orderService.updateByPrimaryKey(order) == 1 && userService.updateByPrimaryKey(u) == 1 && disableOrderRequest(orderId, userId);
+                return orderService.updateByPrimaryKey(order) == 1 && userService.updateByPrimaryKey(u) == 1 && disableOrderRequest(orderId, true);
             }
         } catch (Exception e) {
             return false;
@@ -307,10 +310,21 @@ public class PersonalOrderController {
         }
     }
 
+    // get requests I received
     @RequestMapping("request/getUserRequests")
     public List<OrderRequest> getUserRequests(int userId) {
         try {
             return orderRequestService.getUserRequests(userId);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    // get requests I sent
+    @RequestMapping("request/getMyRequests")
+    public List<OrderRequest> getMyRequests(int userId) {
+        try {
+            return orderRequestService.getMyRequests(userId);
         } catch (Exception e) {
             return null;
         }
@@ -343,13 +357,25 @@ public class PersonalOrderController {
         return false;
     }
 
-    private boolean disableOrderRequest(int orderId, int userId) {
+    private boolean disableOrderRequest(int orderId, boolean disable) {
         try {
-            orderRequestService.disableOrderRequest(orderId, userId);
+            orderRequestService.disableOrderRequest(orderId, disable);
             return true;
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @RequestMapping("request/delete")
+    public boolean delete(int orderId) {
+
+        try {
+            return orderRequestService.deleteByOrderId(orderId) == 1;
+
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
 }

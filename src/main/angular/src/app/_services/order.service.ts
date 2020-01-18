@@ -77,4 +77,7 @@ export class OrderService {
     return this.http.get<OrderRequest[]>(backurl + 'order/request/getUserRequests?userId=' + userId);
   }
 
+  getMyRequests(userId: string) {
+    return this.http.get<OrderRequest[]>(backurl + 'order/request/getMyRequests?userId=' + userId);
+  }
 }

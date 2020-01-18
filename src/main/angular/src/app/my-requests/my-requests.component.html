@@ -10,15 +10,11 @@
     <div *ngIf="request.status==='REQUESTED'" class="list-group text-left">
       <a class="list-group-item list-group-item-action flex-column align-items-start ">
         <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Request from user
+          <h5 class="mb-1">Request to user
             <a
-              [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', request.fuId]}}]">{{request.fuId}}</a>
+              [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', request.fuId]}}]">{{request.tuId}}</a>
           </h5>
-          <span>
-            <button class="btn btn-outline-success" (click)="response(request.orderId,true)">Accept</button>
-            &nbsp;
-            <button class="btn btn-outline-danger" (click)="response(request.orderId,false)">Decline</button>
-          </span>
+          <span *ngIf="request.status==='REQUESTED'"> Waiting </span>
           <!--          <span class="btn btn-outline-danger" (click)="accept(request.requestId)">Decline</span>-->
         </div>
         <p>Order <b>{{request.orderId}}</b>

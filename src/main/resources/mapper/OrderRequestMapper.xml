@@ -102,10 +102,29 @@
 
     </select>
 
+    <select id="getMyRequests" resultMap="BaseResultMap" parameterType="integer">
+        select
+        <include refid="Base_Column_List"/>
+        from order_request
+        where fuId=#{fuId,jdbcType=INTEGER}
+        order by expire DESC
+
+    </select>
+
     <update id="disableOrderRequest">
         update order_request
         set status = 'INVALID'
         where orderId=#{0}
-        and tuId!=#{1}
     </update>
+
+    <update id="enableOrderRequest">
+        update order_request
+        set status = 'REQUESTED'
+        where orderId=#{0}
+    </update>
+
+    <delete id="deleteByOrderId" parameterType="integer">
+    delete from order_request
+    where orderId = #{orderId,jdbcType=INTEGER}
+  </delete>
 </mapper>

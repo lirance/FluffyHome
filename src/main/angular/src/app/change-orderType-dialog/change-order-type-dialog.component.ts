@@ -40,7 +40,6 @@ export class ChangeOrderTypeDialogComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
-    window.location.reload();
   }
 
 }

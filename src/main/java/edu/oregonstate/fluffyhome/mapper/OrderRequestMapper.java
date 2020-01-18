@@ -22,5 +22,11 @@ public interface OrderRequestMapper {
 
     List<OrderRequest> getUserRequests(int tuId);
 
-    int disableOrderRequest(int orderId, int tuId);
+    int disableOrderRequest(int orderId);
+
+    List<OrderRequest> getMyRequests(int fuId);
+
+    int deleteByOrderId(int orderId);
+
+    int enableOrderRequest(int orderId);
 }

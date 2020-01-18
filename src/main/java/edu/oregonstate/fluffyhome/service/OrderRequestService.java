@@ -8,5 +8,9 @@ import java.util.List;
 public interface OrderRequestService extends BaseObjectService<OrderRequest, OrderRequestKey> {
     List<OrderRequest> getUserRequests(int userId);
 
-    int disableOrderRequest(int orderId, int userId);
+    int disableOrderRequest(int orderId, boolean disable);
+
+    List<OrderRequest> getMyRequests(int userId);
+
+    int deleteByOrderId(int orderId);
 }
