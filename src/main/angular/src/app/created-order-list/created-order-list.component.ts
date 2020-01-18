@@ -6,57 +6,68 @@ import {Location} from '@angular/common';
 import {PersonalOrderShow} from '../_models';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {RateOrderDialogComponent} from '../rate-order-dialog/rate-order-dialog.component';
+import {AcceptDialogComponent} from '../accept-dialog/accept-dialog.component';
+import {ChangeOrderTypeDialogComponent} from '../change-orderType-dialog/change-order-type-dialog.component';
 
 @Component({
-    selector: 'app-created-order-list',
-    templateUrl: './created-order-list.component.html',
-    styleUrls: ['./created-order-list.component.css']
+  selector: 'app-created-order-list',
+  templateUrl: './created-order-list.component.html',
+  styleUrls: ['./created-order-list.component.css']
 })
 export class CreatedOrderListComponent implements OnInit {
-    currentUserID: string;
-    createdOrderList: PersonalOrderShow [] = [];
+  currentUserID: string;
+  createdOrderList: PersonalOrderShow [] = [];
+  changeTypeResult: string;
 
-    constructor(private orderService: OrderService, private dialog: MatDialog, private router: Router,
-                private location: Location, private route: ActivatedRoute) {
-    }
-ß
-    ngOnInit() {
-        this.currentUserID = localStorage.getItem('currentUserID');
-        this.getCreatedOrderList();
-    }
+  constructor(private orderService: OrderService, private dialog: MatDialog, private router: Router,
+              private location: Location, private route: ActivatedRoute) {
+  }
 
-    getCreatedOrderList() {
-        this.orderService.getCreatedOrder(this.currentUserID).pipe(first()).subscribe(orders => {
-            this.createdOrderList = orders;
-        });
-    }
+  ngOnInit() {
+    this.currentUserID = localStorage.getItem('currentUserID');
+    this.getCreatedOrderList();
+  }
 
-    rate(orderId: number, state: string) {
-        this.openRateDialog(orderId, state);
+  getCreatedOrderList() {
+    this.orderService.getCreatedOrder(this.currentUserID).pipe(first()).subscribe(orders => {
+      this.createdOrderList = orders;
+    });
+  }
 
-    }
+  rate(orderId: number, state: string) {
+    this.openRateDialog(orderId, state);
 
-    changeOrderType(orderId: number) {
-        this.orderService.changeOrderType(this.currentUserID, orderId).pipe(first()).subscribe(result => {
-            if (result) {
-                this.getCreatedOrderList();
-            }
+  }
 
-        });
-    }
+  openRateDialog(orderId: number, state: string): void {
 
-    openRateDialog(orderId: number, state: string): void {
+    const dialogConfig = new MatDialogConfig();
 
-        const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {orderId: orderId, state: state};
 
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.data = {orderId: orderId, state: state};
+    this.dialog.open(RateOrderDialogComponent, dialogConfig);
+  }
 
-        this.dialog.open(RateOrderDialogComponent, dialogConfig);
-    }
+  changeOrderType(orderId: string) {
 
-    backtolast() {
-        this.location.back();
-    }
+    this.openChangeTypeDialog(orderId);
+    this.getCreatedOrderList();
+  }
+
+  openChangeTypeDialog(orderId: string): void {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {orderId: orderId};
+
+    this.dialog.open(ChangeOrderTypeDialogComponent, dialogConfig);
+  }
+
+  backtolast() {
+    this.location.back();
+  }
 }

@@ -97,8 +97,8 @@
         <include refid="Base_Column_List"/>
         from order_request
         where tuId=#{tuId,jdbcType=INTEGER}
-        and status='REQUESTED'
-        and expire>= NOW();
+        and DATEDIFF(expire,NOW())>=-3
+        order by expire DESC
 
     </select>
 

@@ -55,7 +55,7 @@ export class OrderService {
     return this.http.get<string>(backurl + 'order/delete?userId=' + userId + '&orderId=' + orderId);
   }
 
-  changeOrderType(userId: string, orderId: number) {
+  changeOrderType(userId: string, orderId: string) {
     return this.http.get<string>(backurl + 'order/changeOrderType?userId=' + userId + '&orderId=' + orderId);
   }
 

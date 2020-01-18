@@ -160,7 +160,8 @@
         from `order`
         where status = 'ORDERED'
         and orderType != #{orderType,jdbcType=BIT}
-        and startDate >= NOW();
+        and DATEDIFF(startDate,NOW())>=0
+        order by startDate DESC
     </select>
 
 

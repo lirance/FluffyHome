@@ -40,6 +40,8 @@ import {SitterOrderComponent} from './sitter-order/sitter-order.component';
 import {OrderlistsComponent} from './orderlists/orderlists.component';
 import {RequestDialogComponent} from './request-dialog/request-dialog.component';
 import {RequestsComponent} from './requests/requests.component';
+import {ChangeOrderTypeDialogComponent} from './change-orderType-dialog/change-order-type-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import {RequestsComponent} from './requests/requests.component';
     AlertComponent,
     UserprofileComponent,
     AcceptDialogComponent,
+    ChangeOrderTypeDialogComponent,
     MyOrderComponent,
     SitterOrderComponent,
     CompleteDialogComponent,
@@ -89,7 +92,13 @@ import {RequestsComponent} from './requests/requests.component';
     AlertService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [AcceptDialogComponent, CompleteDialogComponent, RateOrderDialogComponent, RequestDialogComponent]
+  entryComponents: [
+    AcceptDialogComponent,
+    CompleteDialogComponent,
+    RateOrderDialogComponent,
+    RequestDialogComponent,
+    ChangeOrderTypeDialogComponent
+  ]
 })
 
 export class AppModule {

@@ -2,12 +2,12 @@
   <div *ngFor="let order of createdOrderList" class="col-md-4">
     <div class="card mb-4 box-shadow">
       <div class="card-body">
-        <h5 class="card-title"> {{order.orderId}} </h5>
+        <h5 class="card-title"> Order Id : {{order.orderId}} </h5>
       </div>
 
       <ul class="list-group list-group-flush text-left">
         <li *ngIf="!order.orderType" class="list-group-item"><b>Credits : </b>{{order.credits}} </li>
-        <li *ngIf="order.orderType" class="list-group-item">Charged Order</li>
+        <li *ngIf="order.orderType" class="list-group-item"><b>Charged Order</b></li>
         <li class="list-group-item"><b>Order Description :</b> {{order.orderDescription}} </li>
         <li class="list-group-item"><b>Zip :</b> {{order.zip}} </li>
         <li class="list-group-item"><b>Start Date :</b> {{order.startDate|date}} </li>

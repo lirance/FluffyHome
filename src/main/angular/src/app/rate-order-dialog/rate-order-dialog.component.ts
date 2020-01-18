@@ -13,7 +13,7 @@ import {first} from 'rxjs/operators';
 })
 
 export class RateOrderDialogComponent implements OnInit {
-  orderid: string;
+  orderId: string;
   state: string;
   rate = 0;
   currentUserID: string;
@@ -26,7 +26,7 @@ export class RateOrderDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) data,
               config: NgbRatingConfig
   ) {
-    this.orderid = data.orderid;
+    this.orderId = data.orderId;
     this.state = data.state;
     config.max = 5;
   }
@@ -43,7 +43,7 @@ export class RateOrderDialogComponent implements OnInit {
   submit() {
     this.submitResult = true;
     this.currentUserID = localStorage.getItem('currentUserID');
-    this.orderService.rateOrder(this.currentUserID, this.orderid, this.rate.toString()).pipe(first()).subscribe(result => {
+    this.orderService.rateOrder(this.currentUserID, this.orderId, this.rate.toString()).pipe(first()).subscribe(result => {
       result.toString();
       console.log(result);
       this.rateResult = result;

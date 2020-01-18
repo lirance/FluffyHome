@@ -4,14 +4,14 @@
   <div *ngFor="let pet of petList" class="col-md-4">
     <div class="card mb-4 box-shadow">
       <div class="card-body">
-        <h5 class="card-title"> {{pet.petId}}</h5>
+        <h5 class="card-title"> Pet Id : {{pet.petId}}</h5>
         <!--        <h6 class="card-subtitle mb-2 text-muted">Pet Name: {{pet.petName}} </h6>-->
       </div>
 
       <ul class="list-group list-group-flush text-left">
-        <li class="list-group-item">Pet Name: {{pet.petName}}</li>
-        <li class="list-group-item">Pet Type: {{pet.petType}} </li>
-        <li class="list-group-item">Pet Info: {{pet.petInfo}} </li>
+        <li class="list-group-item"><b>Pet Name : </b>{{pet.petName}}</li>
+        <li class="list-group-item"><b>Pet Type : </b>{{pet.petType}} </li>
+        <li class="list-group-item"><b>Pet Info : </b>{{pet.petInfo}} </li>
       </ul>
 
       <div class="card-body">

@@ -34,6 +34,7 @@ const routes: Routes = [
       {path: 'dashhome', component: DashhomeComponent, outlet: 'aux'},
       {path: 'orderlists', component: OrderlistsComponent, outlet: 'aux'},
       {path: 'requests', component: RequestsComponent, outlet: 'aux'},
+      {path: 'profile', component: UserprofileComponent, outlet: 'aux'},
       {path: 'createorder', component: CreateOrderComponent, outlet: 'aux'},
       {path: 'myorder', component: MyOrderComponent, outlet: 'aux'},
       {path: 'sitterorder', component: SitterOrderComponent, outlet: 'aux'},

@@ -207,5 +207,6 @@
         from user
         where userType=#{1}
         and userId!=#{0}
+        order by averageRate DESC
     </select>
 </mapper>

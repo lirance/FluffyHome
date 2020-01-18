@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author: Chendi Zhang
@@ -81,17 +79,24 @@ public class OrdersController {
         try {
             List<UserOrder> userOrders = userOrderService.getOrdersByMaker(userId);
 
-            for (UserOrder uo : userOrders) {
-                PersonOrderShow orderShow = new PersonOrderShow(getOrderDetail(uo.getOrderId()));
-                orderShow.setRated(uo.getRateflag());
-                orderShowList.add(orderShow);
-            }
+            generateOrderShow(orderShowList, userOrders);
+
 
         } catch (Exception e) {
             return null;
         }
         return orderShowList;
 
+    }
+
+    private void generateOrderShow(List<PersonOrderShow> orderShowList, List<UserOrder> userOrders) {
+        for (UserOrder uo : userOrders) {
+            PersonOrderShow orderShow = new PersonOrderShow(getOrderDetail(uo.getOrderId()));
+            orderShow.setRated(uo.getRateflag());
+            orderShowList.add(orderShow);
+        }
+
+        orderShowList.sort((o1, o2) -> o2.getStartDate().compareTo(o1.getStartDate()));
     }
 
 
@@ -127,11 +132,8 @@ public class OrdersController {
         try {
             List<UserOrder> userOrders = userOrderService.getOrdersByAccepter(userId);
 
-            for (UserOrder uo : userOrders) {
-                PersonOrderShow orderShow = new PersonOrderShow(getOrderDetail(uo.getOrderId()));
-                orderShow.setRated(uo.getRateflag());
-                orderShowList.add(orderShow);
-            }
+            generateOrderShow(orderShowList, userOrders);
+
 
         } catch (Exception e) {
             return null;

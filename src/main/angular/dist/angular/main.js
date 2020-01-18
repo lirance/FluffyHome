@@ -495,6 +495,7 @@ var AlertService = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "backurl", function() { return backurl; });
+// export const backurl = 'http://localhost:8080/';
 var backurl = 'http://18.191.103.130:8080/';
 
 
@@ -551,33 +552,50 @@ var OrderService = /** @class */ (function () {
         return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'orders/getOrders?isSitter=' + isSitter);
     };
     OrderService.prototype.createOrder = function (order, fromDate, toDate) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/create?userid=' + order.maker + '&orderType=' + order.orderType +
-            '&startDate=' + fromDate + '&endDate=' + toDate.toDateString() + '&orderDescription=' + order.orderDescription, { responseType: 'text' });
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/create?userId=' + order.maker + '&orderType=' + order.orderType +
+            '&startDate=' + fromDate + '&endDate=' + toDate + '&orderDescription=' + order.orderDescription, { responseType: 'text' });
     };
-    OrderService.prototype.getOrderDetail = function (orderid) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'orders/getOrderDetailById?orderId=' + orderid);
+    OrderService.prototype.getOrderDetail = function (orderId) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'orders/getOrderDetailById?orderId=' + orderId);
     };
-    OrderService.prototype.acceptOrder = function (userid, orderid) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/accept?userId=' + userid + '&orderId=' + orderid);
+    OrderService.prototype.acceptOrder = function (userId, orderId) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/accept?userId=' + userId + '&orderId=' + orderId);
     };
-    OrderService.prototype.completeOrder = function (userid, orderid, recipientId) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/complete?userId=' + userid + '&orderId=' + orderid +
+    OrderService.prototype.completeOrder = function (userId, orderId, recipientId) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/complete?userId=' + userId + '&orderId=' + orderId +
             '&recipientId=' + recipientId);
     };
-    OrderService.prototype.rateOrder = function (userid, orderid, rate) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/rate?orderId=' + orderid + '&userId=' + userid + '&rate=' + rate);
+    OrderService.prototype.rateOrder = function (userId, orderId, rate) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/rate?orderId=' + orderId + '&userId=' + userId + '&rate=' + rate);
     };
-    OrderService.prototype.getCreatedOrder = function (userid) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'orders/getCreateOrder?userId=' + userid);
+    OrderService.prototype.getCreatedOrder = function (userId) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'orders/getCreateOrder?userId=' + userId);
     };
-    OrderService.prototype.getAcceptedOrder = function (userid) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'orders/getAcceptedOrder?userId=' + userid);
+    OrderService.prototype.getAcceptedOrder = function (userId) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'orders/getAcceptedOrder?userId=' + userId);
     };
-    OrderService.prototype.cancelAcceptedOrder = function (userid, orderid) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/cancel?userId=' + userid + '&orderId=' + orderid);
+    OrderService.prototype.cancelAcceptedOrder = function (userId, orderId) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/cancel?userId=' + userId + '&orderId=' + orderId);
     };
-    OrderService.prototype.deleteOrder = function (userid, orderid) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/delete?userId=' + userid + '&orderId=' + orderid);
+    OrderService.prototype.deleteOrder = function (userId, orderId) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/delete?userId=' + userId + '&orderId=' + orderId);
+    };
+    OrderService.prototype.changeOrderType = function (userId, orderId) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/changeOrderType?userId=' + userId + '&orderId=' + orderId);
+    };
+    OrderService.prototype.sendRequest = function (fuId, tuId, orderId, expireDate) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/request/create?fuId=' + fuId + '&tuId=' + tuId
+            + '&orderId=' + orderId + '&startDate=' + expireDate);
+    };
+    OrderService.prototype.responseRequest = function (orderId, tuId, accept) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/request/response?orderId=' + orderId + '&tuId=' + tuId + '&accept=' + accept);
+    };
+    OrderService.prototype.getRequestOrder = function (userId, sitterType, tuId) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'orders/getRequestOrders?userId=' + userId + '' +
+            '&sitterType=' + sitterType + '&tuId=' + tuId);
+    };
+    OrderService.prototype.getRequests = function (userId) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/request/getUserRequests?userId=' + userId);
     };
     OrderService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])(),
@@ -624,10 +642,10 @@ var UserService = /** @class */ (function () {
         return this.http.post(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + "user/getUserByPhone?phone=" + phone, phone);
     };
     UserService.prototype.getUserById = function (id) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + "user/getUserById?userid=" + id);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + "user/getUserById?userId=" + id);
     };
     UserService.prototype.getP2PSitters = function (id) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + "user/getP2PSitters?userid=" + id);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + "user/getP2PSitters?userId=" + id);
     };
     UserService.prototype.getSitters = function () {
         return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + "user/getSitters");
@@ -638,23 +656,23 @@ var UserService = /** @class */ (function () {
         localStorage.removeItem('currentUser');
         localStorage.clear();
     };
-    UserService.prototype.profileEdit = function (userid, phone, username, email, zip, address, avaliableWeekday) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'user/editProfile?userid=' + userid
+    UserService.prototype.profileEdit = function (userId, phone, username, email, zip, address, avaliableWeekday) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'user/editProfile?userId=' + userId
             + '&phone=' + phone + '&email=' + email + '&username=' + username + '&zip=' + zip + '&address='
             + address + '&avaliableWeekday=' + JSON.stringify(avaliableWeekday));
     };
     UserService.prototype.getPets = function (userId) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'userPet/getUserPets?userid=' + userId);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'userPet/getUserPets?userId=' + userId);
     };
     UserService.prototype.addPet = function (pet) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'userPet/addPet?userid=' + pet.userid +
-            '&petType=' + pet.pettype + '&petName=' + pet.petname + '&petInfo=' + pet.petinfo);
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'userPet/addPet?userId=' + pet.userId +
+            '&petType=' + pet.petType + '&petName=' + pet.petName + '&petInfo=' + pet.petInfo);
     };
-    UserService.prototype.getPetById = function (petid) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'userPet/getPetInfoById?petid=' + petid);
+    UserService.prototype.getPetById = function (petId) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'userPet/getPetInfoById?petId=' + petId);
     };
-    UserService.prototype.editPetInfo = function (petid, petName, petType, petInfo) {
-        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'userPet/editPetInfo?petid=' + petid
+    UserService.prototype.editPetInfo = function (petId, petName, petType, petInfo) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'userPet/editPetInfo?petId=' + petId
             + '&petType=' + petType + '&petName=' + petName + '&petInfo=' + petInfo);
     };
     UserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -808,7 +826,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row text-dark\" *ngIf='acceptOrderList != []'>\n  <div *ngFor=\"let order of acceptOrderList\" class=\"col-md-4\">\n    <div class=\"card mb-4 box-shadow\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\"> {{order.orderid}} </h5>\n      </div>\n\n      <ul class=\"list-group list-group-flush text-left\">\n        <li *ngIf=\"!isSitter\" class=\"list-group-item\"><b>Credits : </b>{{order.credits}} </li>\n        <li class=\"list-group-item\"><b>Order Description :</b> {{order.orderDescription}} </li>\n        <li class=\"list-group-item\"><b>Zip :</b> {{order.zip}} </li>\n        <li class=\"list-group-item\"><b>Start Date :</b> {{order.startDate|date}} </li>\n        <li class=\"list-group-item\"><b>End Date : </b>{{order.endDate|date}} </li>\n      </ul>\n\n      <div class=\"card-body\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', order.orderid]}}]\" class=\"card-link\">See\n          Detail</a>\n        <a *ngIf=\"order.status=='COMPLETED'&&!order.rated\" (click)=\"rate(order.orderid, order.status)\"\n           class=\"card-link text-primary\">Rate</a>\n      </div>\n\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"row text-dark\" *ngIf='acceptOrderList != []'>\n  <div *ngFor=\"let order of acceptOrderList\" class=\"col-md-4\">\n    <div class=\"card mb-4 box-shadow\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\"> {{order.orderId}} </h5>\n      </div>\n\n      <ul class=\"list-group list-group-flush text-left\">\n        <li *ngIf=\"!isSitter\" class=\"list-group-item\"><b>Credits : </b>{{order.credits}} </li>\n        <li class=\"list-group-item\"><b>Order Description :</b> {{order.orderDescription}} </li>\n        <li class=\"list-group-item\"><b>Zip :</b> {{order.zip}} </li>\n        <li class=\"list-group-item\"><b>Start Date :</b> {{order.startDate|date}} </li>\n        <li class=\"list-group-item\"><b>End Date : </b>{{order.endDate|date}} </li>\n      </ul>\n\n      <div class=\"card-body\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]\" class=\"card-link\">See\n          Detail</a>\n        <a *ngIf=\"order.status=='COMPLETED'&&!order.rated\" (click)=\"rate(order.orderId, order.status)\"\n           class=\"card-link text-primary\">Rate</a>\n      </div>\n\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -855,14 +873,14 @@ var AcceptedOrderListComponent = /** @class */ (function () {
             _this.acceptOrderList = orders;
         });
     };
-    AcceptedOrderListComponent.prototype.rate = function (orderid, state) {
-        this.openRateDialog(orderid, state);
+    AcceptedOrderListComponent.prototype.rate = function (orderId, state) {
+        this.openRateDialog(orderId, state);
     };
-    AcceptedOrderListComponent.prototype.openRateDialog = function (orderid, state) {
+    AcceptedOrderListComponent.prototype.openRateDialog = function (orderId, state) {
         var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialogConfig"]();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
-        dialogConfig.data = { orderid: orderid, state: state };
+        dialogConfig.data = { orderId: orderId, state: state };
         this.dialog.open(_rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_5__["RateOrderDialogComponent"], dialogConfig);
     };
     AcceptedOrderListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -898,7 +916,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"text-dark\">Add a Pet</h2>\n<form [formGroup]=\"petForm\" (ngSubmit)=\"onSubmit()\" class=\"text-dark text-left\">\n\n  <div class=\"form-group\">\n    <label for=\"petname\"> Pet Name: </label>\n    <input type=\"text\" id=\"petname\" formControlName=\"petname\"\n           class=\"form-control\"\n    />\n    <div *ngIf=\"petForm.controls.petname.touched&&!petForm.controls.petname.valid\" class=\"alert alert-danger\">\n      Pet Name is required\n    </div>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"pettype\">Pet Type: </label>\n    <input type=\"text\" placeholder=\"dog/cat/other\" id=\"pettype\" formControlName=\"pettype\" class=\"form-control\"/>\n    <div *ngIf=\"petForm.controls.pettype.touched&&!petForm.controls.pettype.valid\" class=\"alert alert-danger\">\n      Pet Type is required\n    </div>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"petinfo\">Pet Info: (Something special about your pet)</label>\n    <input type=\"text\" placeholder=\"XXX is shy but friendly, shel loves play with ball...\" id=\"petinfo\"\n           formControlName=\"petinfo\"\n           class=\"form-control\"/>\n\n  </div>\n\n\n  <div class=\"form-group text-center\">\n    <button class=\"btn btn-primary\">Submit</button>\n    <a (click)=\"backtolast()\" class=\"btn btn-link\">Cancel</a>\n  </div>\n\n</form>\n\n<br><br>\n"
+module.exports = "<h2 class=\"text-dark\">Add a Pet</h2>\n<form [formGroup]=\"petForm\" (ngSubmit)=\"onSubmit()\" class=\"text-dark text-left\">\n\n  <div class=\"form-group\">\n    <label for=\"petName\"> Pet Name: </label>\n    <input type=\"text\" id=\"petName\" formControlName=\"petName\"\n           class=\"form-control\"\n    />\n    <div *ngIf=\"petForm.controls.petName.touched&&!petForm.controls.petName.valid\" class=\"alert alert-danger\">\n      Pet Name is required\n    </div>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"petType\">Pet Type: </label>\n    <input type=\"text\" placeholder=\"dog/cat/other\" id=\"petType\" formControlName=\"petType\" class=\"form-control\"/>\n    <div *ngIf=\"petForm.controls.petType.touched&&!petForm.controls.petType.valid\" class=\"alert alert-danger\">\n      Pet Type is required\n    </div>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"petInfo\">Pet Info: (Something special about your pet)</label>\n    <input type=\"text\" placeholder=\"XXX is shy but friendly, shel loves play with ball...\" id=\"petInfo\"\n           formControlName=\"petInfo\"\n           class=\"form-control\"/>\n\n  </div>\n\n\n  <div class=\"form-group text-center\">\n    <button class=\"btn btn-primary\">Submit</button>\n    <a (click)=\"backtolast()\" class=\"btn btn-link\">Cancel</a>\n  </div>\n\n</form>\n\n<br><br>\n"
 
 /***/ }),
 
@@ -938,11 +956,11 @@ var AddPetComponent = /** @class */ (function () {
     }
     AddPetComponent.prototype.ngOnInit = function () {
         this.petForm = this.formBuilder.group({
-            userid: [],
-            petid: [],
-            pettype: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            petname: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            petinfo: []
+            userId: [],
+            petId: [],
+            petType: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            petName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            petInfo: []
         });
     };
     Object.defineProperty(AddPetComponent.prototype, "f", {
@@ -955,8 +973,8 @@ var AddPetComponent = /** @class */ (function () {
     AddPetComponent.prototype.onSubmit = function () {
         var _this = this;
         this.submitted = true;
-        this.petForm.value.userid = localStorage.getItem('currentUserID');
-        this.petForm.value.petid = '0';
+        this.petForm.value.userId = localStorage.getItem('currentUserID');
+        this.petForm.value.petId = '0';
         if (this.petForm.invalid) {
             return;
         }
@@ -1010,15 +1028,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dashhome_dashhome_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./dashhome/dashhome.component */ "./src/app/dashhome/dashhome.component.ts");
 /* harmony import */ var _create_order_create_order_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./create-order/create-order.component */ "./src/app/create-order/create-order.component.ts");
 /* harmony import */ var _order_detail_order_detail_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./order-detail/order-detail.component */ "./src/app/order-detail/order-detail.component.ts");
-/* harmony import */ var _userprofile_userprofile_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./userprofile/userprofile.component */ "./src/app/userprofile/userprofile.component.ts");
-/* harmony import */ var _my_order_my_order_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./my-order/my-order.component */ "./src/app/my-order/my-order.component.ts");
-/* harmony import */ var _public_profile_public_profile_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./public-profile/public-profile.component */ "./src/app/public-profile/public-profile.component.ts");
-/* harmony import */ var _my_profile_my_profile_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./my-profile/my-profile.component */ "./src/app/my-profile/my-profile.component.ts");
-/* harmony import */ var _my_pets_my_pets_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./my-pets/my-pets.component */ "./src/app/my-pets/my-pets.component.ts");
-/* harmony import */ var _add_pet_add_pet_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./add-pet/add-pet.component */ "./src/app/add-pet/add-pet.component.ts");
-/* harmony import */ var _editpetInfo_editpetinfo_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./editpetInfo/editpetinfo.component */ "./src/app/editpetInfo/editpetinfo.component.ts");
-/* harmony import */ var _sitter_order_sitter_order_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./sitter-order/sitter-order.component */ "./src/app/sitter-order/sitter-order.component.ts");
-/* harmony import */ var _orderlists_orderlists_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./orderlists/orderlists.component */ "./src/app/orderlists/orderlists.component.ts");
+/* harmony import */ var _my_order_my_order_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./my-order/my-order.component */ "./src/app/my-order/my-order.component.ts");
+/* harmony import */ var _public_profile_public_profile_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./public-profile/public-profile.component */ "./src/app/public-profile/public-profile.component.ts");
+/* harmony import */ var _my_profile_my_profile_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./my-profile/my-profile.component */ "./src/app/my-profile/my-profile.component.ts");
+/* harmony import */ var _my_pets_my_pets_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./my-pets/my-pets.component */ "./src/app/my-pets/my-pets.component.ts");
+/* harmony import */ var _add_pet_add_pet_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./add-pet/add-pet.component */ "./src/app/add-pet/add-pet.component.ts");
+/* harmony import */ var _editpetInfo_editpetinfo_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./editpetInfo/editpetinfo.component */ "./src/app/editpetInfo/editpetinfo.component.ts");
+/* harmony import */ var _sitter_order_sitter_order_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./sitter-order/sitter-order.component */ "./src/app/sitter-order/sitter-order.component.ts");
+/* harmony import */ var _orderlists_orderlists_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./orderlists/orderlists.component */ "./src/app/orderlists/orderlists.component.ts");
+/* harmony import */ var _requests_requests_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./requests/requests.component */ "./src/app/requests/requests.component.ts");
 
 
 
@@ -1051,17 +1069,17 @@ var routes = [
         children: [
             { path: '', redirectTo: 'dashhome', pathMatch: 'full' },
             { path: 'dashhome', component: _dashhome_dashhome_component__WEBPACK_IMPORTED_MODULE_8__["DashhomeComponent"], outlet: 'aux' },
-            { path: 'orderlists', component: _orderlists_orderlists_component__WEBPACK_IMPORTED_MODULE_19__["OrderlistsComponent"], outlet: 'aux' },
-            { path: 'profile', component: _userprofile_userprofile_component__WEBPACK_IMPORTED_MODULE_11__["UserprofileComponent"], outlet: 'aux' },
+            { path: 'orderlists', component: _orderlists_orderlists_component__WEBPACK_IMPORTED_MODULE_18__["OrderlistsComponent"], outlet: 'aux' },
+            { path: 'requests', component: _requests_requests_component__WEBPACK_IMPORTED_MODULE_19__["RequestsComponent"], outlet: 'aux' },
             { path: 'createorder', component: _create_order_create_order_component__WEBPACK_IMPORTED_MODULE_9__["CreateOrderComponent"], outlet: 'aux' },
-            { path: 'myorder', component: _my_order_my_order_component__WEBPACK_IMPORTED_MODULE_12__["MyOrderComponent"], outlet: 'aux' },
-            { path: 'sitterorder', component: _sitter_order_sitter_order_component__WEBPACK_IMPORTED_MODULE_18__["SitterOrderComponent"], outlet: 'aux' },
-            { path: 'orderdetail/:orderid', component: _order_detail_order_detail_component__WEBPACK_IMPORTED_MODULE_10__["OrderDetailComponent"], outlet: 'aux' },
-            { path: 'publicprofile/:userid', component: _public_profile_public_profile_component__WEBPACK_IMPORTED_MODULE_13__["PublicProfileComponent"], outlet: 'aux' },
-            { path: 'myprofile/:userid', component: _my_profile_my_profile_component__WEBPACK_IMPORTED_MODULE_14__["MyProfileComponent"], outlet: 'aux' },
-            { path: 'mypets/:userid', component: _my_pets_my_pets_component__WEBPACK_IMPORTED_MODULE_15__["MyPetsComponent"], outlet: 'aux' },
-            { path: 'addpet', component: _add_pet_add_pet_component__WEBPACK_IMPORTED_MODULE_16__["AddPetComponent"], outlet: 'aux' },
-            { path: 'editpet/:petid', component: _editpetInfo_editpetinfo_component__WEBPACK_IMPORTED_MODULE_17__["EditPetInfoComponent"], outlet: 'aux' }
+            { path: 'myorder', component: _my_order_my_order_component__WEBPACK_IMPORTED_MODULE_11__["MyOrderComponent"], outlet: 'aux' },
+            { path: 'sitterorder', component: _sitter_order_sitter_order_component__WEBPACK_IMPORTED_MODULE_17__["SitterOrderComponent"], outlet: 'aux' },
+            { path: 'orderdetail/:orderId', component: _order_detail_order_detail_component__WEBPACK_IMPORTED_MODULE_10__["OrderDetailComponent"], outlet: 'aux' },
+            { path: 'publicprofile/:userid', component: _public_profile_public_profile_component__WEBPACK_IMPORTED_MODULE_12__["PublicProfileComponent"], outlet: 'aux' },
+            { path: 'myprofile/:userid', component: _my_profile_my_profile_component__WEBPACK_IMPORTED_MODULE_13__["MyProfileComponent"], outlet: 'aux' },
+            { path: 'mypets/:userid', component: _my_pets_my_pets_component__WEBPACK_IMPORTED_MODULE_14__["MyPetsComponent"], outlet: 'aux' },
+            { path: 'addpet', component: _add_pet_add_pet_component__WEBPACK_IMPORTED_MODULE_15__["AddPetComponent"], outlet: 'aux' },
+            { path: 'editpet/:petid', component: _editpetInfo_editpetinfo_component__WEBPACK_IMPORTED_MODULE_16__["EditPetInfoComponent"], outlet: 'aux' }
         ]
     }
 ];
@@ -1154,32 +1172,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _aboutUs_aboutUs_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./aboutUs/aboutUs.component */ "./src/app/aboutUs/aboutUs.component.ts");
 /* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./sign-up/sign-up.component */ "./src/app/sign-up/sign-up.component.ts");
+/* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./login */ "./src/app/login/index.ts");
+/* harmony import */ var _sign_up__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./sign-up */ "./src/app/sign-up/index.ts");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./_services */ "./src/app/_services/index.ts");
 /* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
 /* harmony import */ var _dashhome_dashhome_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./dashhome/dashhome.component */ "./src/app/dashhome/dashhome.component.ts");
 /* harmony import */ var _create_order_create_order_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./create-order/create-order.component */ "./src/app/create-order/create-order.component.ts");
 /* harmony import */ var _order_detail_order_detail_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./order-detail/order-detail.component */ "./src/app/order-detail/order-detail.component.ts");
-/* harmony import */ var _services_order_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./_services/order.service */ "./src/app/_services/order.service.ts");
-/* harmony import */ var _directives__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./_directives */ "./src/app/_directives/index.ts");
-/* harmony import */ var _userprofile_userprofile_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./userprofile/userprofile.component */ "./src/app/userprofile/userprofile.component.ts");
-/* harmony import */ var _accept_dialog_accept_dialog_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./accept-dialog/accept-dialog.component */ "./src/app/accept-dialog/accept-dialog.component.ts");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _my_order_my_order_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./my-order/my-order.component */ "./src/app/my-order/my-order.component.ts");
-/* harmony import */ var _complete_dialog_complete_dialog_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./complete-dialog/complete-dialog.component */ "./src/app/complete-dialog/complete-dialog.component.ts");
-/* harmony import */ var _created_order_list_created_order_list_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./created-order-list/created-order-list.component */ "./src/app/created-order-list/created-order-list.component.ts");
-/* harmony import */ var _accepted_order_list_accepted_order_list_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./accepted-order-list/accepted-order-list.component */ "./src/app/accepted-order-list/accepted-order-list.component.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var _rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./rate-order-dialog/rate-order-dialog.component */ "./src/app/rate-order-dialog/rate-order-dialog.component.ts");
-/* harmony import */ var _public_profile_public_profile_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./public-profile/public-profile.component */ "./src/app/public-profile/public-profile.component.ts");
-/* harmony import */ var _my_profile_my_profile_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./my-profile/my-profile.component */ "./src/app/my-profile/my-profile.component.ts");
-/* harmony import */ var _my_pets_my_pets_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./my-pets/my-pets.component */ "./src/app/my-pets/my-pets.component.ts");
-/* harmony import */ var _add_pet_add_pet_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./add-pet/add-pet.component */ "./src/app/add-pet/add-pet.component.ts");
-/* harmony import */ var _editpetInfo_editpetinfo_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./editpetInfo/editpetinfo.component */ "./src/app/editpetInfo/editpetinfo.component.ts");
-/* harmony import */ var ngx_tempusdominus_bootstrap__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ngx-tempusdominus-bootstrap */ "./node_modules/ngx-tempusdominus-bootstrap/esm5/ngx-tempusdominus-bootstrap.js");
-/* harmony import */ var _sitter_order_sitter_order_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./sitter-order/sitter-order.component */ "./src/app/sitter-order/sitter-order.component.ts");
-/* harmony import */ var _orderlists_orderlists_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./orderlists/orderlists.component */ "./src/app/orderlists/orderlists.component.ts");
+/* harmony import */ var _directives__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./_directives */ "./src/app/_directives/index.ts");
+/* harmony import */ var _userprofile_userprofile_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./userprofile/userprofile.component */ "./src/app/userprofile/userprofile.component.ts");
+/* harmony import */ var _accept_dialog_accept_dialog_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./accept-dialog/accept-dialog.component */ "./src/app/accept-dialog/accept-dialog.component.ts");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _my_order_my_order_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./my-order/my-order.component */ "./src/app/my-order/my-order.component.ts");
+/* harmony import */ var _complete_dialog_complete_dialog_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./complete-dialog/complete-dialog.component */ "./src/app/complete-dialog/complete-dialog.component.ts");
+/* harmony import */ var _created_order_list_created_order_list_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./created-order-list/created-order-list.component */ "./src/app/created-order-list/created-order-list.component.ts");
+/* harmony import */ var _accepted_order_list_accepted_order_list_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./accepted-order-list/accepted-order-list.component */ "./src/app/accepted-order-list/accepted-order-list.component.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./rate-order-dialog/rate-order-dialog.component */ "./src/app/rate-order-dialog/rate-order-dialog.component.ts");
+/* harmony import */ var _public_profile_public_profile_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./public-profile/public-profile.component */ "./src/app/public-profile/public-profile.component.ts");
+/* harmony import */ var _my_profile_my_profile_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./my-profile/my-profile.component */ "./src/app/my-profile/my-profile.component.ts");
+/* harmony import */ var _my_pets_my_pets_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./my-pets/my-pets.component */ "./src/app/my-pets/my-pets.component.ts");
+/* harmony import */ var _add_pet_add_pet_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./add-pet/add-pet.component */ "./src/app/add-pet/add-pet.component.ts");
+/* harmony import */ var _editpetInfo_editpetinfo_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./editpetInfo/editpetinfo.component */ "./src/app/editpetInfo/editpetinfo.component.ts");
+/* harmony import */ var ngx_tempusdominus_bootstrap__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ngx-tempusdominus-bootstrap */ "./node_modules/ngx-tempusdominus-bootstrap/esm5/ngx-tempusdominus-bootstrap.js");
+/* harmony import */ var _sitter_order_sitter_order_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./sitter-order/sitter-order.component */ "./src/app/sitter-order/sitter-order.component.ts");
+/* harmony import */ var _orderlists_orderlists_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./orderlists/orderlists.component */ "./src/app/orderlists/orderlists.component.ts");
+/* harmony import */ var _request_dialog_request_dialog_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./request-dialog/request-dialog.component */ "./src/app/request-dialog/request-dialog.component.ts");
+/* harmony import */ var _requests_requests_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./requests/requests.component */ "./src/app/requests/requests.component.ts");
+
+
 
 
 
@@ -1226,27 +1247,29 @@ var AppModule = /** @class */ (function () {
                 _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
                 _aboutUs_aboutUs_component__WEBPACK_IMPORTED_MODULE_8__["AboutUsComponent"],
                 _home_home_component__WEBPACK_IMPORTED_MODULE_9__["HomeComponent"],
-                _login_login_component__WEBPACK_IMPORTED_MODULE_10__["LoginComponent"],
-                _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_11__["SignUpComponent"],
+                _login__WEBPACK_IMPORTED_MODULE_10__["LoginComponent"],
+                _sign_up__WEBPACK_IMPORTED_MODULE_11__["SignUpComponent"],
                 _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_13__["DashboardComponent"],
                 _dashhome_dashhome_component__WEBPACK_IMPORTED_MODULE_14__["DashhomeComponent"],
                 _create_order_create_order_component__WEBPACK_IMPORTED_MODULE_15__["CreateOrderComponent"],
                 _order_detail_order_detail_component__WEBPACK_IMPORTED_MODULE_16__["OrderDetailComponent"],
-                _directives__WEBPACK_IMPORTED_MODULE_18__["AlertComponent"],
-                _userprofile_userprofile_component__WEBPACK_IMPORTED_MODULE_19__["UserprofileComponent"],
-                _accept_dialog_accept_dialog_component__WEBPACK_IMPORTED_MODULE_20__["AcceptDialogComponent"],
-                _my_order_my_order_component__WEBPACK_IMPORTED_MODULE_22__["MyOrderComponent"],
-                _sitter_order_sitter_order_component__WEBPACK_IMPORTED_MODULE_34__["SitterOrderComponent"],
-                _complete_dialog_complete_dialog_component__WEBPACK_IMPORTED_MODULE_23__["CompleteDialogComponent"],
-                _created_order_list_created_order_list_component__WEBPACK_IMPORTED_MODULE_24__["CreatedOrderListComponent"],
-                _accepted_order_list_accepted_order_list_component__WEBPACK_IMPORTED_MODULE_25__["AcceptedOrderListComponent"],
-                _rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_27__["RateOrderDialogComponent"],
-                _public_profile_public_profile_component__WEBPACK_IMPORTED_MODULE_28__["PublicProfileComponent"],
-                _my_profile_my_profile_component__WEBPACK_IMPORTED_MODULE_29__["MyProfileComponent"],
-                _my_pets_my_pets_component__WEBPACK_IMPORTED_MODULE_30__["MyPetsComponent"],
-                _add_pet_add_pet_component__WEBPACK_IMPORTED_MODULE_31__["AddPetComponent"],
-                _editpetInfo_editpetinfo_component__WEBPACK_IMPORTED_MODULE_32__["EditPetInfoComponent"],
-                _orderlists_orderlists_component__WEBPACK_IMPORTED_MODULE_35__["OrderlistsComponent"],
+                _directives__WEBPACK_IMPORTED_MODULE_17__["AlertComponent"],
+                _userprofile_userprofile_component__WEBPACK_IMPORTED_MODULE_18__["UserprofileComponent"],
+                _accept_dialog_accept_dialog_component__WEBPACK_IMPORTED_MODULE_19__["AcceptDialogComponent"],
+                _my_order_my_order_component__WEBPACK_IMPORTED_MODULE_21__["MyOrderComponent"],
+                _sitter_order_sitter_order_component__WEBPACK_IMPORTED_MODULE_33__["SitterOrderComponent"],
+                _complete_dialog_complete_dialog_component__WEBPACK_IMPORTED_MODULE_22__["CompleteDialogComponent"],
+                _created_order_list_created_order_list_component__WEBPACK_IMPORTED_MODULE_23__["CreatedOrderListComponent"],
+                _accepted_order_list_accepted_order_list_component__WEBPACK_IMPORTED_MODULE_24__["AcceptedOrderListComponent"],
+                _rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_26__["RateOrderDialogComponent"],
+                _public_profile_public_profile_component__WEBPACK_IMPORTED_MODULE_27__["PublicProfileComponent"],
+                _my_profile_my_profile_component__WEBPACK_IMPORTED_MODULE_28__["MyProfileComponent"],
+                _my_pets_my_pets_component__WEBPACK_IMPORTED_MODULE_29__["MyPetsComponent"],
+                _add_pet_add_pet_component__WEBPACK_IMPORTED_MODULE_30__["AddPetComponent"],
+                _editpetInfo_editpetinfo_component__WEBPACK_IMPORTED_MODULE_31__["EditPetInfoComponent"],
+                _orderlists_orderlists_component__WEBPACK_IMPORTED_MODULE_34__["OrderlistsComponent"],
+                _requests_requests_component__WEBPACK_IMPORTED_MODULE_36__["RequestsComponent"],
+                _request_dialog_request_dialog_component__WEBPACK_IMPORTED_MODULE_35__["RequestDialogComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -1254,18 +1277,18 @@ var AppModule = /** @class */ (function () {
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_6__["AppRoutingModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialogModule"],
-                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_26__["NgbModule"],
-                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_21__["BrowserAnimationsModule"],
+                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_25__["NgbModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_20__["BrowserAnimationsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
-                ngx_tempusdominus_bootstrap__WEBPACK_IMPORTED_MODULE_33__["NgTempusdominusBootstrapModule"]
+                ngx_tempusdominus_bootstrap__WEBPACK_IMPORTED_MODULE_32__["NgTempusdominusBootstrapModule"]
             ],
             providers: [
-                _services_order_service__WEBPACK_IMPORTED_MODULE_17__["OrderService"],
+                _services__WEBPACK_IMPORTED_MODULE_12__["OrderService"],
                 _services__WEBPACK_IMPORTED_MODULE_12__["UserService"],
                 _services__WEBPACK_IMPORTED_MODULE_12__["AlertService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
-            entryComponents: [_accept_dialog_accept_dialog_component__WEBPACK_IMPORTED_MODULE_20__["AcceptDialogComponent"], _complete_dialog_complete_dialog_component__WEBPACK_IMPORTED_MODULE_23__["CompleteDialogComponent"], _rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_27__["RateOrderDialogComponent"]]
+            entryComponents: [_accept_dialog_accept_dialog_component__WEBPACK_IMPORTED_MODULE_19__["AcceptDialogComponent"], _complete_dialog_complete_dialog_component__WEBPACK_IMPORTED_MODULE_22__["CompleteDialogComponent"], _rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_26__["RateOrderDialogComponent"], _request_dialog_request_dialog_component__WEBPACK_IMPORTED_MODULE_35__["RequestDialogComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -1445,7 +1468,7 @@ var CreateOrderComponent = /** @class */ (function () {
     };
     CreateOrderComponent.prototype.ngOnInit = function () {
         this.orderForm = this.formBuilder.group({
-            orderid: [],
+            orderId: [],
             orderType: false,
             // startDate: ['', Validators.required],
             // endDate: ['', Validators.required],
@@ -1527,7 +1550,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row text-dark\" *ngIf='createdOrderList != []'>\n  <div *ngFor=\"let order of createdOrderList\" class=\"col-md-4\">\n    <div class=\"card mb-4 box-shadow\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\"> {{order.orderid}} </h5>\n      </div>\n\n      <!--      <ul class=\"list-group list-group-flush text-left\">-->\n      <!--        <li class=\"list-group-item\">Credits for this order: {{order.credits}} </li>-->\n      <!--        <li class=\"list-group-item\">Order Description: {{order.orderDescription}} </li>-->\n      <!--        <li class=\"list-group-item\">Zip: {{order.zip}} </li>-->\n      <!--        <li class=\"list-group-item\">Start Date: {{order.startDate|date}} </li>-->\n      <!--        <li class=\"list-group-item\">End Date: {{order.endDate|date}} </li>-->\n      <!--      </ul>-->\n\n      <ul class=\"list-group list-group-flush text-left\">\n        <li class=\"list-group-item\"><b>Credits : </b>{{order.credits}} </li>\n        <li class=\"list-group-item\"><b>Order Description :</b> {{order.orderDescription}} </li>\n        <li class=\"list-group-item\"><b>Zip :</b> {{order.zip}} </li>\n        <li class=\"list-group-item\"><b>Start Date :</b> {{order.startDate|date}} </li>\n        <li class=\"list-group-item\"><b>End Date : </b>{{order.endDate|date}} </li>\n      </ul>\n\n\n      <div class=\"card-body\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', order.orderid]}}]\" class=\"card-link\">See\n          Detail</a>\n        <a *ngIf=\"order.status=='COMPLETED'&&!order.rated\" (click)=\"rate(order.orderid, order.status)\"\n           class=\"card-link text-primary\">Rate</a>\n      </div>\n\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"row text-dark\" *ngIf='createdOrderList != []'>\n  <div *ngFor=\"let order of createdOrderList\" class=\"col-md-4\">\n    <div class=\"card mb-4 box-shadow\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\"> {{order.orderId}} </h5>\n      </div>\n\n      <ul class=\"list-group list-group-flush text-left\">\n        <li *ngIf=\"!order.orderType\" class=\"list-group-item\"><b>Credits : </b>{{order.credits}} </li>\n        <li *ngIf=\"order.orderType\" class=\"list-group-item\">Charged Order</li>\n        <li class=\"list-group-item\"><b>Order Description :</b> {{order.orderDescription}} </li>\n        <li class=\"list-group-item\"><b>Zip :</b> {{order.zip}} </li>\n        <li class=\"list-group-item\"><b>Start Date :</b> {{order.startDate|date}} </li>\n        <li class=\"list-group-item\"><b>End Date : </b>{{order.endDate|date}} </li>\n      </ul>\n\n\n      <div class=\"card-body\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]\" class=\"card-link\">See\n          Detail</a>\n        <a *ngIf=\"order.status=='COMPLETED'&&!order.rated\" (click)=\"rate(order.orderId, order.status)\"\n           class=\"card-link text-primary\">Rate</a>\n\n        <a *ngIf=\"order.status=='ORDERED'&&!order.orderType\" (click)=\"changeOrderType(order.orderId)\"\n           class=\"card-link text-primary\">Change to Charged Order</a>\n      </div>\n\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1546,8 +1569,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_services */ "./src/app/_services/index.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../rate-order-dialog/rate-order-dialog.component */ "./src/app/rate-order-dialog/rate-order-dialog.component.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../rate-order-dialog/rate-order-dialog.component */ "./src/app/rate-order-dialog/rate-order-dialog.component.ts");
+
 
 
 
@@ -1556,32 +1581,44 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CreatedOrderListComponent = /** @class */ (function () {
-    function CreatedOrderListComponent(orderService, dialog, router, route) {
+    function CreatedOrderListComponent(orderService, dialog, router, location, route) {
         this.orderService = orderService;
         this.dialog = dialog;
         this.router = router;
+        this.location = location;
         this.route = route;
         this.createdOrderList = [];
     }
     CreatedOrderListComponent.prototype.ngOnInit = function () {
         this.currentUserID = localStorage.getItem('currentUserID');
-        this.getCreatedOrderlist();
+        this.getCreatedOrderList();
     };
-    CreatedOrderListComponent.prototype.getCreatedOrderlist = function () {
+    CreatedOrderListComponent.prototype.getCreatedOrderList = function () {
         var _this = this;
         this.orderService.getCreatedOrder(this.currentUserID).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["first"])()).subscribe(function (orders) {
             _this.createdOrderList = orders;
         });
     };
-    CreatedOrderListComponent.prototype.rate = function (orderid, state) {
-        this.openRateDialog(orderid, state);
+    CreatedOrderListComponent.prototype.rate = function (orderId, state) {
+        this.openRateDialog(orderId, state);
     };
-    CreatedOrderListComponent.prototype.openRateDialog = function (orderid, state) {
-        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialogConfig"]();
+    CreatedOrderListComponent.prototype.changeOrderType = function (orderId) {
+        var _this = this;
+        this.orderService.changeOrderType(this.currentUserID, orderId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["first"])()).subscribe(function (result) {
+            if (result) {
+                _this.getCreatedOrderList();
+            }
+        });
+    };
+    CreatedOrderListComponent.prototype.openRateDialog = function (orderId, state) {
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialogConfig"]();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
-        dialogConfig.data = { orderid: orderid, state: state };
-        this.dialog.open(_rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_6__["RateOrderDialogComponent"], dialogConfig);
+        dialogConfig.data = { orderId: orderId, state: state };
+        this.dialog.open(_rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_7__["RateOrderDialogComponent"], dialogConfig);
+    };
+    CreatedOrderListComponent.prototype.backtolast = function () {
+        this.location.back();
     };
     CreatedOrderListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1589,7 +1626,8 @@ var CreatedOrderListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./created-order-list.component.html */ "./src/app/created-order-list/created-order-list.component.html"),
             styles: [__webpack_require__(/*! ./created-order-list.component.css */ "./src/app/created-order-list/created-order-list.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_3__["OrderService"], _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialog"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_3__["OrderService"], _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialog"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_5__["Location"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
     ], CreatedOrderListComponent);
     return CreatedOrderListComponent;
 }());
@@ -1616,7 +1654,7 @@ module.exports = "/* Links */\na,\na:focus,\na:hover {\n  color: #fff;\n}\n.navc
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg navbar-light bg-light h-10\" style=\"background-color: #f0b07b;\">\n  <div class=\"navcontainer\">\n    <div class=\"row\">\n      <a *ngIf=\"!ifSitter\" class=\"navbar-brand\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['dashhome']}}]\">FluffyHome</a>\n      <a *ngIf=\"ifSitter\" class=\"navbar-brand\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderlists']}}]\">FluffyHome</a>\n\n      <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\"\n              aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n      </button>\n\n      <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\n        <ul class=\"navbar-nav mr-auto\">\n          <li class=\"nav-item\">\n            <a *ngIf=\"!ifSitter\" class=\"nav-link\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['dashhome']}}]\">Home<span\n              class=\"sr-only\">(current)</span></a>\n            <a *ngIf=\"ifSitter\" class=\"nav-link\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderlists']}}]\">Home<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n          <li *ngIf=\"!ifSitter\" class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderlists']}}]\">Orders<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n\n          <li *ngIf=\"!ifSitter\" class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['createorder']}}]\">Create Order</a>\n          </li>\n          <li *ngIf=\"!ifSitter\" classs=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['myorder']}}]\">My Orders</a>\n          </li>\n\n          <li *ngIf=\"ifSitter\" classs=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['sitterorder']}}]\">My Orders</a>\n          </li>\n\n\n        </ul>\n\n        <div class=\"nav-item dropdown\">\n          <button *ngIf=\"currentUser;else elseBlock\" class=\" btn dropdown-toggle text-primary\" id=\"dropdownMenuButton\"\n                  type=\"button\"\n                  data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n            {{currentUser.username}}\n          </button>\n          <ng-template #elseBlock>\n            <!--            <button [routerLink]=\"\" ]></button>-->\n            <a class=\"nav-link text-dark\" routerLink=\"/login\" routerLinkActive=\"active\">Log In</a>\n          </ng-template>\n\n          <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n            <a class=\"dropdown-item text-dark\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['myprofile', currentUserID]}}]\">My Profile</a>\n            <a *ngIf=\"!ifSitter\" class=\"dropdown-item text-dark\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['mypets', currentUserID]}}]\">My Pets</a>\n            <a class=\"dropdown-item text-dark\" (click)=\"userLogout()\">Log Out</a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</nav>\n\n<div class=\"jumbotron h-90\">\n  <div class=\"container\">\n    <router-outlet name=\"aux\"></router-outlet>\n  </div>\n</div>\n"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-light bg-light h-10\" style=\"background-color: #f0b07b;\">\n  <div class=\"navcontainer\">\n    <div class=\"row\">\n      <a *ngIf=\"!ifSitter\" class=\"navbar-brand\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['dashhome']}}]\">FluffyHome</a>\n      <a *ngIf=\"ifSitter\" class=\"navbar-brand\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderlists']}}]\">FluffyHome</a>\n\n      <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\"\n              aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n      </button>\n\n      <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\n        <ul class=\"navbar-nav mr-auto\">\n          <li class=\"nav-item\">\n            <a *ngIf=\"!ifSitter\" class=\"nav-link\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['dashhome']}}]\">Home<span\n              class=\"sr-only\">(current)</span></a>\n            <a *ngIf=\"ifSitter\" class=\"nav-link\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderlists']}}]\">Home<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n          <li *ngIf=\"!ifSitter\" class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderlists']}}]\">Orders<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n\n          <li *ngIf=\"!ifSitter\" class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['createorder']}}]\">Create Order</a>\n          </li>\n          <li *ngIf=\"!ifSitter\" classs=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['myorder']}}]\">My Orders</a>\n          </li>\n\n          <li *ngIf=\"ifSitter\" classs=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['sitterorder']}}]\">My Orders</a>\n          </li>\n\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['requests']}}]\">Requests<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n\n\n        </ul>\n\n        <div class=\"nav-item dropdown\">\n          <button *ngIf=\"currentUser;else elseBlock\" class=\" btn dropdown-toggle text-primary\" id=\"dropdownMenuButton\"\n                  type=\"button\"\n                  data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n            {{currentUser.username}}\n          </button>\n          <ng-template #elseBlock>\n            <!--            <button [routerLink]=\"\" ]></button>-->\n            <a class=\"nav-link text-dark\" routerLink=\"/login\" routerLinkActive=\"active\">Log In</a>\n          </ng-template>\n\n          <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n            <a class=\"dropdown-item text-dark\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['myprofile', currentUserID]}}]\">My Profile</a>\n            <a *ngIf=\"!ifSitter\" class=\"dropdown-item text-dark\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['mypets', currentUserID]}}]\">My Pets</a>\n            <a class=\"dropdown-item text-dark\" (click)=\"userLogout()\">Log Out</a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</nav>\n\n<div class=\"jumbotron h-90\">\n  <div class=\"container\">\n    <router-outlet name=\"aux\"></router-outlet>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1697,7 +1735,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"text-dark\">Find a person for pet-sitting</h2>\n<br/><br/>\n<p class=\"text-dark text-left\">Choose <strong>Peer-to-Peer</strong> to find sitter for free (use credits), <strong>Sitters</strong>\n  to find profession sitters(cost money)</p>\n<ul class=\"nav nav-tabs text-dark\">\n  <li class=\"nav-item\">\n    <a class=\"nav-link {{created_active}}\" (click)=\"switch_created()\"><strong>Peer-to-Peer</strong> </a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link {{accepted_active}}\" (click)=\"switch_accepted()\"><strong>Sitters</strong> </a>\n</ul>\n<br><br>\n<div *ngIf='switch_flag == 0'>\n  <div class=\"row text-dark\" *ngIf='p2psitters != []'>\n    <div *ngFor=\"let sitter of p2psitters\" class=\"col-md-4\">\n      <div class=\"card mb-4 box-shadow\">\n        <div class=\"card-body\">\n          <h5 class=\"card-title\"> {{sitter.username}} </h5>\n        </div>\n\n        <ul class=\"list-group list-group-flush text-left\">\n          <li class=\"list-group-item\">Average Rate: {{sitter.averageRate}} </li>\n          <li class=\"list-group-item\">Phone:{{sitter.phone}}</li>\n          <li class=\"list-group-item\">Email:{{sitter.email}}</li>\n          <li class=\"list-group-item\">Zip: {{sitter.zip}} </li>\n          <li class=\"list-group-item\">Address: {{sitter.address}} </li>\n        </ul>\n\n        <div class=\"card-body\">\n          <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['publicprofile', sitter.userid]}}]\">User Profile</a>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n\n<div *ngIf='switch_flag == 1'>\n  <div class=\"row text-dark\" *ngIf='sitters != []'>\n    <div *ngFor=\"let sitter of sitters\" class=\"col-md-4\">\n      <div class=\"card mb-4 box-shadow\">\n        <div class=\"card-body\">\n          <h5 class=\"card-title\"> {{sitter.username}} </h5>\n        </div>\n\n        <ul class=\"list-group list-group-flush text-left\">\n          <li class=\"list-group-item\">Average Rate: {{sitter.averageRate}} </li>\n          <li class=\"list-group-item\">Phone:{{sitter.phone}}</li>\n          <li class=\"list-group-item\">Email:{{sitter.email}}</li>\n          <li class=\"list-group-item\">Zip: {{sitter.zip}} </li>\n          <li class=\"list-group-item\">Address: {{sitter.address}} </li>\n        </ul>\n\n        <div class=\"card-body\">\n          <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['publicprofile', sitter.userid]}}]\">User Profile</a>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<h2 class=\"text-dark\">Find a person for pet-sitting</h2>\n<br/><br/>\n<p class=\"text-dark text-left\">Choose <strong>Peer-to-Peer</strong> to find sitter for free (use credits), <strong>Sitters</strong>\n  to find profession sitters(cost money)</p>\n<ul class=\"nav nav-tabs text-dark\">\n  <li class=\"nav-item\">\n    <a class=\"nav-link {{created_active}}\" (click)=\"switch_created()\"><strong>Peer-to-Peer</strong> </a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link {{accepted_active}}\" (click)=\"switch_accepted()\"><strong>Sitters</strong> </a>\n</ul>\n<br><br>\n<div *ngIf='switch_flag == 0'>\n  <div class=\"row text-dark\" *ngIf='p2psitters != []'>\n    <div *ngFor=\"let sitter of p2psitters\" class=\"col-md-4\">\n      <div class=\"card mb-4 box-shadow\">\n        <div class=\"card-body\">\n          <h5 class=\"card-title\">\n            <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['publicprofile', sitter.userId]}}]\">\n              {{sitter.username}}</a>\n          </h5>\n        </div>\n\n        <ul class=\"list-group list-group-flush text-left\">\n          <li class=\"list-group-item\">Average Rate: {{sitter.averageRate}} </li>\n          <li class=\"list-group-item\">Phone:{{sitter.phone}}</li>\n          <li class=\"list-group-item\">Email:{{sitter.email}}</li>\n          <li class=\"list-group-item\">Zip: {{sitter.zip}} </li>\n          <li class=\"list-group-item\">Address: {{sitter.address}} </li>\n        </ul>\n\n        <div class=\"card-body\">\n          <button type=\"button\" class=\"btn btn-outline-primary\"\n                  (click)=\"sendRequest(sitter.userId,false)\">Send Request\n          </button>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n\n<div *ngIf='switch_flag == 1'>\n  <div class=\"row text-dark\" *ngIf='sitters != []'>\n    <div *ngFor=\"let sitter of sitters\" class=\"col-md-4\">\n      <div class=\"card mb-4 box-shadow\">\n        <div class=\"card-body\">\n          <h5 class=\"card-title\">\n            <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['publicprofile', sitter.userId]}}]\">\n              {{sitter.username}}</a>\n          </h5>\n        </div>\n\n        <ul class=\"list-group list-group-flush text-left\">\n          <li class=\"list-group-item\">Average Rate: {{sitter.averageRate}} </li>\n          <li class=\"list-group-item\">Phone:{{sitter.phone}}</li>\n          <li class=\"list-group-item\">Email:{{sitter.email}}</li>\n          <li class=\"list-group-item\">Zip: {{sitter.zip}} </li>\n          <li class=\"list-group-item\">Address: {{sitter.address}} </li>\n        </ul>\n\n        <div class=\"card-body\">\n          <button type=\"button\" class=\"btn btn-outline-primary\"\n                  (click)=\"sendRequest(sitter.userId,true)\">Send Request\n          </button>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1717,6 +1755,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_services */ "./src/app/_services/index.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _request_dialog_request_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../request-dialog/request-dialog.component */ "./src/app/request-dialog/request-dialog.component.ts");
+
 
 
 
@@ -1766,6 +1806,20 @@ var DashhomeComponent = /** @class */ (function () {
             _this.sitters = users;
         });
     };
+    DashhomeComponent.prototype.sendRequest = function (userId, sitterType) {
+        this.openRequestDialog(userId, sitterType);
+    };
+    DashhomeComponent.prototype.openRequestDialog = function (userId, sitterType) {
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {
+            userId: userId,
+            sitterType: sitterType,
+            acceptResult: this.acceptResult
+        };
+        this.dialog.open(_request_dialog_request_dialog_component__WEBPACK_IMPORTED_MODULE_6__["RequestDialogComponent"], dialogConfig);
+    };
     DashhomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-dashhome',
@@ -1799,7 +1853,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<script src=\"editpetinfo.component.ts\"></script><h2 class=\"text-dark\">Edit Pet Profile </h2>\n<form [formGroup]=\"petInfoForm\" (ngSubmit)=\"onSubmit()\" class=\"text-dark text-left\">\n\n  <div class=\"form-group\">\n    <label>Pet Id</label>\n    <input type=\"text\" value=\"{{currentPet.petid}}\" formControlName=\"petId\" readonly=\"readonly\" class=\"form-control\"/>\n  </div>\n\n  <div class=\"form-group\">\n    <label>Pet Name</label>\n    <input type=\"text\" formControlName=\"petName\" class=\"form-control\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.petName.errors }\"/>\n    <div *ngIf=\"submitted && f.petName.errors\" class=\"invalid-feedback\">\n      <div *ngIf=\"f.petName.errors.required\">Pet Name is required</div>\n    </div>\n  </div>\n\n  <div class=\"form-group\">\n    <label>Pet Type</label>\n    <input type=\"text\" formControlName=\"petType\" class=\"form-control\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.petType.errors }\"/>\n  </div>\n\n  <div class=\"form-group\">\n    <label>Pet Info</label>\n    <input type=\"text\" formControlName=\"petInfo\" class=\"form-control\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.petInfo.errors }\"/>\n  </div>\n\n  <div class=\"form-group text-center\">\n    <button [disabled]=\"loading\" class=\"btn btn-primary\">Submit</button>\n    <a (click)=\"backtolast()\" class=\"btn btn-link\">Cancel</a>\n  </div>\n\n</form>\n"
+module.exports = "<script src=\"editpetinfo.component.ts\"></script><h2 class=\"text-dark\">Edit Pet Profile </h2>\n<form [formGroup]=\"petInfoForm\" (ngSubmit)=\"onSubmit()\" class=\"text-dark text-left\">\n\n  <div class=\"form-group\">\n    <label>Pet Id</label>\n    <input type=\"text\" value=\"{{currentPet.petId}}\" formControlName=\"petId\" readonly=\"readonly\" class=\"form-control\"/>\n  </div>\n\n  <div class=\"form-group\">\n    <label>Pet Name</label>\n    <input type=\"text\" formControlName=\"petName\" class=\"form-control\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.petName.errors }\"/>\n    <div *ngIf=\"submitted && f.petName.errors\" class=\"invalid-feedback\">\n      <div *ngIf=\"f.petName.errors.required\">Pet Name is required</div>\n    </div>\n  </div>\n\n  <div class=\"form-group\">\n    <label>Pet Type</label>\n    <input type=\"text\" formControlName=\"petType\" class=\"form-control\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.petType.errors }\"/>\n  </div>\n\n  <div class=\"form-group\">\n    <label>Pet Info</label>\n    <input type=\"text\" formControlName=\"petInfo\" class=\"form-control\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.petInfo.errors }\"/>\n  </div>\n\n  <div class=\"form-group text-center\">\n    <button [disabled]=\"loading\" class=\"btn btn-primary\">Submit</button>\n    <a (click)=\"backtolast()\" class=\"btn btn-link\">Cancel</a>\n  </div>\n\n</form>\n"
 
 /***/ }),
 
@@ -1856,10 +1910,10 @@ var EditPetInfoComponent = /** @class */ (function () {
         this.userService.getPetById(this.currentPetId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["first"])()).subscribe(function (pet) {
             _this.currentPet = pet;
             _this.petInfoForm = _this.formBuilder.group({
-                petId: [_this.currentPet.petid],
-                petName: [_this.currentPet.petname, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
-                petType: [_this.currentPet.pettype, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
-                petInfo: [_this.currentPet.petinfo, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]
+                petId: [_this.currentPet.petId],
+                petName: [_this.currentPet.petName, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+                petType: [_this.currentPet.petType, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+                petInfo: [_this.currentPet.petInfo, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]
             });
         });
     };
@@ -2048,7 +2102,7 @@ var LoginComponent = /** @class */ (function () {
         var _this = this;
         this.userService.login(this.loginForm.controls['phone'].value, this.loginForm.controls['password'].value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["first"])()).subscribe(function (data) {
             if (data !== null) {
-                _this.currentUserID = data.userid;
+                _this.currentUserID = data.userId;
                 _this.isSitter = data.userType === 'SITTER';
                 localStorage.setItem('isSitter', JSON.stringify(_this.isSitter));
                 localStorage.setItem('currentUserID', JSON.stringify(_this.currentUserID));
@@ -2170,7 +2224,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"text-dark\">My Pets</h2>\n<br/><br/>\n<div class=\"row text-dark\" *ngIf='petList != []'>\n  <div *ngFor=\"let pet of petList\" class=\"col-md-4\">\n    <div class=\"card mb-4 box-shadow\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\"> {{pet.petid}}</h5>\n        <!--        <h6 class=\"card-subtitle mb-2 text-muted\">Pet Name: {{pet.petname}} </h6>-->\n      </div>\n\n      <ul class=\"list-group list-group-flush text-left\">\n        <li class=\"list-group-item\">Pet Name: {{pet.petname}}</li>\n        <li class=\"list-group-item\">Pet Type: {{pet.pettype}} </li>\n        <li class=\"list-group-item\">Pet Info: {{pet.petinfo}} </li>\n      </ul>\n\n      <div class=\"card-body\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['editpet', pet.petid]}}]\" class=\"card-link\">Edit</a>\n      </div>\n\n    </div>\n\n  </div>\n</div>\n<div class=\"card mb-4 box-shadow\">\n  <div class=\"card-body\">\n    <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['addpet']}}]\" class=\"card-link\">Add pet</a>\n  </div>\n</div>\n\n"
+module.exports = "<h2 class=\"text-dark\">My Pets</h2>\n<br/><br/>\n<div class=\"row text-dark\" *ngIf='petList != []'>\n  <div *ngFor=\"let pet of petList\" class=\"col-md-4\">\n    <div class=\"card mb-4 box-shadow\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\"> {{pet.petId}}</h5>\n        <!--        <h6 class=\"card-subtitle mb-2 text-muted\">Pet Name: {{pet.petName}} </h6>-->\n      </div>\n\n      <ul class=\"list-group list-group-flush text-left\">\n        <li class=\"list-group-item\">Pet Name: {{pet.petName}}</li>\n        <li class=\"list-group-item\">Pet Type: {{pet.petType}} </li>\n        <li class=\"list-group-item\">Pet Info: {{pet.petInfo}} </li>\n      </ul>\n\n      <div class=\"card-body\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['editpet', pet.petId]}}]\" class=\"card-link\">Edit</a>\n      </div>\n\n    </div>\n\n  </div>\n</div>\n<div class=\"card mb-4 box-shadow\">\n  <div class=\"card-body\">\n    <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['addpet']}}]\" class=\"card-link\">Add pet</a>\n  </div>\n</div>\n\n"
 
 /***/ }),
 
@@ -2249,7 +2303,7 @@ module.exports = ".star {\n  position: relative;\n  display: inline-block;\n  co
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"text-dark\">My Profile</h2>\n<br/><br/>\n<div *ngIf='currentUser' class=\"text-center text-dark\">\n  <div class=\"card text-center\">\n    <div class=\"card-header text-muted\">\n      <p>User ID:  {{currentUser.userid}}</p>\n    </div>\n\n    <div class=\"card-body\">\n      <div class=\"col-center-block text-center\">\n        <dl class=\"row text-left\">\n          <dt class=\"col-sm-3\">User Name:</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.username}}</p>\n          </dd>\n\n          <dt class=\"col-sm-3\">Email:</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.email}}</p></dd>\n\n          <dt class=\"col-sm-3\">Phone Number:</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.phone}}</p></dd>\n\n          <dt *ngIf=\"!isSitter\" class=\"col-sm-3\">Credits:</dt>\n          <dd *ngIf=\"!isSitter\" class=\"col-sm-9\"><p>{{currentUser.credits}}</p></dd>\n\n          <dt class=\"col-sm-3\">Zip:</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.zip}}</p></dd>\n\n          <dt class=\"col-sm-3\">Address:</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.address}}</p></dd>\n\n          <dt class=\"col-sm-3\">User Type:</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.userType}}</p></dd>\n\n          <dt class=\"col-sm-3\">AvaliableWeekday:</dt>\n          <dd class=\"col-sm-9\"><p>{{avaliableWDS}}</p></dd>\n\n          <dt class=\"col-sm-3\">Average Rating:</dt>\n          <dd class=\"col-sm-9\">\n\n            <p *ngIf=\"currentUser.averageRate != null\">\n              <ng-template #t let-fill=\"fill\">\n                <span class=\"star\" [class.full]=\"fill === 100\">\n                  <span class=\"half\" [style.width.%]=\"fill\">&#9733;</span>&#9733;\n                </span>\n              </ng-template>\n              <ngb-rating [(rate)]=\"currentUser.averageRate\" [starTemplate]=\"t\" [readonly]=\"true\" max=\"5\">\n              </ngb-rating>\n              {{currentUser.averageRate}} /5.0\n              ({{currentUser.rateNumber}} ratings)\n            </p>\n            <p *ngIf=\"currentUser.averageRate == null\">This user haven't get any rate yet</p>\n          </dd>\n\n          <!--          <dt class=\"col-sm-3\">User Rating Number:</dt>-->\n          <!--          <dd class=\"col-sm-9\"><p>{{currentUser.rateNumber}}</p></dd>-->\n        </dl>\n      </div>\n    </div>\n\n    <div class=\"card-footer text-muted\">\n      <!---->\n      <div class=\"row\">\n        <div class=\"col\">\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"backtolast()\">Back</button>\n        </div>\n        <div class=\"col\">\n          <button type=\"button\" class=\"btn btn-primary\"\n                  [routerLink]=\"['/dashboard', {outlets: {'aux': ['profile']}}]\">Edit\n          </button>\n        </div>\n      </div>\n\n\n    </div>\n  </div>\n</div>\n"
+module.exports = "<h2 class=\"text-dark\">My Profile</h2>\n<br/><br/>\n<div *ngIf='currentUser' class=\"text-center text-dark\">\n  <div class=\"card text-center\">\n    <div class=\"card-header text-muted\">\n      <p>User ID:  {{currentUser.userId}}</p>\n    </div>\n\n    <div class=\"card-body\">\n      <div class=\"col-center-block text-center\">\n        <dl class=\"row text-left\">\n          <dt class=\"col-sm-3\">User Name:</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.username}}</p>\n          </dd>\n\n          <dt class=\"col-sm-3\">Email:</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.email}}</p></dd>\n\n          <dt class=\"col-sm-3\">Phone Number:</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.phone}}</p></dd>\n\n          <dt *ngIf=\"!isSitter\" class=\"col-sm-3\">Credits:</dt>\n          <dd *ngIf=\"!isSitter\" class=\"col-sm-9\"><p>{{currentUser.credits}}</p></dd>\n\n          <dt class=\"col-sm-3\">Zip:</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.zip}}</p></dd>\n\n          <dt class=\"col-sm-3\">Address:</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.address}}</p></dd>\n\n          <dt class=\"col-sm-3\">User Type:</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.userType}}</p></dd>\n\n          <dt class=\"col-sm-3\">AvaliableWeekday:</dt>\n          <dd class=\"col-sm-9\"><p>{{avaliableWDS}}</p></dd>\n\n          <dt class=\"col-sm-3\">Average Rating:</dt>\n          <dd class=\"col-sm-9\">\n\n            <p *ngIf=\"currentUser.averageRate != null\">\n              <ng-template #t let-fill=\"fill\">\n                <span class=\"star\" [class.full]=\"fill === 100\">\n                  <span class=\"half\" [style.width.%]=\"fill\">&#9733;</span>&#9733;\n                </span>\n              </ng-template>\n              <ngb-rating [(rate)]=\"currentUser.averageRate\" [starTemplate]=\"t\" [readonly]=\"true\" max=\"5\">\n              </ngb-rating>\n              {{currentUser.averageRate}} /5.0\n              ({{currentUser.rateNumber}} ratings)\n            </p>\n            <p *ngIf=\"currentUser.averageRate == null\">This user haven't get any rate yet</p>\n          </dd>\n\n          <!--          <dt class=\"col-sm-3\">User Rating Number:</dt>-->\n          <!--          <dd class=\"col-sm-9\"><p>{{currentUser.rateNumber}}</p></dd>-->\n        </dl>\n      </div>\n    </div>\n\n    <div class=\"card-footer text-muted\">\n      <!---->\n      <div class=\"row\">\n        <div class=\"col\">\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"backtolast()\">Back</button>\n        </div>\n        <div class=\"col\">\n          <button type=\"button\" class=\"btn btn-primary\"\n                  [routerLink]=\"['/dashboard', {outlets: {'aux': ['profile']}}]\">Edit\n          </button>\n        </div>\n      </div>\n\n\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2351,7 +2405,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf='orderDetail' class=\"text-center text-dark\">\n  <div class=\"card text-center\">\n    <div class=\"card-header text-muted\">\n      <p>Order ID:  {{orderDetail.orderid}}</p>\n    </div>\n\n    <div class=\"card-body\">\n      <div class=\"col-center-block text-center\">\n        <dl class=\"row text-left\">\n\n          <dt *ngIf=\"!ifSitter\" class=\"col-sm-3\">Credits :</dt>\n          <dd *ngIf=\"!ifSitter\" class=\"col-sm-9\"><p>{{orderDetail.credits}}</p>\n          </dd>\n\n          <dt class=\"col-sm-3\">Zip :</dt>\n          <dd class=\"col-sm-9\"><p>{{orderDetail.zip}}</p></dd>\n          <dt class=\"col-sm-3\">Address :</dt>\n\n          <dd class=\"col-sm-9\"><p>\n            <a href=\"{{maplink}}\"\n               class=\"card-link\">{{orderDetail.address}}</a>\n          </p></dd>\n\n          <dt class=\"col-sm-3\">Start Date :</dt>\n          <dd class=\"col-sm-9\"><p>{{orderDetail.startDate | date}}</p></dd>\n\n          <dt class=\"col-sm-3\">End Date :</dt>\n          <dd class=\"col-sm-9\"><p>{{orderDetail.endDate | date}}</p></dd>\n\n          <dt class=\"col-sm-3\">Order Description :</dt>\n          <dd class=\"col-sm-9\"><p>{{orderDetail.orderDescription}}</p></dd>\n\n          <dt class=\"col-sm-3\">Poster & Pets :</dt>\n          <dd class=\"col-sm-9\">\n            <a\n              [routerLink]=\"['/dashboard', {outlets: {'aux': ['publicprofile', orderDetail.maker.userid]}}]\">{{orderDetail.maker.username}}</a>\n          </dd>\n\n          <dt class=\"col-sm-3\">State :</dt>\n          <dd class=\"col-sm-9\"><p>{{orderDetail.status}}</p></dd>\n\n          <dt class=\"col-sm-3\">Acceptor :</dt>\n          <dd class=\"col-sm-9\">\n            <a *ngIf=\"orderDetail.recipient != null\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['publicprofile', orderDetail.recipient.userid]}}]\">{{orderDetail.recipient.username}}</a>\n            <p *ngIf=\"orderDetail.recipient == null\">Haven't accepted by other user!\n              <a routerLink=\" \" *ngIf=\"orderDetail.maker.userid != currentUserId\" class=\"card-link\"\n                 (click)=\"accept(orderDetail.orderid)\">Accept</a>\n            </p>\n          </dd>\n        </dl>\n      </div>\n\n      <div class=\"button-block\">\n        <div class=\"text-center row\">\n          <div *ngIf=\"orderDetail.status!='COMPLETED'&&orderDetail.maker != null && orderDetail.recipient !=null\n        && (orderDetail.maker.userid == currentUserId )\"\n               class=\"text-center col\">\n            <button type=\"button\" class=\"btn btn-primary\" (click)=\"complete()\">\n              Complete\n            </button>\n          </div>\n\n\n          <div class=\"text-center col \"\n               *ngIf='orderDetail.status == \"ACCEPTED\" && orderDetail.recipient.userid == currentUserId'>\n            <button type=\"button\" class=\"btn btn-primary\" (click)=\"cancelAcceptedOrder()\">\n              Cancel\n            </button>\n          </div>\n\n          <div class=\"text-center col\"\n               *ngIf='orderDetail.status == \"ORDERED\" && orderDetail.maker.userid == currentUserId'>\n            <button type=\"button\" class=\"btn btn-primary\" (click)=\"deleteOrder()\">\n              Delete\n            </button>\n          </div>\n        </div>\n\n      </div>\n    </div>\n\n    <div class=\"card-footer text-muted\">\n      <!---->\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"backtolast()\">Back</button>\n    </div>\n\n  </div>\n</div>\n"
+module.exports = "<div *ngIf='orderDetail' class=\"text-center text-dark\">\n  <div class=\"card text-center\">\n    <div class=\"card-header text-muted\">\n      <p>Order ID:  {{orderDetail.orderId}}</p>\n      <p *ngIf=\"orderDetail.orderType\"> This is a Charged Order (not using credits)</p>\n    </div>\n\n    <div class=\"card-body\">\n      <div class=\"col-center-block text-center\">\n        <dl class=\"row text-left\">\n\n          <dt *ngIf=\"!orderDetail.orderType\" class=\"col-sm-3\">Credits :</dt>\n          <dd *ngIf=\"!orderDetail.orderType\" class=\"col-sm-9\"><p>{{orderDetail.credits}}</p>\n          </dd>\n\n          <dt class=\"col-sm-3\">Zip :</dt>\n          <dd class=\"col-sm-9\"><p>{{orderDetail.zip}}</p></dd>\n          <dt class=\"col-sm-3\">Address :</dt>\n\n          <dd class=\"col-sm-9\"><p>\n            <a href=\"{{maplink}}\"\n               class=\"card-link\">{{orderDetail.address}}</a>\n          </p></dd>\n\n          <dt class=\"col-sm-3\">Start Date :</dt>\n          <dd class=\"col-sm-9\"><p>{{orderDetail.startDate | date}}</p></dd>\n\n          <dt class=\"col-sm-3\">End Date :</dt>\n          <dd class=\"col-sm-9\"><p>{{orderDetail.endDate | date}}</p></dd>\n\n          <dt class=\"col-sm-3\">Order Description :</dt>\n          <dd class=\"col-sm-9\"><p>{{orderDetail.orderDescription}}</p></dd>\n\n          <dt class=\"col-sm-3\">Poster & Pets :</dt>\n          <dd class=\"col-sm-9\">\n            <a\n              [routerLink]=\"['/dashboard', {outlets: {'aux': ['publicprofile', orderDetail.maker.userId]}}]\">{{orderDetail.maker.username}}</a>\n          </dd>\n\n          <dt class=\"col-sm-3\">State :</dt>\n          <dd class=\"col-sm-9\"><p>{{orderDetail.status}}</p></dd>\n\n          <dt class=\"col-sm-3\">Acceptor :</dt>\n          <dd class=\"col-sm-9\">\n            <a *ngIf=\"orderDetail.recipient != null\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['publicprofile', orderDetail.recipient.userId]}}]\">{{orderDetail.recipient.username}}</a>\n            <p *ngIf=\"orderDetail.recipient == null\">Haven't accepted by other user!\n              <a routerLink=\" \" *ngIf=\"orderDetail.maker.userId != currentUserId\" class=\"card-link\"\n                 (click)=\"accept(orderDetail.orderId)\">Accept</a>\n            </p>\n          </dd>\n        </dl>\n      </div>\n\n      <div class=\"button-block\">\n        <div class=\"text-center row\">\n          <div *ngIf=\"orderDetail.status!='COMPLETED'&&orderDetail.maker != null && orderDetail.recipient !=null\n        && (orderDetail.maker.userId == currentUserId )\"\n               class=\"text-center col\">\n            <button type=\"button\" class=\"btn btn-primary\" (click)=\"complete()\">\n              Complete\n            </button>\n          </div>\n\n\n          <div class=\"text-center col \"\n               *ngIf='orderDetail.status == \"ACCEPTED\" && orderDetail.recipient.userId == currentUserId'>\n            <button type=\"button\" class=\"btn btn-primary\" (click)=\"cancelAcceptedOrder()\">\n              Cancel\n            </button>\n          </div>\n\n          <div class=\"text-center col\"\n               *ngIf='orderDetail.status == \"ORDERED\" && orderDetail.maker.userId == currentUserId'>\n            <button type=\"button\" class=\"btn btn-primary\" (click)=\"deleteOrder()\">\n              Delete\n            </button>\n          </div>\n        </div>\n\n      </div>\n    </div>\n\n    <div class=\"card-footer text-muted\">\n      <!---->\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"backtolast()\">Back</button>\n    </div>\n\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2402,16 +2456,16 @@ var OrderDetailComponent = /** @class */ (function () {
     };
     OrderDetailComponent.prototype.getOrder = function () {
         var _this = this;
-        var orderid = this.route.snapshot.paramMap.get('orderid');
-        this.orderService.getOrderDetail(orderid).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])()).subscribe(function (order) {
+        var orderId = this.route.snapshot.paramMap.get('orderId');
+        this.orderService.getOrderDetail(orderId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])()).subscribe(function (order) {
             _this.orderDetail = order;
             _this.maplink = 'https://www.google.com/maps/search/' + order.address + ' ,' + order.zip;
         });
     };
     OrderDetailComponent.prototype.complete = function () {
         var _this = this;
-        var orderid = this.route.snapshot.paramMap.get('orderid');
-        this.orderService.completeOrder(this.currentUserId, orderid, this.orderDetail.recipient.userid).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])()).subscribe(function (result) {
+        var orderId = this.route.snapshot.paramMap.get('orderId');
+        this.orderService.completeOrder(this.currentUserId, orderId, this.orderDetail.recipient.userId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])()).subscribe(function (result) {
             result.toString();
             _this.completeResult = result;
             _this.openCompleteDialog();
@@ -2419,9 +2473,9 @@ var OrderDetailComponent = /** @class */ (function () {
     };
     OrderDetailComponent.prototype.cancelAcceptedOrder = function () {
         var _this = this;
-        var orderid = this.route.snapshot.paramMap.get('orderid');
+        var orderId = this.route.snapshot.paramMap.get('orderId');
         var userid = localStorage.getItem('currentUserID');
-        this.orderService.cancelAcceptedOrder(userid, orderid).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])()).subscribe(function (result) {
+        this.orderService.cancelAcceptedOrder(userid, orderId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])()).subscribe(function (result) {
             if (result) {
                 _this.cancelResult = true;
                 _this.backtolast();
@@ -2430,9 +2484,9 @@ var OrderDetailComponent = /** @class */ (function () {
     };
     OrderDetailComponent.prototype.deleteOrder = function () {
         var _this = this;
-        var orderid = this.route.snapshot.paramMap.get('orderid');
+        var orderId = this.route.snapshot.paramMap.get('orderId');
         var userid = localStorage.getItem('currentUserID');
-        this.orderService.deleteOrder(userid, orderid).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])()).subscribe(function (result) {
+        this.orderService.deleteOrder(userid, orderId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])()).subscribe(function (result) {
             if (result) {
                 _this.deleteResult = true;
                 _this.backtolast();
@@ -2448,9 +2502,9 @@ var OrderDetailComponent = /** @class */ (function () {
         };
         this.dialog.open(_complete_dialog_complete_dialog_component__WEBPACK_IMPORTED_MODULE_7__["CompleteDialogComponent"], dialogConfig);
     };
-    OrderDetailComponent.prototype.accept = function (orderid) {
+    OrderDetailComponent.prototype.accept = function (orderId) {
         var _this = this;
-        this.orderService.acceptOrder(this.currentUserId, orderid).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])()).subscribe(function (result) {
+        this.orderService.acceptOrder(this.currentUserId, orderId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])()).subscribe(function (result) {
             result.toString();
             console.log(result);
             _this.acceptResult = result;
@@ -2502,7 +2556,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"text-dark\">Orders</h2>\n<br/>\n<br/>\n\n<div class=\"row text-dark\" *ngIf='orderList != []'>\n  <div *ngFor=\"let order of orderList\" class=\"col-md-4\">\n    <div class=\"card mb-4 box-shadow\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\"> {{order.orderid}} </h5>\n      </div>\n\n      <ul class=\"list-group list-group-flush text-left\">\n        <li *ngIf=\"!isSitter\" class=\"list-group-item\"><b>Credits : </b>{{order.credits}} </li>\n        <li class=\"list-group-item\"><b>Order Description :</b> {{order.orderDescription}} </li>\n        <li class=\"list-group-item\"><b>Zip :</b> {{order.zip}} </li>\n        <li class=\"list-group-item\"><b>Start Date :</b> {{order.startDate|date}} </li>\n        <li class=\"list-group-item\"><b>End Date : </b>{{order.endDate|date}} </li>\n      </ul>\n\n      <div class=\"card-body\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', order.orderid]}}]\" class=\"card-link\">See\n          Detail</a>\n        <a routerLink=\" \" *ngIf=\"order.maker.userid != currentUserID\" class=\"card-link\" (click)=\"accept(order.orderid)\">Accept</a>\n      </div>\n\n    </div>\n  </div>\n</div>\n"
+module.exports = "<h2 class=\"text-dark\">Orders</h2>\n<h5 class=\"text-dark\">accept orders to get credits!</h5>\n<br/>\n<br/>\n\n<div class=\"row text-dark\" *ngIf='orderList != []'>\n  <div *ngFor=\"let order of orderList\" class=\"col-md-4\">\n    <div class=\"card mb-4 box-shadow\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\"> {{order.orderId}} </h5>\n      </div>\n\n      <ul class=\"list-group list-group-flush text-left\">\n        <li *ngIf=\"!isSitter\" class=\"list-group-item\"><b>Credits : </b>{{order.credits}} </li>\n        <li class=\"list-group-item\"><b>Order Description :</b> {{order.orderDescription}} </li>\n        <li class=\"list-group-item\"><b>Zip :</b> {{order.zip}} </li>\n        <li class=\"list-group-item\"><b>Start Date :</b> {{order.startDate|date}} </li>\n        <li class=\"list-group-item\"><b>End Date : </b>{{order.endDate|date}} </li>\n      </ul>\n\n      <div class=\"card-body\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]\" class=\"card-link\">See\n          Detail</a>\n        <a routerLink=\" \" *ngIf=\"order.maker.userId != currentUserID\" class=\"card-link\" (click)=\"accept(order.orderId)\">Accept</a>\n      </div>\n\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2600,7 +2654,7 @@ module.exports = ".star {\n  position: relative;\n  display: inline-block;\n  co
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"text-dark\">Public Profile for {{currentUser.username}}</h2>\n<br/><br/>\n\n<div *ngIf='currentUser' class=\"text-center text-dark\">\n  <div class=\"card text-center\">\n    <div class=\"card-header text-muted\">\n      <h5> Personal Info</h5>\n\n    </div>\n\n    <div class=\"card-body\">\n      <div class=\"col-center-block text-center\">\n        <dl class=\"row text-left\">\n          <dt class=\"col-sm-3\">User ID :</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.userid}}</p>\n          </dd>\n\n          <dt class=\"col-sm-3\">User Email :</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.email}}</p></dd>\n\n          <dt class=\"col-sm-3\">User Phone Number :</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.phone}}</p></dd>\n\n          <dt class=\"col-sm-3\">Credits :</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.credits}}</p></dd>\n\n          <dt class=\"col-sm-3\">User Zip :</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.zip}}</p></dd>\n\n          <dt class=\"col-sm-3\">User address :</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.address}}</p></dd>\n\n          <dt class=\"col-sm-3\">User Type :</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.userType}}</p></dd>\n\n          <dt class=\"col-sm-3\">User AvaliableWeekday :</dt>\n          <dd class=\"col-sm-9\"><p>{{avaliableWDS}}</p></dd>\n\n          <dt class=\"col-sm-3\">User Average Rating :</dt>\n          <dd class=\"col-sm-9\">\n            <!--            <p *ngIf=\"currentUser.averageRate != null\">{{currentUser.averageRate}}</p>-->\n            <p *ngIf=\"currentUser.averageRate != null\">\n              <ng-template #t let-fill=\"fill\">\n                <span class=\"star\" [class.full]=\"fill === 100\">\n                  <span class=\"half\" [style.width.%]=\"fill\">&#9733;</span>&#9733;\n                </span>\n              </ng-template>\n              <ngb-rating [(rate)]=\"currentUser.averageRate\" [starTemplate]=\"t\" [readonly]=\"true\" max=\"5\">\n              </ngb-rating>\n              {{currentUser.averageRate}} /5.0\n              ({{currentUser.rateNumber}} ratings)\n            </p>\n\n            <p *ngIf=\"currentUser.averageRate == null\">This user have get any rate yet</p>\n          </dd>\n        </dl>\n      </div>\n    </div>\n  </div>\n  <div class=\"card text-center\" *ngIf=\"currentUser.userType!='SITTER' \">\n    <div class=\"card-header text-muted\">\n      <h5> Pets Info</h5>\n    </div>\n    <div class=\"card-body\" *ngIf=\"userPets.length <= 0\">\n\n      <div class=\"col-center-block text-center\">\n        <dl class=\"row text-left\">\n          <dt class=\"list-group-item\">This user doesn't have any pets now.</dt>\n        </dl>\n\n      </div>\n    </div>\n    <div class=\" row text-dark\" *ngIf=\"userPets.length > 0\">\n      <div *ngFor=\"let pet of userPets\" class=\"col-md-4\">\n        <div class=\"card mb-4 box-shadow\">\n          <div class=\"card-body\">\n            <h5 class=\"card-title\"> {{pet.petid}}</h5>\n          </div>\n\n          <ul class=\"list-group list-group-flush text-left\">\n            <li class=\"list-group-item\"><b>Pet Name: </b>{{pet.petname}}</li>\n            <li class=\"list-group-item\"><b>Pet Type: </b>{{pet.pettype}} </li>\n            <li class=\"list-group-item\"><b>Pet Info: </b>{{pet.petinfo}} </li>\n          </ul>\n\n        </div>\n\n      </div>\n    </div>\n  </div>\n  <div class=\"card-footer text-muted\">\n    <!---->\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"backtolast()\">Back</button>\n  </div>\n</div>\n"
+module.exports = "<h2 class=\"text-dark\">Public Profile for {{currentUser.username}}</h2>\n<br/><br/>\n\n<div *ngIf='currentUser' class=\"text-center text-dark\">\n  <div class=\"card text-center\">\n    <div class=\"card-header text-muted\">\n      <h5> Personal Info</h5>\n\n    </div>\n\n    <div class=\"card-body\">\n      <div class=\"col-center-block text-center\">\n        <dl class=\"row text-left\">\n          <dt class=\"col-sm-3\">User ID :</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.userId}}</p>\n          </dd>\n\n          <dt class=\"col-sm-3\">User Email :</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.email}}</p></dd>\n\n          <dt class=\"col-sm-3\">User Phone Number :</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.phone}}</p></dd>\n\n          <dt class=\"col-sm-3\">Credits :</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.credits}}</p></dd>\n\n          <dt class=\"col-sm-3\">User Zip :</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.zip}}</p></dd>\n\n          <dt class=\"col-sm-3\">User address :</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.address}}</p></dd>\n\n          <dt class=\"col-sm-3\">User Type :</dt>\n          <dd class=\"col-sm-9\"><p>{{currentUser.userType}}</p></dd>\n\n          <dt class=\"col-sm-3\">User AvaliableWeekday :</dt>\n          <dd class=\"col-sm-9\"><p>{{avaliableWDS}}</p></dd>\n\n          <dt class=\"col-sm-3\">User Average Rating :</dt>\n          <dd class=\"col-sm-9\">\n            <!--            <p *ngIf=\"currentUser.averageRate != null\">{{currentUser.averageRate}}</p>-->\n            <p *ngIf=\"currentUser.averageRate != null\">\n              <ng-template #t let-fill=\"fill\">\n                <span class=\"star\" [class.full]=\"fill === 100\">\n                  <span class=\"half\" [style.width.%]=\"fill\">&#9733;</span>&#9733;\n                </span>\n              </ng-template>\n              <ngb-rating [(rate)]=\"currentUser.averageRate\" [starTemplate]=\"t\" [readonly]=\"true\" max=\"5\">\n              </ngb-rating>\n              {{currentUser.averageRate}} /5.0\n              ({{currentUser.rateNumber}} ratings)\n            </p>\n\n            <p *ngIf=\"currentUser.averageRate == null\">This user have get any rate yet</p>\n          </dd>\n        </dl>\n      </div>\n    </div>\n  </div>\n  <div class=\"card text-center\" *ngIf=\"currentUser.userType!='SITTER' \">\n    <div class=\"card-header text-muted\">\n      <h5> Pets Info</h5>\n    </div>\n    <div class=\"card-body\" *ngIf=\"userPets.length <= 0\">\n\n      <div class=\"col-center-block text-center\">\n        <dl class=\"row text-left\">\n          <dt class=\"list-group-item\">This user doesn't have any pets now.</dt>\n        </dl>\n\n      </div>\n    </div>\n    <div class=\" row text-dark\" *ngIf=\"userPets.length > 0\">\n      <div *ngFor=\"let pet of userPets\" class=\"col-md-4\">\n        <div class=\"card mb-4 box-shadow\">\n          <div class=\"card-body\">\n            <h5 class=\"card-title\"> {{pet.petId}}</h5>\n          </div>\n\n          <ul class=\"list-group list-group-flush text-left\">\n            <li class=\"list-group-item\"><b>Pet Name: </b>{{pet.petName}}</li>\n            <li class=\"list-group-item\"><b>Pet Type: </b>{{pet.petType}} </li>\n            <li class=\"list-group-item\"><b>Pet Info: </b>{{pet.petInfo}} </li>\n          </ul>\n\n        </div>\n\n      </div>\n    </div>\n  </div>\n  <div class=\"card-footer text-muted\">\n    <!---->\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"backtolast()\">Back</button>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2773,6 +2827,219 @@ var RateOrderDialogComponent = /** @class */ (function () {
             _services__WEBPACK_IMPORTED_MODULE_5__["OrderService"], Object, _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbRatingConfig"]])
     ], RateOrderDialogComponent);
     return RateOrderDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/request-dialog/request-dialog.component.css":
+/*!*************************************************************!*\
+  !*** ./src/app/request-dialog/request-dialog.component.css ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3JlcXVlc3QtZGlhbG9nL3JlcXVlc3QtZGlhbG9nLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/request-dialog/request-dialog.component.html":
+/*!**************************************************************!*\
+  !*** ./src/app/request-dialog/request-dialog.component.html ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2 mat-dialog-title class=\"text-center\">Send a Request</h2>\n\n<mat-dialog-content class=\"text-center text-light\">\n\n\n  <div *ngIf=\"orderList.length<=0\">\n    <p>You don't have an avaliable order to request.</p>\n\n  </div>\n\n  <div *ngIf=\"orderList.length>0\">\n    <p>Please select order that you want request:</p>\n    <form [formGroup]=\"requestForm\">\n      <div class=\"input-group mb-3\">\n        <div class=\"input-group-prepend\">\n          <label class=\"input-group-text\" for=\"order\">OrderId:</label>\n        </div>\n        <select class=\"custom-select\" id=\"order\" formControlName=\"orderId\"\n                placeholder=\"format: OrderId --- order startDate\">\n          <option *ngFor=\"let od of orderList\" [value]=od.orderId>\n            {{od.orderId}} --- start from {{od.startDate | date}}\n          </option>\n        </select>\n\n\n      </div>\n    </form>\n  </div>\n\n\n  <!--  <p>You selected:{{order.orderId}}</p>-->\n</mat-dialog-content>\n\n\n<div class=\"row\">\n  <div *ngIf=\"orderList.length>0\" class=\"col-6 text-center \">\n    <button class=\"btn btn-info\" (click)=\"submit()\">Submit</button>\n  </div>\n  <div *ngIf=\"orderList.length<=0\" class=\"col-6 text-center \">\n    <button class=\"btn btn-info\" (click)=\"createOrder()\">Create Order</button>\n  </div>\n  <div class=\"col text-center\">\n    <button class=\"btn btn-info\" (click)=\"close()\">cancel</button>\n  </div>\n</div>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/request-dialog/request-dialog.component.ts":
+/*!************************************************************!*\
+  !*** ./src/app/request-dialog/request-dialog.component.ts ***!
+  \************************************************************/
+/*! exports provided: RequestDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RequestDialogComponent", function() { return RequestDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_services */ "./src/app/_services/index.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
+
+
+
+
+
+
+
+var RequestDialogComponent = /** @class */ (function () {
+    function RequestDialogComponent(router, formBuilder, dialogRef, orderService, data, config) {
+        this.router = router;
+        this.formBuilder = formBuilder;
+        this.dialogRef = dialogRef;
+        this.orderService = orderService;
+        this.rate = 0;
+        this.userId = data.userId;
+        this.sitterType = data.sitterType;
+        config.max = 5;
+    }
+    RequestDialogComponent.prototype.ngOnInit = function () {
+        this.submitResult = false;
+        this.currentUserID = localStorage.getItem('currentUserID');
+        // this.order.orderId=-1;
+        // this.order.startDate=""
+        this.getCreatedOrderList();
+        this.requestForm = this.formBuilder.group({
+            orderId: [0]
+        });
+    };
+    RequestDialogComponent.prototype.getCreatedOrderList = function () {
+        var _this = this;
+        this.orderService.getRequestOrder(this.currentUserID, this.sitterType, this.userId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(function (orders) {
+            _this.orderList = orders;
+            // this.order=orders.
+        });
+    };
+    RequestDialogComponent.prototype.close = function () {
+        this.dialogRef.close();
+        window.location.reload();
+    };
+    RequestDialogComponent.prototype.submit = function () {
+        var _this = this;
+        this.submitResult = true;
+        this.setDate(this.requestForm.value.orderId);
+        this.orderService.sendRequest(this.currentUserID, this.userId, this.requestForm.value.orderId, new Date(this.expireDate)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(function (result) {
+            result.toString();
+            console.log(result);
+            _this.rateResult = result;
+        });
+        this.close();
+    };
+    RequestDialogComponent.prototype.setDate = function (orderId) {
+        for (var _i = 0, _a = this.orderList; _i < _a.length; _i++) {
+            var od = _a[_i];
+            if (od.orderId === Number(orderId)) {
+                this.expireDate = od.startDate;
+            }
+        }
+    };
+    RequestDialogComponent.prototype.createOrder = function () {
+        this.router.navigate(['/dashboard', { outlets: { 'aux': ['createorder'] } }]);
+        this.dialogRef.close();
+    };
+    RequestDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-request-dialog',
+            template: __webpack_require__(/*! ./request-dialog.component.html */ "./src/app/request-dialog/request-dialog.component.html"),
+            providers: [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbRatingConfig"]],
+            styles: [__webpack_require__(/*! ./request-dialog.component.css */ "./src/app/request-dialog/request-dialog.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](4, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_7__["FormBuilder"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"],
+            _services__WEBPACK_IMPORTED_MODULE_5__["OrderService"], Object, _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbRatingConfig"]])
+    ], RequestDialogComponent);
+    return RequestDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/requests/requests.component.css":
+/*!*************************************************!*\
+  !*** ./src/app/requests/requests.component.css ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3JlcXVlc3RzL3JlcXVlc3RzLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/requests/requests.component.html":
+/*!**************************************************!*\
+  !*** ./src/app/requests/requests.component.html ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2 class=\"text-dark\">Requests</h2>\n<h6 class=\"text-dark\">Click to see request detail</h6>\n<br/>\n<br/>\n\n<div class=\"text-dark\" *ngIf='requests != []'>\n  <div *ngFor=\"let request of requests\">\n\n\n    <div class=\"list-group text-left\">\n      <a class=\"list-group-item list-group-item-action flex-column align-items-start \">\n        <div class=\"d-flex w-100 justify-content-between\">\n          <h5 class=\"mb-1\">Request from user\n            <a\n              [routerLink]=\"['/dashboard', {outlets: {'aux': ['publicprofile', request.fuId]}}]\">{{request.fuId}}</a>\n          </h5>\n\n          <!--          <span class=\"badge badge-primary badge-pill\">see detail</span>-->\n          <span>\n            <button class=\"btn btn-outline-success\" (click)=\"response(request.orderId,true)\">Accept</button>\n            <button class=\"btn btn-outline-danger\" (click)=\"response(request.orderId,false)\">Decline</button>\n          </span>\n          <!--          <span class=\"btn btn-outline-danger\" (click)=\"accept(request.requestId)\">Decline</span>-->\n        </div>\n        <p>Order <b>{{request.orderId}}</b>\n          start from {{request.expire|date}}</p>\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', request.orderId]}}]\" class=\"card-link\">See\n          Order\n          Detail</a>\n      </a>\n\n    </div>\n    <br/>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/requests/requests.component.ts":
+/*!************************************************!*\
+  !*** ./src/app/requests/requests.component.ts ***!
+  \************************************************/
+/*! exports provided: RequestsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RequestsComponent", function() { return RequestsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_services */ "./src/app/_services/index.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+
+
+
+
+
+
+var RequestsComponent = /** @class */ (function () {
+    function RequestsComponent(orderService, router, dialog) {
+        this.orderService = orderService;
+        this.router = router;
+        this.dialog = dialog;
+        this.requests = [];
+    }
+    RequestsComponent.prototype.ngOnInit = function () {
+        this.getRequests();
+    };
+    RequestsComponent.prototype.getRequests = function () {
+        var _this = this;
+        this.currentUserID = localStorage.getItem('currentUserID');
+        var isSitter = localStorage.getItem('isSitter');
+        this.isSitter = isSitter === 'true';
+        this.orderService.getRequests(this.currentUserID).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["first"])()).subscribe(function (requests) {
+            _this.requests = requests;
+        });
+    };
+    RequestsComponent.prototype.response = function (orderId, accept) {
+        var _this = this;
+        this.orderService.responseRequest(orderId, Number(this.currentUserID), accept).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["first"])()).subscribe(function (result) {
+            result.toString();
+            console.log(result);
+            _this.getRequests();
+            //   this.acceptResult = result;
+            //   this.openAcceptDialog();
+        });
+    };
+    RequestsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-requests',
+            template: __webpack_require__(/*! ./requests.component.html */ "./src/app/requests/requests.component.html"),
+            styles: [__webpack_require__(/*! ./requests.component.css */ "./src/app/requests/requests.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_3__["OrderService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialog"]])
+    ], RequestsComponent);
+    return RequestsComponent;
 }());
 
 
@@ -3042,7 +3309,7 @@ var UserprofileComponent = /** @class */ (function () {
     UserprofileComponent.prototype.ngOnInit = function () {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.profileForm = this.formBuilder.group({
-            userId: [this.currentUser.userid, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+            userId: [this.currentUser.userId, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
             userName: [this.currentUser.username, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
             phone: [this.currentUser.phone, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
             email: [this.currentUser.email, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],

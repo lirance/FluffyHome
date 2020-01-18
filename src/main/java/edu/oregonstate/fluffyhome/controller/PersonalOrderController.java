@@ -278,7 +278,7 @@ public class PersonalOrderController {
                 order.setCredits(0);
                 order.setOrderType(true);
                 //delete order & update user credits.
-                return orderService.updateByPrimaryKey(order) == 1 && userService.updateByPrimaryKey(u) == 1;
+                return orderService.updateByPrimaryKey(order) == 1 && userService.updateByPrimaryKey(u) == 1 && disableOrderRequest(orderId, userId);
             }
         } catch (Exception e) {
             return false;
