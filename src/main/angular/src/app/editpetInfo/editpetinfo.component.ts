@@ -2,11 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {AlertService, UserService} from '../_services';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {User} from '../_models';
 import {first} from 'rxjs/operators';
 import {Location} from '@angular/common';
-import {AvaliableWeekday} from '../_models/avaliableWeekday';
-import {Pet} from '../_models/Pet';
+import {Pet} from '../_models';
 
 @Component({
   selector: 'app-editpetinfo',

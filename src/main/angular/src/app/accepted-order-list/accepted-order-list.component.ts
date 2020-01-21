@@ -23,10 +23,11 @@ export class AcceptedOrderListComponent implements OnInit {
   ngOnInit() {
     this.currentUserID = localStorage.getItem('currentUserID');
     this.isSitter = localStorage.getItem('isSitter') === 'true';
-    this.getAcceptedOrderlist();
+    localStorage.setItem('order_flag', '1');
+    this.getAcceptedOrderList();
   }
 
-  getAcceptedOrderlist() {
+  getAcceptedOrderList() {
     this.orderService.getAcceptedOrder(this.currentUserID).pipe(first()).subscribe(orders => {
       this.acceptOrderList = orders;
     });

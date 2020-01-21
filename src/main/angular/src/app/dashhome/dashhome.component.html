@@ -1,7 +1,21 @@
 <h2 class="text-dark">Find a person for pet-sitting</h2>
+<!--<h4 classss="text-dark"> Click Send Request to request the sitter for your post. </h4>-->
 <br/><br/>
-<p class="text-dark text-left">Choose <strong>Peer-to-Peer</strong> to find sitter for free (use credits), <strong>Sitters</strong>
-  to find profession sitters(cost money)</p>
+<div class="row">
+  <div class="col-10">
+
+    <p class="text-dark text-left">Choose <strong>Peer-to-Peer</strong> to find sitter for free (use credits), <strong>Sitters</strong>
+      to find profession sitters(cost money)</p>
+  </div>
+
+  <div class="col-2">
+    <button class="btn  btn-primary" [routerLink]="['/dashboard', {outlets: {'aux': ['createorder']}}]">
+      Create Order
+    </button>
+  </div>
+</div>
+<p class="text-dark text-left"> Click <b>Send Request</b> button to send request to the sitter for your order.</p>
+<br/>
 <ul class="nav nav-tabs text-dark">
   <li class="nav-item">
     <a class="nav-link {{created_active}}" (click)="switch_created()"><strong>Peer-to-Peer</strong> </a>
@@ -11,31 +25,29 @@
 </ul>
 <br><br>
 <div *ngIf='switch_flag == 0'>
-  <div class="row text-dark" *ngIf='p2psitters != []'>
-    <div *ngFor="let sitter of p2psitters" class="col-md-4">
-      <div class="card mb-4 box-shadow">
-        <div class="card-body">
-          <h5 class="card-title">
-            <a [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', sitter.userId]}}]">
-              {{sitter.username}}</a>
-          </h5>
-        </div>
-
-        <ul class="list-group list-group-flush text-left">
-          <li class="list-group-item">Average Rate: {{sitter.averageRate}} </li>
-          <li class="list-group-item">Phone:{{sitter.phone}}</li>
-          <li class="list-group-item">Email:{{sitter.email}}</li>
-          <li class="list-group-item">Zip: {{sitter.zip}} </li>
-          <li class="list-group-item">Address: {{sitter.address}} </li>
-        </ul>
-
-        <div class="card-body">
-          <button type="button" class="btn btn-outline-primary"
-                  (click)="sendRequest(sitter.userId,false)">Send Request
-          </button>
-        </div>
-
+  <div class="card-deck text-dark" *ngIf='p2psitters != []'>
+    <div *ngFor="let sitter of p2psitters" class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', sitter.userId]}}]">
+            {{sitter.username}}</a>
+        </h5>
       </div>
+
+      <ul class="list-group list-group-flush text-left">
+        <li class="list-group-item">Average Rate: {{sitter.averageRate}} </li>
+        <li class="list-group-item">Phone:{{sitter.phone}}</li>
+        <li class="list-group-item">Email:{{sitter.email}}</li>
+        <li class="list-group-item">Zip: {{sitter.zip}} </li>
+        <li class="list-group-item">Address: {{sitter.address}} </li>
+      </ul>
+
+      <div class="card-footer">
+        <button type="button" class="btn btn-outline-primary"
+                (click)="sendRequest(sitter.userId,false)">Send Request
+        </button>
+      </div>
+
     </div>
   </div>
 </div>

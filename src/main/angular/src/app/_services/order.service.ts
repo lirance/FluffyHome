@@ -4,7 +4,7 @@ import {Order} from '../_models';
 import {PersonalOrderShow} from '../_models';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import {backurl} from './const';
-import {OrderRequest} from '../_models/orderRequest';
+import {OrderRequest} from '../_models';
 
 @Injectable()
 

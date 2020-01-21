@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../_services';
 import {first} from 'rxjs/operators';
 import {Location} from '@angular/common';
-import {Pet} from '../_models/Pet';
+import {Pet} from '../_models';
 
 @Component({
   selector: 'app-my-pets',

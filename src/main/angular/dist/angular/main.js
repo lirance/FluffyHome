@@ -597,6 +597,9 @@ var OrderService = /** @class */ (function () {
     OrderService.prototype.getRequests = function (userId) {
         return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/request/getUserRequests?userId=' + userId);
     };
+    OrderService.prototype.getMyRequests = function (userId) {
+        return this.http.get(_const__WEBPACK_IMPORTED_MODULE_3__["backurl"] + 'order/request/getMyRequests?userId=' + userId);
+    };
     OrderService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
@@ -826,7 +829,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row text-dark\" *ngIf='acceptOrderList != []'>\n  <div *ngFor=\"let order of acceptOrderList\" class=\"col-md-4\">\n    <div class=\"card mb-4 box-shadow\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\"> {{order.orderId}} </h5>\n      </div>\n\n      <ul class=\"list-group list-group-flush text-left\">\n        <li *ngIf=\"!isSitter\" class=\"list-group-item\"><b>Credits : </b>{{order.credits}} </li>\n        <li class=\"list-group-item\"><b>Order Description :</b> {{order.orderDescription}} </li>\n        <li class=\"list-group-item\"><b>Zip :</b> {{order.zip}} </li>\n        <li class=\"list-group-item\"><b>Start Date :</b> {{order.startDate|date}} </li>\n        <li class=\"list-group-item\"><b>End Date : </b>{{order.endDate|date}} </li>\n      </ul>\n\n      <div class=\"card-body\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]\" class=\"card-link\">See\n          Detail</a>\n        <a *ngIf=\"order.status=='COMPLETED'&&!order.rated\" (click)=\"rate(order.orderId, order.status)\"\n           class=\"card-link text-primary\">Rate</a>\n      </div>\n\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"row text-dark\" *ngIf='acceptOrderList != []'>\n  <div *ngFor=\"let order of acceptOrderList\" class=\"col-md-4\">\n    <div class=\"card mb-4 box-shadow\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\"> Order Id : {{order.orderId}} </h5>\n      </div>\n\n      <ul class=\"list-group list-group-flush text-left\">\n        <li *ngIf=\"!isSitter\" class=\"list-group-item\"><b>Credits : </b>{{order.credits}} </li>\n        <li class=\"list-group-item\"><b>Order Description :</b> {{order.orderDescription}} </li>\n        <li class=\"list-group-item\"><b>Zip :</b> {{order.zip}} </li>\n        <li class=\"list-group-item\"><b>Start Date :</b> {{order.startDate|date}} </li>\n        <li class=\"list-group-item\"><b>End Date : </b>{{order.endDate|date}} </li>\n      </ul>\n\n      <div class=\"card-body\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]\" class=\"card-link\">See\n          Detail</a>\n        <a *ngIf=\"order.status=='COMPLETED'&&!order.rated\" (click)=\"rate(order.orderId, order.status)\"\n           class=\"card-link text-primary\">Rate</a>\n      </div>\n\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1028,15 +1031,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dashhome_dashhome_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./dashhome/dashhome.component */ "./src/app/dashhome/dashhome.component.ts");
 /* harmony import */ var _create_order_create_order_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./create-order/create-order.component */ "./src/app/create-order/create-order.component.ts");
 /* harmony import */ var _order_detail_order_detail_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./order-detail/order-detail.component */ "./src/app/order-detail/order-detail.component.ts");
-/* harmony import */ var _my_order_my_order_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./my-order/my-order.component */ "./src/app/my-order/my-order.component.ts");
-/* harmony import */ var _public_profile_public_profile_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./public-profile/public-profile.component */ "./src/app/public-profile/public-profile.component.ts");
-/* harmony import */ var _my_profile_my_profile_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./my-profile/my-profile.component */ "./src/app/my-profile/my-profile.component.ts");
-/* harmony import */ var _my_pets_my_pets_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./my-pets/my-pets.component */ "./src/app/my-pets/my-pets.component.ts");
-/* harmony import */ var _add_pet_add_pet_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./add-pet/add-pet.component */ "./src/app/add-pet/add-pet.component.ts");
-/* harmony import */ var _editpetInfo_editpetinfo_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./editpetInfo/editpetinfo.component */ "./src/app/editpetInfo/editpetinfo.component.ts");
-/* harmony import */ var _sitter_order_sitter_order_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./sitter-order/sitter-order.component */ "./src/app/sitter-order/sitter-order.component.ts");
-/* harmony import */ var _orderlists_orderlists_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./orderlists/orderlists.component */ "./src/app/orderlists/orderlists.component.ts");
-/* harmony import */ var _requests_requests_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./requests/requests.component */ "./src/app/requests/requests.component.ts");
+/* harmony import */ var _userprofile_userprofile_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./userprofile/userprofile.component */ "./src/app/userprofile/userprofile.component.ts");
+/* harmony import */ var _my_order_my_order_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./my-order/my-order.component */ "./src/app/my-order/my-order.component.ts");
+/* harmony import */ var _public_profile_public_profile_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./public-profile/public-profile.component */ "./src/app/public-profile/public-profile.component.ts");
+/* harmony import */ var _my_profile_my_profile_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./my-profile/my-profile.component */ "./src/app/my-profile/my-profile.component.ts");
+/* harmony import */ var _my_pets_my_pets_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./my-pets/my-pets.component */ "./src/app/my-pets/my-pets.component.ts");
+/* harmony import */ var _add_pet_add_pet_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./add-pet/add-pet.component */ "./src/app/add-pet/add-pet.component.ts");
+/* harmony import */ var _editpetInfo_editpetinfo_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./editpetInfo/editpetinfo.component */ "./src/app/editpetInfo/editpetinfo.component.ts");
+/* harmony import */ var _sitter_order_sitter_order_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./sitter-order/sitter-order.component */ "./src/app/sitter-order/sitter-order.component.ts");
+/* harmony import */ var _orderlists_orderlists_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./orderlists/orderlists.component */ "./src/app/orderlists/orderlists.component.ts");
+/* harmony import */ var _requests_requests_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./requests/requests.component */ "./src/app/requests/requests.component.ts");
+/* harmony import */ var _my_requests_my_requests_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./my-requests/my-requests.component */ "./src/app/my-requests/my-requests.component.ts");
+
+
 
 
 
@@ -1069,17 +1076,19 @@ var routes = [
         children: [
             { path: '', redirectTo: 'dashhome', pathMatch: 'full' },
             { path: 'dashhome', component: _dashhome_dashhome_component__WEBPACK_IMPORTED_MODULE_8__["DashhomeComponent"], outlet: 'aux' },
-            { path: 'orderlists', component: _orderlists_orderlists_component__WEBPACK_IMPORTED_MODULE_18__["OrderlistsComponent"], outlet: 'aux' },
-            { path: 'requests', component: _requests_requests_component__WEBPACK_IMPORTED_MODULE_19__["RequestsComponent"], outlet: 'aux' },
+            { path: 'orderlists', component: _orderlists_orderlists_component__WEBPACK_IMPORTED_MODULE_19__["OrderlistsComponent"], outlet: 'aux' },
+            { path: 'requests', component: _requests_requests_component__WEBPACK_IMPORTED_MODULE_20__["RequestsComponent"], outlet: 'aux' },
+            { path: 'myRequests', component: _my_requests_my_requests_component__WEBPACK_IMPORTED_MODULE_21__["MyRequestsComponent"], outlet: 'aux' },
+            { path: 'profile', component: _userprofile_userprofile_component__WEBPACK_IMPORTED_MODULE_11__["UserprofileComponent"], outlet: 'aux' },
             { path: 'createorder', component: _create_order_create_order_component__WEBPACK_IMPORTED_MODULE_9__["CreateOrderComponent"], outlet: 'aux' },
-            { path: 'myorder', component: _my_order_my_order_component__WEBPACK_IMPORTED_MODULE_11__["MyOrderComponent"], outlet: 'aux' },
-            { path: 'sitterorder', component: _sitter_order_sitter_order_component__WEBPACK_IMPORTED_MODULE_17__["SitterOrderComponent"], outlet: 'aux' },
+            { path: 'myorder', component: _my_order_my_order_component__WEBPACK_IMPORTED_MODULE_12__["MyOrderComponent"], outlet: 'aux' },
+            { path: 'sitterorder', component: _sitter_order_sitter_order_component__WEBPACK_IMPORTED_MODULE_18__["SitterOrderComponent"], outlet: 'aux' },
             { path: 'orderdetail/:orderId', component: _order_detail_order_detail_component__WEBPACK_IMPORTED_MODULE_10__["OrderDetailComponent"], outlet: 'aux' },
-            { path: 'publicprofile/:userid', component: _public_profile_public_profile_component__WEBPACK_IMPORTED_MODULE_12__["PublicProfileComponent"], outlet: 'aux' },
-            { path: 'myprofile/:userid', component: _my_profile_my_profile_component__WEBPACK_IMPORTED_MODULE_13__["MyProfileComponent"], outlet: 'aux' },
-            { path: 'mypets/:userid', component: _my_pets_my_pets_component__WEBPACK_IMPORTED_MODULE_14__["MyPetsComponent"], outlet: 'aux' },
-            { path: 'addpet', component: _add_pet_add_pet_component__WEBPACK_IMPORTED_MODULE_15__["AddPetComponent"], outlet: 'aux' },
-            { path: 'editpet/:petid', component: _editpetInfo_editpetinfo_component__WEBPACK_IMPORTED_MODULE_16__["EditPetInfoComponent"], outlet: 'aux' }
+            { path: 'publicprofile/:userid', component: _public_profile_public_profile_component__WEBPACK_IMPORTED_MODULE_13__["PublicProfileComponent"], outlet: 'aux' },
+            { path: 'myprofile/:userid', component: _my_profile_my_profile_component__WEBPACK_IMPORTED_MODULE_14__["MyProfileComponent"], outlet: 'aux' },
+            { path: 'mypets/:userid', component: _my_pets_my_pets_component__WEBPACK_IMPORTED_MODULE_15__["MyPetsComponent"], outlet: 'aux' },
+            { path: 'addpet', component: _add_pet_add_pet_component__WEBPACK_IMPORTED_MODULE_16__["AddPetComponent"], outlet: 'aux' },
+            { path: 'editpet/:petid', component: _editpetInfo_editpetinfo_component__WEBPACK_IMPORTED_MODULE_17__["EditPetInfoComponent"], outlet: 'aux' }
         ]
     }
 ];
@@ -1199,6 +1208,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _orderlists_orderlists_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./orderlists/orderlists.component */ "./src/app/orderlists/orderlists.component.ts");
 /* harmony import */ var _request_dialog_request_dialog_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./request-dialog/request-dialog.component */ "./src/app/request-dialog/request-dialog.component.ts");
 /* harmony import */ var _requests_requests_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./requests/requests.component */ "./src/app/requests/requests.component.ts");
+/* harmony import */ var _change_orderType_dialog_change_order_type_dialog_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./change-orderType-dialog/change-order-type-dialog.component */ "./src/app/change-orderType-dialog/change-order-type-dialog.component.ts");
+/* harmony import */ var _my_requests_my_requests_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./my-requests/my-requests.component */ "./src/app/my-requests/my-requests.component.ts");
+
+
 
 
 
@@ -1256,6 +1269,7 @@ var AppModule = /** @class */ (function () {
                 _directives__WEBPACK_IMPORTED_MODULE_17__["AlertComponent"],
                 _userprofile_userprofile_component__WEBPACK_IMPORTED_MODULE_18__["UserprofileComponent"],
                 _accept_dialog_accept_dialog_component__WEBPACK_IMPORTED_MODULE_19__["AcceptDialogComponent"],
+                _change_orderType_dialog_change_order_type_dialog_component__WEBPACK_IMPORTED_MODULE_37__["ChangeOrderTypeDialogComponent"],
                 _my_order_my_order_component__WEBPACK_IMPORTED_MODULE_21__["MyOrderComponent"],
                 _sitter_order_sitter_order_component__WEBPACK_IMPORTED_MODULE_33__["SitterOrderComponent"],
                 _complete_dialog_complete_dialog_component__WEBPACK_IMPORTED_MODULE_22__["CompleteDialogComponent"],
@@ -1269,6 +1283,7 @@ var AppModule = /** @class */ (function () {
                 _editpetInfo_editpetinfo_component__WEBPACK_IMPORTED_MODULE_31__["EditPetInfoComponent"],
                 _orderlists_orderlists_component__WEBPACK_IMPORTED_MODULE_34__["OrderlistsComponent"],
                 _requests_requests_component__WEBPACK_IMPORTED_MODULE_36__["RequestsComponent"],
+                _my_requests_my_requests_component__WEBPACK_IMPORTED_MODULE_38__["MyRequestsComponent"],
                 _request_dialog_request_dialog_component__WEBPACK_IMPORTED_MODULE_35__["RequestDialogComponent"]
             ],
             imports: [
@@ -1288,10 +1303,100 @@ var AppModule = /** @class */ (function () {
                 _services__WEBPACK_IMPORTED_MODULE_12__["AlertService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
-            entryComponents: [_accept_dialog_accept_dialog_component__WEBPACK_IMPORTED_MODULE_19__["AcceptDialogComponent"], _complete_dialog_complete_dialog_component__WEBPACK_IMPORTED_MODULE_22__["CompleteDialogComponent"], _rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_26__["RateOrderDialogComponent"], _request_dialog_request_dialog_component__WEBPACK_IMPORTED_MODULE_35__["RequestDialogComponent"]]
+            entryComponents: [
+                _accept_dialog_accept_dialog_component__WEBPACK_IMPORTED_MODULE_19__["AcceptDialogComponent"],
+                _complete_dialog_complete_dialog_component__WEBPACK_IMPORTED_MODULE_22__["CompleteDialogComponent"],
+                _rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_26__["RateOrderDialogComponent"],
+                _request_dialog_request_dialog_component__WEBPACK_IMPORTED_MODULE_35__["RequestDialogComponent"],
+                _change_orderType_dialog_change_order_type_dialog_component__WEBPACK_IMPORTED_MODULE_37__["ChangeOrderTypeDialogComponent"]
+            ]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/change-orderType-dialog/change-order-type-dialog.component.css":
+/*!********************************************************************************!*\
+  !*** ./src/app/change-orderType-dialog/change-order-type-dialog.component.css ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NoYW5nZS1vcmRlclR5cGUtZGlhbG9nL2NoYW5nZS1vcmRlci10eXBlLWRpYWxvZy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/change-orderType-dialog/change-order-type-dialog.component.html":
+/*!*********************************************************************************!*\
+  !*** ./src/app/change-orderType-dialog/change-order-type-dialog.component.html ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!--<h2 mat-dialog-title class=\"text-center\">Change Order Type</h2>-->\n<br/>\n<mat-dialog-content class=\"text-center\">\n  <h4>Do you want to change your order to a Charged</h4>\n  <h4>Order instead of using Credits?</h4>\n</mat-dialog-content>\n<br/>\n\n<div class=\"row\">\n  <div class=\"col-6 text-center\">\n    <button class=\"btn btn-info\" (click)=\"submit()\">Yes</button>\n  </div>\n  <div class=\"col text-center\">\n    <button class=\"btn btn-info\" (click)=\"close()\">Cancel</button>\n  </div>\n\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/change-orderType-dialog/change-order-type-dialog.component.ts":
+/*!*******************************************************************************!*\
+  !*** ./src/app/change-orderType-dialog/change-order-type-dialog.component.ts ***!
+  \*******************************************************************************/
+/*! exports provided: ChangeOrderTypeDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChangeOrderTypeDialogComponent", function() { return ChangeOrderTypeDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_services */ "./src/app/_services/index.ts");
+
+
+
+
+
+
+var ChangeOrderTypeDialogComponent = /** @class */ (function () {
+    function ChangeOrderTypeDialogComponent(router, dialogRef, orderService, data) {
+        this.router = router;
+        this.dialogRef = dialogRef;
+        this.orderService = orderService;
+        this.orderId = data.orderId;
+    }
+    ChangeOrderTypeDialogComponent.prototype.ngOnInit = function () {
+    };
+    ChangeOrderTypeDialogComponent.prototype.submit = function () {
+        var _this = this;
+        this.currentUserID = localStorage.getItem('currentUserID');
+        this.orderService.changeOrderType(this.currentUserID, this.orderId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])()).subscribe(function (result) {
+            if (result) {
+                _this.dialogRef.close();
+                window.location.reload();
+            }
+        });
+    };
+    ChangeOrderTypeDialogComponent.prototype.close = function () {
+        this.dialogRef.close();
+    };
+    ChangeOrderTypeDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-change-order-type-dialog',
+            template: __webpack_require__(/*! ./change-order-type-dialog.component.html */ "./src/app/change-orderType-dialog/change-order-type-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./change-order-type-dialog.component.css */ "./src/app/change-orderType-dialog/change-order-type-dialog.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"],
+            _services__WEBPACK_IMPORTED_MODULE_5__["OrderService"], Object])
+    ], ChangeOrderTypeDialogComponent);
+    return ChangeOrderTypeDialogComponent;
 }());
 
 
@@ -1385,7 +1490,7 @@ module.exports = ".form-group.hidden {\n  width: 0;\n  margin: 0;\n  border: non
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"text-dark\">Create an order</h2>\n<form [formGroup]=\"orderForm\" (ngSubmit)=\"onSubmit()\" class=\"text-dark text-left\">\n\n  <br/>\n  <div>\n    <label>Date of Order:</label>\n    <div *ngIf=\"submitted\" class=\"invalid-feedback\">\n      Date of order is required !!\n    </div>\n    <form class=\"form-inline\">\n      <div class=\"form-group hidden\">\n        <div class=\"input-group\">\n          <label>\n            <input name=\"datepicker\"\n                   class=\"form-control\"\n                   ngbDatepicker\n                   #datepicker=\"ngbDatepicker\"\n                   [autoClose]=\"'outside'\"\n                   (dateSelect)=\"onDateSelection($event)\"\n                   [displayMonths]=\"1\"\n                   [dayTemplate]=\"t\"\n                   outsideDays=\"hidden\"\n                   [startDate]=\"fromDate\">\n          </label>\n          <ng-template #t let-date let-focused=\"focused\">\n        <span class=\"custom-day\"\n              [class.focused]=\"focused\"\n              [class.range]=\"isRange(date)\"\n              [class.faded]=\"isHovered(date) || isInside(date)\"\n              (mouseenter)=\"hoveredDate = date\"\n              (mouseleave)=\"hoveredDate = null\">\n          {{ date.day }}\n        </span>\n          </ng-template>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"input-group\">\n          <input #dpFromDate\n                 class=\"form-control\" placeholder=\"yyyy-mm-dd\"\n                 name=\"dpFromDate\"\n                 [value]=\"formatter.format(fromDate)\"\n                 (input)=\"fromDate = validateInput(fromDate, dpFromDate.value)\">\n\n          <div class=\"input-group-append\">\n            <button class=\"btn btn-outline-secondary calendar\" (click)=\"datepicker.toggle()\" type=\"button\"></button>\n          </div>\n        </div>\n      </div>\n      <div class=\"form-group ml-2\">\n        <div class=\"input-group\">\n          <input #dpToDate\n                 class=\"form-control\" placeholder=\"yyyy-mm-dd\"\n                 name=\"dpToDate\"\n                 [value]=\"formatter.format(toDate)\"\n                 (input)=\"toDate = validateInput(toDate, dpToDate.value)\">\n          <div class=\"input-group-append\">\n            <button class=\"btn btn-outline-secondary calendar\" (click)=\"datepicker.toggle()\" type=\"button\"></button>\n          </div>\n        </div>\n      </div>\n    </form>\n  </div>\n  <br/>\n  <div class=\"form-group\">\n    <label for=\"orderDescription\"> Order Description: </label>\n    <input type=\"text\" id=\"orderDescription\" formControlName=\"orderDescription\"\n           class=\"form-control\" placeholder=\"anything your want others to know\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.orderDescription.errors }\"/>\n    <div *ngIf=\"submitted && f.orderDescription.errors\" class=\"invalid-feedback\">\n      <div *ngIf=\"f.orderDescription.errors.required\">oderDescription is required</div>\n    </div>\n  </div>\n\n  <div class=\"form-group\">\n    <div class=\"form-check\">\n      <label class=\"form-check-label\" for=\"orderType\">\n        <input type=\"checkbox\" id=\"orderType\" class=\"form-control\" formControlName=\"orderType\"> I don't want to use my\n        credits. (this means this order will cost you money)\n      </label>\n    </div>\n  </div>\n\n\n  <div class=\"form-group text-center\">\n    <button class=\"btn btn-primary\">Submit</button>\n    <a (click)=\"backtolast()\" class=\"btn btn-link\">Cancel</a>\n  </div>\n\n</form>\n\n<br><br>\n"
+module.exports = "<h2 class=\"text-dark\">Create an order</h2>\n<form [formGroup]=\"orderForm\" (ngSubmit)=\"onSubmit()\" class=\"text-dark text-left\">\n\n  <br/>\n  <div>\n    <label>Date of Order:</label>\n    <div *ngIf=\"submitted\" class=\"invalid-feedback\">\n      Date of order is required !!\n    </div>\n    <form class=\"form-inline\">\n      <div class=\"form-group hidden\">\n        <div class=\"input-group\">\n          <label>\n            <input name=\"datepicker\"\n                   class=\"form-control\"\n                   ngbDatepicker\n                   #datepicker=\"ngbDatepicker\"\n                   [autoClose]=\"'outside'\"\n                   (dateSelect)=\"onDateSelection($event)\"\n                   [displayMonths]=\"1\"\n                   [dayTemplate]=\"t\"\n                   outsideDays=\"hidden\"\n                   [startDate]=\"fromDate\">\n          </label>\n          <ng-template #t let-date let-focused=\"focused\">\n        <span class=\"custom-day\"\n              [class.focused]=\"focused\"\n              [class.range]=\"isRange(date)\"\n              [class.faded]=\"isHovered(date) || isInside(date)\"\n              (mouseenter)=\"hoveredDate = date\"\n              (mouseleave)=\"hoveredDate = null\">\n          {{ date.day }}\n        </span>\n          </ng-template>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"input-group\">\n          <input #dpFromDate\n                 class=\"form-control\" placeholder=\"yyyy-mm-dd\"\n                 name=\"dpFromDate\"\n                 [value]=\"formatter.format(fromDate)\"\n                 (input)=\"fromDate = validateInput(fromDate, dpFromDate.value)\">\n\n          <div class=\"input-group-append\">\n            <button class=\"btn btn-outline-secondary calendar\" (click)=\"datepicker.toggle()\" type=\"button\"></button>\n          </div>\n        </div>\n      </div>\n      <div class=\"form-group ml-2\">\n        <div class=\"input-group\">\n          <input #dpToDate\n                 class=\"form-control\" placeholder=\"yyyy-mm-dd\"\n                 name=\"dpToDate\"\n                 [value]=\"formatter.format(toDate)\"\n                 (input)=\"toDate = validateInput(toDate, dpToDate.value)\">\n          <div class=\"input-group-append\">\n            <button class=\"btn btn-outline-secondary calendar\" (click)=\"datepicker.toggle()\" type=\"button\"></button>\n          </div>\n        </div>\n      </div>\n    </form>\n  </div>\n  <br/>\n  <div class=\"form-group\">\n    <label for=\"orderDescription\"> Order Description: </label>\n    <input type=\"text\" id=\"orderDescription\" formControlName=\"orderDescription\"\n           class=\"form-control\" placeholder=\"I want someone looking after my cat bob\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.orderDescription.errors }\"/>\n    <div *ngIf=\"submitted && f.orderDescription.errors\" class=\"invalid-feedback\">\n      <div *ngIf=\"f.orderDescription.errors.required\">oderDescription is required</div>\n    </div>\n  </div>\n\n  <div class=\"form-check\">\n    <input type=\"checkbox\" id=\"orderType\" class=\"form-check-input\" formControlName=\"orderType\">\n    <label class=\"form-check-label\" for=\"orderType\">\n      I don't want to use my credits. (this means this order will cost you money)\n    </label>\n  </div>\n  <br/>\n\n\n  <div class=\"form-group text-center\">\n    <button class=\"btn btn-primary\">Submit</button>\n    <a (click)=\"backtolast()\" class=\"btn btn-link\">Cancel</a>\n  </div>\n\n</form>\n\n<br><br>\n"
 
 /***/ }),
 
@@ -1505,7 +1610,7 @@ var CreateOrderComponent = /** @class */ (function () {
         return !(this.fromDate === null || this.toDate === null);
     };
     CreateOrderComponent.prototype.getDate = function (date) {
-        return new Date(date.year, date.month - 1, date.day);
+        return new Date(date.year, date.month - 1, date.day + 1);
     };
     CreateOrderComponent.prototype.backtolast = function () {
         this.location.back();
@@ -1550,7 +1655,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row text-dark\" *ngIf='createdOrderList != []'>\n  <div *ngFor=\"let order of createdOrderList\" class=\"col-md-4\">\n    <div class=\"card mb-4 box-shadow\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\"> {{order.orderId}} </h5>\n      </div>\n\n      <ul class=\"list-group list-group-flush text-left\">\n        <li *ngIf=\"!order.orderType\" class=\"list-group-item\"><b>Credits : </b>{{order.credits}} </li>\n        <li *ngIf=\"order.orderType\" class=\"list-group-item\">Charged Order</li>\n        <li class=\"list-group-item\"><b>Order Description :</b> {{order.orderDescription}} </li>\n        <li class=\"list-group-item\"><b>Zip :</b> {{order.zip}} </li>\n        <li class=\"list-group-item\"><b>Start Date :</b> {{order.startDate|date}} </li>\n        <li class=\"list-group-item\"><b>End Date : </b>{{order.endDate|date}} </li>\n      </ul>\n\n\n      <div class=\"card-body\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]\" class=\"card-link\">See\n          Detail</a>\n        <a *ngIf=\"order.status=='COMPLETED'&&!order.rated\" (click)=\"rate(order.orderId, order.status)\"\n           class=\"card-link text-primary\">Rate</a>\n\n        <a *ngIf=\"order.status=='ORDERED'&&!order.orderType\" (click)=\"changeOrderType(order.orderId)\"\n           class=\"card-link text-primary\">Change to Charged Order</a>\n      </div>\n\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"row text-dark\" *ngIf='createdOrderList != []'>\n  <div *ngFor=\"let order of createdOrderList\" class=\"col-md-4\">\n    <div class=\"card mb-4 box-shadow\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\"> Order Id : {{order.orderId}} </h5>\n      </div>\n\n      <ul class=\"list-group list-group-flush text-left\">\n        <li *ngIf=\"!order.orderType\" class=\"list-group-item\"><b>Credits : </b>{{order.credits}} </li>\n        <li *ngIf=\"order.orderType\" class=\"list-group-item\"><b>Charged Order</b></li>\n        <li class=\"list-group-item\"><b>Order Description :</b> {{order.orderDescription}} </li>\n        <li class=\"list-group-item\"><b>Zip :</b> {{order.zip}} </li>\n        <li class=\"list-group-item\"><b>Start Date :</b> {{order.startDate|date}} </li>\n        <li class=\"list-group-item\"><b>End Date : </b>{{order.endDate|date}} </li>\n      </ul>\n\n\n      <div class=\"card-body\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]\" class=\"card-link\">See\n          Detail</a>\n        <a *ngIf=\"order.status=='COMPLETED'&&!order.rated\" (click)=\"rate(order.orderId, order.status)\"\n           class=\"card-link text-primary\">Rate</a>\n\n        <a *ngIf=\"order.status=='ORDERED'&&!order.orderType\" (click)=\"changeOrderType(order.orderId)\"\n           class=\"card-link text-primary\">Change to Charged Order</a>\n      </div>\n\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1572,6 +1677,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../rate-order-dialog/rate-order-dialog.component */ "./src/app/rate-order-dialog/rate-order-dialog.component.ts");
+/* harmony import */ var _change_orderType_dialog_change_order_type_dialog_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../change-orderType-dialog/change-order-type-dialog.component */ "./src/app/change-orderType-dialog/change-order-type-dialog.component.ts");
+
 
 
 
@@ -1602,20 +1709,23 @@ var CreatedOrderListComponent = /** @class */ (function () {
     CreatedOrderListComponent.prototype.rate = function (orderId, state) {
         this.openRateDialog(orderId, state);
     };
-    CreatedOrderListComponent.prototype.changeOrderType = function (orderId) {
-        var _this = this;
-        this.orderService.changeOrderType(this.currentUserID, orderId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["first"])()).subscribe(function (result) {
-            if (result) {
-                _this.getCreatedOrderList();
-            }
-        });
-    };
     CreatedOrderListComponent.prototype.openRateDialog = function (orderId, state) {
         var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialogConfig"]();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         dialogConfig.data = { orderId: orderId, state: state };
         this.dialog.open(_rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_7__["RateOrderDialogComponent"], dialogConfig);
+    };
+    CreatedOrderListComponent.prototype.changeOrderType = function (orderId) {
+        this.openChangeTypeDialog(orderId);
+        this.getCreatedOrderList();
+    };
+    CreatedOrderListComponent.prototype.openChangeTypeDialog = function (orderId) {
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = { orderId: orderId };
+        this.dialog.open(_change_orderType_dialog_change_order_type_dialog_component__WEBPACK_IMPORTED_MODULE_8__["ChangeOrderTypeDialogComponent"], dialogConfig);
     };
     CreatedOrderListComponent.prototype.backtolast = function () {
         this.location.back();
@@ -1654,7 +1764,7 @@ module.exports = "/* Links */\na,\na:focus,\na:hover {\n  color: #fff;\n}\n.navc
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg navbar-light bg-light h-10\" style=\"background-color: #f0b07b;\">\n  <div class=\"navcontainer\">\n    <div class=\"row\">\n      <a *ngIf=\"!ifSitter\" class=\"navbar-brand\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['dashhome']}}]\">FluffyHome</a>\n      <a *ngIf=\"ifSitter\" class=\"navbar-brand\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderlists']}}]\">FluffyHome</a>\n\n      <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\"\n              aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n      </button>\n\n      <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\n        <ul class=\"navbar-nav mr-auto\">\n          <li class=\"nav-item\">\n            <a *ngIf=\"!ifSitter\" class=\"nav-link\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['dashhome']}}]\">Home<span\n              class=\"sr-only\">(current)</span></a>\n            <a *ngIf=\"ifSitter\" class=\"nav-link\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderlists']}}]\">Home<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n          <li *ngIf=\"!ifSitter\" class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderlists']}}]\">Orders<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n\n          <li *ngIf=\"!ifSitter\" class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['createorder']}}]\">Create Order</a>\n          </li>\n          <li *ngIf=\"!ifSitter\" classs=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['myorder']}}]\">My Orders</a>\n          </li>\n\n          <li *ngIf=\"ifSitter\" classs=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['sitterorder']}}]\">My Orders</a>\n          </li>\n\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['requests']}}]\">Requests<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n\n\n        </ul>\n\n        <div class=\"nav-item dropdown\">\n          <button *ngIf=\"currentUser;else elseBlock\" class=\" btn dropdown-toggle text-primary\" id=\"dropdownMenuButton\"\n                  type=\"button\"\n                  data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n            {{currentUser.username}}\n          </button>\n          <ng-template #elseBlock>\n            <!--            <button [routerLink]=\"\" ]></button>-->\n            <a class=\"nav-link text-dark\" routerLink=\"/login\" routerLinkActive=\"active\">Log In</a>\n          </ng-template>\n\n          <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n            <a class=\"dropdown-item text-dark\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['myprofile', currentUserID]}}]\">My Profile</a>\n            <a *ngIf=\"!ifSitter\" class=\"dropdown-item text-dark\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['mypets', currentUserID]}}]\">My Pets</a>\n            <a class=\"dropdown-item text-dark\" (click)=\"userLogout()\">Log Out</a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</nav>\n\n<div class=\"jumbotron h-90\">\n  <div class=\"container\">\n    <router-outlet name=\"aux\"></router-outlet>\n  </div>\n</div>\n"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-light bg-light h-10\" style=\"background-color: #f0b07b;\">\n  <div class=\"navcontainer\">\n    <div class=\"row\">\n      <a *ngIf=\"!ifSitter\" class=\"navbar-brand\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['dashhome']}}]\">FluffyHome</a>\n      <a *ngIf=\"ifSitter\" class=\"navbar-brand\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderlists']}}]\">FluffyHome</a>\n\n      <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\"\n              aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n      </button>\n\n      <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\n        <ul class=\"navbar-nav mr-auto\">\n          <li class=\"nav-item\">\n            <a *ngIf=\"!ifSitter\" class=\"nav-link\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['dashhome']}}]\">Home<span\n              class=\"sr-only\">(current)</span></a>\n            <a *ngIf=\"ifSitter\" class=\"nav-link\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderlists']}}]\">Home<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n          <li *ngIf=\"!ifSitter\" class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderlists']}}]\">Orders<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n\n          <li *ngIf=\"!ifSitter\" class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['createorder']}}]\">Create Order</a>\n          </li>\n          <li *ngIf=\"!ifSitter\" classs=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['myorder']}}]\">My Orders</a>\n          </li>\n\n          <li *ngIf=\"ifSitter\" classs=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['sitterorder']}}]\">My Orders</a>\n          </li>\n\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['requests']}}]\">Requests<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['myRequests']}}]\">My Requests<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n\n\n        </ul>\n\n        <div class=\"nav-item dropdown\">\n          <button *ngIf=\"currentUser;else elseBlock\" class=\" btn dropdown-toggle text-primary\" id=\"dropdownMenuButton\"\n                  type=\"button\"\n                  data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n            {{currentUser.username}}\n          </button>\n          <ng-template #elseBlock>\n            <!--            <button [routerLink]=\"\" ]></button>-->\n            <a class=\"nav-link text-dark\" routerLink=\"/login\" routerLinkActive=\"active\">Log In</a>\n          </ng-template>\n\n          <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n            <a class=\"dropdown-item text-dark\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['myprofile', currentUserID]}}]\">My Profile</a>\n            <a *ngIf=\"!ifSitter\" class=\"dropdown-item text-dark\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['mypets', currentUserID]}}]\">My Pets</a>\n            <a class=\"dropdown-item text-dark\" (click)=\"userLogout()\">Log Out</a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</nav>\n\n<div class=\"jumbotron h-90\">\n  <div class=\"container\">\n    <router-outlet name=\"aux\"></router-outlet>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2224,7 +2334,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"text-dark\">My Pets</h2>\n<br/><br/>\n<div class=\"row text-dark\" *ngIf='petList != []'>\n  <div *ngFor=\"let pet of petList\" class=\"col-md-4\">\n    <div class=\"card mb-4 box-shadow\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\"> {{pet.petId}}</h5>\n        <!--        <h6 class=\"card-subtitle mb-2 text-muted\">Pet Name: {{pet.petName}} </h6>-->\n      </div>\n\n      <ul class=\"list-group list-group-flush text-left\">\n        <li class=\"list-group-item\">Pet Name: {{pet.petName}}</li>\n        <li class=\"list-group-item\">Pet Type: {{pet.petType}} </li>\n        <li class=\"list-group-item\">Pet Info: {{pet.petInfo}} </li>\n      </ul>\n\n      <div class=\"card-body\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['editpet', pet.petId]}}]\" class=\"card-link\">Edit</a>\n      </div>\n\n    </div>\n\n  </div>\n</div>\n<div class=\"card mb-4 box-shadow\">\n  <div class=\"card-body\">\n    <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['addpet']}}]\" class=\"card-link\">Add pet</a>\n  </div>\n</div>\n\n"
+module.exports = "<h2 class=\"text-dark\">My Pets</h2>\n<br/><br/>\n<div class=\"row text-dark\" *ngIf='petList != []'>\n  <div *ngFor=\"let pet of petList\" class=\"col-md-4\">\n    <div class=\"card mb-4 box-shadow\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\"> Pet Id : {{pet.petId}}</h5>\n        <!--        <h6 class=\"card-subtitle mb-2 text-muted\">Pet Name: {{pet.petName}} </h6>-->\n      </div>\n\n      <ul class=\"list-group list-group-flush text-left\">\n        <li class=\"list-group-item\"><b>Pet Name : </b>{{pet.petName}}</li>\n        <li class=\"list-group-item\"><b>Pet Type : </b>{{pet.petType}} </li>\n        <li class=\"list-group-item\"><b>Pet Info : </b>{{pet.petInfo}} </li>\n      </ul>\n\n      <div class=\"card-body\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['editpet', pet.petId]}}]\" class=\"card-link\">Edit</a>\n      </div>\n\n    </div>\n\n  </div>\n</div>\n<div class=\"card mb-4 box-shadow\">\n  <div class=\"card-body\">\n    <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['addpet']}}]\" class=\"card-link\">Add pet</a>\n  </div>\n</div>\n\n"
 
 /***/ }),
 
@@ -2381,6 +2491,92 @@ var MyProfileComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _services__WEBPACK_IMPORTED_MODULE_3__["UserService"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["Location"]])
     ], MyProfileComponent);
     return MyProfileComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/my-requests/my-requests.component.css":
+/*!*******************************************************!*\
+  !*** ./src/app/my-requests/my-requests.component.css ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL215LXJlcXVlc3RzL215LXJlcXVlc3RzLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/my-requests/my-requests.component.html":
+/*!********************************************************!*\
+  !*** ./src/app/my-requests/my-requests.component.html ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2 class=\"text-dark\">Requests</h2>\n<br/>\n<br/>\n\n<!-- requests that wait for answer -->\n\n<div class=\"text-dark\" *ngIf='requests != []'>\n  <h5 class=\"text-dark text-left\">New Requests:</h5>\n  <div *ngFor=\"let request of requests\">\n    <div *ngIf=\"request.status==='REQUESTED'\" class=\"list-group text-left\">\n      <a class=\"list-group-item list-group-item-action flex-column align-items-start \">\n        <div class=\"d-flex w-100 justify-content-between\">\n          <h5 class=\"mb-1\">Request to user\n            <a\n              [routerLink]=\"['/dashboard', {outlets: {'aux': ['publicprofile', request.fuId]}}]\">{{request.tuId}}</a>\n          </h5>\n          <span *ngIf=\"request.status==='REQUESTED'\"> Waiting </span>\n          <!--          <span class=\"btn btn-outline-danger\" (click)=\"accept(request.requestId)\">Decline</span>-->\n        </div>\n        <p>Order <b>{{request.orderId}}</b>\n          start from {{request.expire|date}}</p>\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', request.orderId]}}]\" class=\"card-link\">See\n          Order\n          Detail</a>\n      </a>\n\n    </div>\n    <br/>\n  </div>\n</div>\n\n<!-- history requests  -->\n<hr/>\n<br/>\n<h5 class=\"text-dark text-left\">History Requests:</h5>\n<br/>\n<div class=\"text-dark\" *ngIf='requests != []'>\n  <div *ngFor=\"let request of requests\">\n\n    <div *ngIf=\"request.status!='REQUESTED'\" class=\"list-group text-left\">\n      <a class=\"list-group-item list-group-item-action flex-column align-items-start \">\n        <div class=\"d-flex w-100 justify-content-between\">\n          <h5 class=\"mb-1\">Request from user\n            <a\n              [routerLink]=\"['/dashboard', {outlets: {'aux': ['publicprofile', request.fuId]}}]\">{{request.fuId}}</a>\n          </h5>\n\n          <small *ngIf=\"request.status==='INVALID'\" class=\"text-muted\"> Expired </small>\n          <span *ngIf=\"request.status==='ACCEPTED'\" class=\"text-success\"> Accepted </span>\n          <span *ngIf=\"request.status==='REFUSED'\" class=\"text-warning\"> Declined </span>\n\n          <!--          <span class=\"btn btn-outline-danger\" (click)=\"accept(request.requestId)\">Decline</span>-->\n        </div>\n        <p>Order <b>{{request.orderId}}</b>\n          start from {{request.expire|date}}</p>\n        <a *ngIf=\"request.status!='INVALID'\"\n           [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', request.orderId]}}]\" class=\"card-link\">See\n          Order\n          Detail</a>\n      </a>\n\n    </div>\n    <br/>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/my-requests/my-requests.component.ts":
+/*!******************************************************!*\
+  !*** ./src/app/my-requests/my-requests.component.ts ***!
+  \******************************************************/
+/*! exports provided: MyRequestsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MyRequestsComponent", function() { return MyRequestsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_services */ "./src/app/_services/index.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+
+
+
+
+
+
+var MyRequestsComponent = /** @class */ (function () {
+    function MyRequestsComponent(orderService, router, dialog) {
+        this.orderService = orderService;
+        this.router = router;
+        this.dialog = dialog;
+        this.requests = [];
+    }
+    MyRequestsComponent.prototype.ngOnInit = function () {
+        this.getMyRequests();
+    };
+    MyRequestsComponent.prototype.getMyRequests = function () {
+        var _this = this;
+        this.currentUserID = localStorage.getItem('currentUserID');
+        var isSitter = localStorage.getItem('isSitter');
+        this.isSitter = isSitter === 'true';
+        this.orderService.getMyRequests(this.currentUserID).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["first"])()).subscribe(function (requests) {
+            for (var _i = 0, requests_1 = requests; _i < requests_1.length; _i++) {
+                var re = requests_1[_i];
+                if (new Date(re.expire) <= new Date() && re.status === 'REQUESTED') {
+                    re.status = 'INVALID';
+                }
+                _this.requests.push(re);
+            }
+        });
+    };
+    MyRequestsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-my-requests',
+            template: __webpack_require__(/*! ./my-requests.component.html */ "./src/app/my-requests/my-requests.component.html"),
+            styles: [__webpack_require__(/*! ./my-requests.component.css */ "./src/app/my-requests/my-requests.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_3__["OrderService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialog"]])
+    ], MyRequestsComponent);
+    return MyRequestsComponent;
 }());
 
 
@@ -2792,7 +2988,7 @@ var RateOrderDialogComponent = /** @class */ (function () {
         this.dialogRef = dialogRef;
         this.orderService = orderService;
         this.rate = 0;
-        this.orderid = data.orderid;
+        this.orderId = data.orderId;
         this.state = data.state;
         config.max = 5;
     }
@@ -2807,7 +3003,7 @@ var RateOrderDialogComponent = /** @class */ (function () {
         var _this = this;
         this.submitResult = true;
         this.currentUserID = localStorage.getItem('currentUserID');
-        this.orderService.rateOrder(this.currentUserID, this.orderid, this.rate.toString()).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(function (result) {
+        this.orderService.rateOrder(this.currentUserID, this.orderId, this.rate.toString()).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(function (result) {
             result.toString();
             console.log(result);
             _this.rateResult = result;
@@ -2906,12 +3102,10 @@ var RequestDialogComponent = /** @class */ (function () {
         var _this = this;
         this.orderService.getRequestOrder(this.currentUserID, this.sitterType, this.userId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(function (orders) {
             _this.orderList = orders;
-            // this.order=orders.
         });
     };
     RequestDialogComponent.prototype.close = function () {
         this.dialogRef.close();
-        window.location.reload();
     };
     RequestDialogComponent.prototype.submit = function () {
         var _this = this;
@@ -2974,7 +3168,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"text-dark\">Requests</h2>\n<h6 class=\"text-dark\">Click to see request detail</h6>\n<br/>\n<br/>\n\n<div class=\"text-dark\" *ngIf='requests != []'>\n  <div *ngFor=\"let request of requests\">\n\n\n    <div class=\"list-group text-left\">\n      <a class=\"list-group-item list-group-item-action flex-column align-items-start \">\n        <div class=\"d-flex w-100 justify-content-between\">\n          <h5 class=\"mb-1\">Request from user\n            <a\n              [routerLink]=\"['/dashboard', {outlets: {'aux': ['publicprofile', request.fuId]}}]\">{{request.fuId}}</a>\n          </h5>\n\n          <!--          <span class=\"badge badge-primary badge-pill\">see detail</span>-->\n          <span>\n            <button class=\"btn btn-outline-success\" (click)=\"response(request.orderId,true)\">Accept</button>\n            <button class=\"btn btn-outline-danger\" (click)=\"response(request.orderId,false)\">Decline</button>\n          </span>\n          <!--          <span class=\"btn btn-outline-danger\" (click)=\"accept(request.requestId)\">Decline</span>-->\n        </div>\n        <p>Order <b>{{request.orderId}}</b>\n          start from {{request.expire|date}}</p>\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', request.orderId]}}]\" class=\"card-link\">See\n          Order\n          Detail</a>\n      </a>\n\n    </div>\n    <br/>\n  </div>\n</div>\n"
+module.exports = "<h2 class=\"text-dark\">Requests</h2>\n<br/>\n<br/>\n\n<!-- requests that wait for answer -->\n\n<div class=\"text-dark\" *ngIf='requests != []'>\n  <h5 class=\"text-dark text-left\">New Requests:</h5>\n  <div *ngFor=\"let request of requests\">\n    <div *ngIf=\"request.status==='REQUESTED'\" class=\"list-group text-left\">\n      <a class=\"list-group-item list-group-item-action flex-column align-items-start \">\n        <div class=\"d-flex w-100 justify-content-between\">\n          <h5 class=\"mb-1\">Request from user\n            <a\n              [routerLink]=\"['/dashboard', {outlets: {'aux': ['publicprofile', request.fuId]}}]\">{{request.fuId}}</a>\n          </h5>\n          <span>\n            <button class=\"btn btn-outline-success\" (click)=\"response(request.orderId,true)\">Accept</button>\n            &nbsp;\n            <button class=\"btn btn-outline-danger\" (click)=\"response(request.orderId,false)\">Decline</button>\n          </span>\n          <!--          <span class=\"btn btn-outline-danger\" (click)=\"accept(request.requestId)\">Decline</span>-->\n        </div>\n        <p>Order <b>{{request.orderId}}</b>\n          start from {{request.expire|date}}</p>\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', request.orderId]}}]\" class=\"card-link\">See\n          Order\n          Detail</a>\n      </a>\n\n    </div>\n    <br/>\n  </div>\n</div>\n\n<!-- history requests  -->\n<hr/>\n<br/>\n<h5 class=\"text-dark text-left\">History Requests:</h5>\n<br/>\n<div class=\"text-dark\" *ngIf='requests != []'>\n  <div *ngFor=\"let request of requests\">\n\n    <div *ngIf=\"request.status!='REQUESTED'\" class=\"list-group text-left\">\n      <a class=\"list-group-item list-group-item-action flex-column align-items-start \">\n        <div class=\"d-flex w-100 justify-content-between\">\n          <h5 class=\"mb-1\">Request from user\n            <a\n              [routerLink]=\"['/dashboard', {outlets: {'aux': ['publicprofile', request.fuId]}}]\">{{request.fuId}}</a>\n          </h5>\n\n          <small *ngIf=\"request.status==='INVALID'\" class=\"text-muted\"> Expired </small>\n          <span *ngIf=\"request.status==='ACCEPTED'\" class=\"text-success\"> Accepted </span>\n          <span *ngIf=\"request.status==='REFUSED'\" class=\"text-warning\"> Declined </span>\n\n          <!--          <span class=\"btn btn-outline-danger\" (click)=\"accept(request.requestId)\">Decline</span>-->\n        </div>\n        <p>Order <b>{{request.orderId}}</b>\n          start from {{request.expire|date}}</p>\n        <a *ngIf=\"request.status!='INVALID'\"\n           [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', request.orderId]}}]\" class=\"card-link\">See\n          Order\n          Detail</a>\n      </a>\n\n    </div>\n    <br/>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -3016,7 +3210,13 @@ var RequestsComponent = /** @class */ (function () {
         var isSitter = localStorage.getItem('isSitter');
         this.isSitter = isSitter === 'true';
         this.orderService.getRequests(this.currentUserID).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["first"])()).subscribe(function (requests) {
-            _this.requests = requests;
+            for (var _i = 0, requests_1 = requests; _i < requests_1.length; _i++) {
+                var re = requests_1[_i];
+                if (new Date(re.expire) <= new Date() && re.status === 'REQUESTED') {
+                    re.status = 'INVALID';
+                }
+                _this.requests.push(re);
+            }
         });
     };
     RequestsComponent.prototype.response = function (orderId, accept) {
@@ -3081,7 +3281,7 @@ module.exports = ".form-signup {\n    width: 100%;\n    max-width: 330px;\n    p
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"cover-container d-flex w-100 h-100 p-3 mx-auto flex-column\">\n\n  <header class=\"masthead mb-auto\">\n    <div class=\"inner\">\n      <h3 class=\"masthead-brand\">FluffyHome</h3>\n      <nav class=\"nav nav-masthead justify-content-center\">\n        <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\">Home</a>\n        <a class=\"nav-link\" routerLink=\"/aboutUs\" routerLinkActive=\"active\">About us</a>\n        <a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Log in</a>\n        <a class=\"nav-link\" routerLink=\"/signup\" routerLinkActive=\"active\">Sign up</a>\n      </nav>\n    </div>\n  </header>\n\n  <main role=\"main\" class=\"inner cover\">\n    <form (ngSubmit)=\"onSubmit()\" [formGroup]=\"signupForm\" class=\"form-signup mt-auto\">\n\n      <h1 class=\"mb-3 font-weight-normal\">Sign Up</h1>\n\n      <div *ngIf=\"invalidsignup&&submitted\" class=\"alert alert-danger\">\n        Invalid phone. This phone is already registered.\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"username\" class=\"sr-only\">Enter your username</label>\n        <input type=\"username\" id=\"username\" class=\"form-control\" formControlName=\"username\"\n               placeholder=\"Enter your username\" required=\"\"\n               autofocus=\"\">\n\n        <div *ngIf=\"signupForm.controls.username.touched && signupForm.controls.username.errors\">\n\n          <div *ngIf=\"signupForm.controls.username.errors.required && !signupForm.controls.username.errors.maxlength\"\n               class=\"alert alert-danger\">\n            Username is required\n          </div>\n\n          <div *ngIf=\"signupForm.controls.username.errors.maxlength && !signupForm.controls.username.errors.required\"\n               class=\"alert alert-danger\">\n            The max length of username is 20\n          </div>\n\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"phone\" class=\"sr-only\">Enter your phone number</label>\n        <input type=\"phone\" id=\"phone\" class=\"form-control\" formControlName=\"phone\"\n               placeholder=\"Enter your phone number\" required=\"\"\n               autofocus=\"\">\n\n        <div *ngIf=\"signupForm.controls.phone.touched && signupForm.controls.phone.errors\">\n\n          <div *ngIf=\"signupForm.controls.phone.errors.required && !signupForm.controls.phone.errors.pattern\"\n               class=\"alert alert-danger\">\n            Phone number is required.\n          </div>\n\n          <div *ngIf=\"signupForm.controls.phone.errors.pattern && !signupForm.controls.phone.errors.required\"\n               class=\"alert alert-danger\">\n            US phone number should be 10 numbers.\n          </div>\n\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"email\" class=\"sr-only\">Enter your email</label>\n        <input type=\"email\" id=\"email\" class=\"form-control\" formControlName=\"email\"\n               placeholder=\"Enter your email\" required=\"\"\n               autofocus=\"\">\n\n        <div *ngIf=\"signupForm.controls.email.touched && signupForm.controls.email.errors\">\n\n          <div *ngIf=\"signupForm.controls.email.errors.maxlength && !signupForm.controls.email.errors.required\"\n               class=\"alert alert-danger\">\n            email does not exist\n          </div>\n\n          <div *ngIf=\"signupForm.controls.email.errors.required && !signupForm.controls.email.errors.maxlength\"\n               class=\"alert alert-danger\">\n            email is required\n          </div>\n\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"address\" class=\"sr-only\">Enter your address</label>\n        <input type=\"address\" id=\"address\" class=\"form-control\" formControlName=\"address\"\n               placeholder=\"Enter your address\" required=\"\"\n               autofocus=\"\">\n\n        <div *ngIf=\"signupForm.controls.address.touched && signupForm.controls.address.errors\">\n\n          <div *ngIf=\"signupForm.controls.address.errors.maxlength && !signupForm.controls.address.errors.required\"\n               class=\"alert alert-danger\">\n            The max length of address is 50\n          </div>\n\n          <div *ngIf=\"signupForm.controls.address.errors.required && !signupForm.controls.address.errors.maxlength\"\n               class=\"alert alert-danger\">\n            Address is required\n          </div>\n\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"zip\" class=\"sr-only\">Enter your zip</label>\n        <input type=\"zip\" id=\"zip\" class=\"form-control\" formControlName=\"zip\"\n               placeholder=\"Enter your zip\" required=\"\"\n               autofocus=\"\">\n\n        <div *ngIf=\"signupForm.controls.zip.touched && signupForm.controls.zip.errors\">\n\n          <div *ngIf=\"signupForm.controls.zip.errors.maxlength && !signupForm.controls.zip.errors.required\"\n               class=\"alert alert-danger\">\n            zip code does not exist\n          </div>\n\n          <div *ngIf=\"signupForm.controls.zip.errors.required && !signupForm.controls.zip.errors.maxlength\"\n               class=\"alert alert-danger\">\n            zip is required\n          </div>\n\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"password\" class=\"sr-only\">Enter your password</label>\n        <input type=\"password\" id=\"password\" class=\"form-control\" formControlName=\"password\"\n               placeholder=\"Enter your password\" required=\"\">\n\n        <div *ngIf=\"signupForm.controls.password.touched && signupForm.controls.password.errors\">\n\n          <div *ngIf=\"signupForm.controls.password.errors.required && !signupForm.controls.password.errors.maxlength\"\n               class=\"alert alert-danger\">\n            Password is required\n          </div>\n\n          <div *ngIf=\"signupForm.controls.password.errors.maxlength && !signupForm.controls.password.errors.required\"\n               class=\"alert alert-danger\">\n            The max length of password is 20\n          </div>\n\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"confirmPassword\" class=\"sr-only\">Confirm your password</label>\n        <input type=\"password\" id=\"confirmPassword\" class=\"form-control\" formControlName=\"confirmPassword\"\n               placeholder=\"Confirm your password\" required=\"\">\n\n        <div *ngIf=\"signupForm.controls.confirmPassword.touched && signupForm.controls.confirmPassword.errors\">\n\n          <div\n            *ngIf=\"signupForm.controls.confirmPassword.errors.required && !signupForm.controls.confirmPassword.errors.EqualValidator\"\n            class=\"alert alert-danger\">\n            Confirm password is required\n          </div>\n          <div\n            *ngIf=\"signupForm.controls.confirmPassword.errors.EqualValidator && !signupForm.controls.confirmPassword.errors.required\"\n            class=\"alert alert-danger\">\n            Password is mismatch\n          </div>\n        </div>\n      </div>\n\n      <div class=\"form-check\">\n        <label class=\"form-check-label\" for=\"usertype\">\n          <input type=\"checkbox\" id=\"usertype\" class=\"form-control\" formControlName=\"usertype\"> I just want to be a paid\n          sitter.\n        </label>\n\n      </div>\n\n      <button class=\"btn btn-lg btn-secondary btn-block mt-5\" type=\"submit\">Sign up</button>\n\n    </form>\n\n\n  </main>\n\n  <footer class=\"mastfoot mt-5\">\n    <div class=\"inner\">\n      <p>Website for <a href=\"\">Capstone Project</a>, by <a href=\"https://github.com/lirance\">@Chendi Zhang</a>.</p>\n    </div>\n  </footer>\n\n</div>\n"
+module.exports = "<div class=\"cover-container d-flex w-100 h-100 p-3 mx-auto flex-column\">\n\n  <header class=\"masthead mb-auto\">\n    <div class=\"inner\">\n      <h3 class=\"masthead-brand\">FluffyHome</h3>\n      <nav class=\"nav nav-masthead justify-content-center\">\n        <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\">Home</a>\n        <a class=\"nav-link\" routerLink=\"/aboutUs\" routerLinkActive=\"active\">About us</a>\n        <a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Log in</a>\n        <a class=\"nav-link\" routerLink=\"/signup\" routerLinkActive=\"active\">Sign up</a>\n      </nav>\n    </div>\n  </header>\n\n  <main role=\"main\" class=\"inner cover\">\n    <form (ngSubmit)=\"onSubmit()\" [formGroup]=\"signupForm\" class=\"form-signup mt-auto\">\n\n      <h1 class=\"mb-3 font-weight-normal\">Sign Up</h1>\n\n      <div *ngIf=\"invalidsignup&&submitted\" class=\"alert alert-danger\">\n        Invalid phone. This phone is already registered.\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"username\" class=\"sr-only\">Enter your username</label>\n        <input type=\"username\" id=\"username\" class=\"form-control\" formControlName=\"username\"\n               placeholder=\"Enter your username\" required=\"\"\n               autofocus=\"\">\n\n        <div *ngIf=\"signupForm.controls.username.touched && signupForm.controls.username.errors\">\n\n          <div *ngIf=\"signupForm.controls.username.errors.required && !signupForm.controls.username.errors.maxlength\"\n               class=\"alert alert-danger\">\n            Username is required\n          </div>\n\n          <div *ngIf=\"signupForm.controls.username.errors.maxlength && !signupForm.controls.username.errors.required\"\n               class=\"alert alert-danger\">\n            The max length of username is 20\n          </div>\n\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"phone\" class=\"sr-only\">Enter your phone number</label>\n        <input type=\"phone\" id=\"phone\" class=\"form-control\" formControlName=\"phone\"\n               placeholder=\"Enter your phone number\" required=\"\"\n               autofocus=\"\">\n\n        <div *ngIf=\"signupForm.controls.phone.touched && signupForm.controls.phone.errors\">\n\n          <div *ngIf=\"signupForm.controls.phone.errors.required && !signupForm.controls.phone.errors.pattern\"\n               class=\"alert alert-danger\">\n            Phone number is required.\n          </div>\n\n          <div *ngIf=\"signupForm.controls.phone.errors.pattern && !signupForm.controls.phone.errors.required\"\n               class=\"alert alert-danger\">\n            US phone number should be 10 numbers.\n          </div>\n\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"email\" class=\"sr-only\">Enter your email</label>\n        <input type=\"email\" id=\"email\" class=\"form-control\" formControlName=\"email\"\n               placeholder=\"Enter your email\" required=\"\"\n               autofocus=\"\">\n\n        <div *ngIf=\"signupForm.controls.email.touched && signupForm.controls.email.errors\">\n\n          <div *ngIf=\"signupForm.controls.email.errors.maxlength && !signupForm.controls.email.errors.required\"\n               class=\"alert alert-danger\">\n            email does not exist\n          </div>\n\n          <div *ngIf=\"signupForm.controls.email.errors.required && !signupForm.controls.email.errors.maxlength\"\n               class=\"alert alert-danger\">\n            email is required\n          </div>\n\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"address\" class=\"sr-only\">Enter your address</label>\n        <input type=\"address\" id=\"address\" class=\"form-control\" formControlName=\"address\"\n               placeholder=\"Enter your address\" required=\"\"\n               autofocus=\"\">\n\n        <div *ngIf=\"signupForm.controls.address.touched && signupForm.controls.address.errors\">\n\n          <div *ngIf=\"signupForm.controls.address.errors.maxlength && !signupForm.controls.address.errors.required\"\n               class=\"alert alert-danger\">\n            The max length of address is 50\n          </div>\n\n          <div *ngIf=\"signupForm.controls.address.errors.required && !signupForm.controls.address.errors.maxlength\"\n               class=\"alert alert-danger\">\n            Address is required\n          </div>\n\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"zip\" class=\"sr-only\">Enter your zip</label>\n        <input type=\"zip\" id=\"zip\" class=\"form-control\" formControlName=\"zip\"\n               placeholder=\"Enter your zip\" required=\"\"\n               autofocus=\"\">\n\n        <div *ngIf=\"signupForm.controls.zip.touched && signupForm.controls.zip.errors\">\n\n          <div *ngIf=\"signupForm.controls.zip.errors.maxlength && !signupForm.controls.zip.errors.required\"\n               class=\"alert alert-danger\">\n            zip code does not exist\n          </div>\n\n          <div *ngIf=\"signupForm.controls.zip.errors.required && !signupForm.controls.zip.errors.maxlength\"\n               class=\"alert alert-danger\">\n            zip is required\n          </div>\n\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"password\" class=\"sr-only\">Enter your password</label>\n        <input type=\"password\" id=\"password\" class=\"form-control\" formControlName=\"password\"\n               placeholder=\"Enter your password\" required=\"\">\n\n        <div *ngIf=\"signupForm.controls.password.touched && signupForm.controls.password.errors\">\n\n          <div *ngIf=\"signupForm.controls.password.errors.required && !signupForm.controls.password.errors.maxlength\"\n               class=\"alert alert-danger\">\n            Password is required\n          </div>\n\n          <div *ngIf=\"signupForm.controls.password.errors.maxlength && !signupForm.controls.password.errors.required\"\n               class=\"alert alert-danger\">\n            The max length of password is 20\n          </div>\n\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"confirmPassword\" class=\"sr-only\">Confirm your password</label>\n        <input type=\"password\" id=\"confirmPassword\" class=\"form-control\" formControlName=\"confirmPassword\"\n               placeholder=\"Confirm your password\" required=\"\">\n\n        <div *ngIf=\"signupForm.controls.confirmPassword.touched && signupForm.controls.confirmPassword.errors\">\n\n          <div\n            *ngIf=\"signupForm.controls.confirmPassword.errors.required && !signupForm.controls.confirmPassword.errors.EqualValidator\"\n            class=\"alert alert-danger\">\n            Confirm password is required\n          </div>\n          <div\n            *ngIf=\"signupForm.controls.confirmPassword.errors.EqualValidator && !signupForm.controls.confirmPassword.errors.required\"\n            class=\"alert alert-danger\">\n            Password is mismatch\n          </div>\n        </div>\n      </div>\n\n      <div class=\"form-check\">\n        <input type=\"checkbox\" id=\"usertype\" class=\"form-check-input\" formControlName=\"usertype\">\n        <label class=\"form-check-label\" for=\"usertype\">\n          I just want to be a paid sitter. (Check this means you can only accept paid order)\n        </label>\n\n      </div>\n\n      <button class=\"btn btn-lg btn-secondary btn-block mt-5\" type=\"submit\">Sign up</button>\n\n    </form>\n\n\n  </main>\n\n  <footer class=\"mastfoot mt-5\">\n    <div class=\"inner\">\n      <p>Website for <a href=\"\">Capstone Project</a>, by <a href=\"https://github.com/lirance\">@Chendi Zhang</a>.</p>\n    </div>\n  </footer>\n\n</div>\n"
 
 /***/ }),
 

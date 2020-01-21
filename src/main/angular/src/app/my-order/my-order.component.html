@@ -1,4 +1,15 @@
-<p class="text-dark text-left">Choose <strong>Created</strong> to view all created order, <strong>Accepted</strong> to view all accepted order</p>
+<div class="row">
+  <div class="col-10">
+    <p class="text-dark text-left">Choose <strong>Created</strong> to view all created order, <strong>Accepted</strong>
+      to view all accepted order</p>
+  </div>
+
+  <div class="col-2">
+    <button class="btn  btn-primary" [routerLink]="['/dashboard', {outlets: {'aux': ['createorder']}}]">
+      Create Order
+    </button>
+  </div>
+</div>
 <ul class="nav nav-tabs text-dark">
   <li class="nav-item">
     <a class="nav-link {{created_active}}" (click)="switch_created()"><strong>Created</strong> </a>

@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {OrderService} from '../_services/order.service';
+import {OrderService, AlertService} from '../_services';
 import {first} from 'rxjs/operators';
-import {AlertService} from '../_services';
 import {Location} from '@angular/common';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
 import 'moment/locale/ru';
@@ -96,7 +95,8 @@ export class CreateOrderComponent implements OnInit {
             window.alert(success);
           } else {
             console.log('success!');
-            this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
+            // this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
+            this.location.back();
           }
         });
     }
@@ -108,7 +108,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   getDate(date: NgbDate) {
-    return new Date(date.year, date.month - 1, date.day);
+    return new Date(date.year, date.month - 1, date.day + 1);
   }
 
   backtolast() {

@@ -21,11 +21,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.currentUserID = localStorage.getItem('currentUserID');
-    this.getUserbyuserId(this.currentUserID);
+    this.getUserByUserId(this.currentUserID);
 
   }
 
-  getUserbyuserId(userId: string) {
+  getUserByUserId(userId: string) {
     this.userService.getUserById(this.currentUserID).pipe(first()).subscribe(user => {
       this.currentUser = user;
       this.currentUser.usertype = this.currentUser.userType === 'SITTER';

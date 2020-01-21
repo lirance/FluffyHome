@@ -4,8 +4,8 @@ import {Router} from '@angular/router';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 import {OrderService} from '../_services';
 import {first} from 'rxjs/operators';
-import {Order, PersonalOrderShow} from '../_models';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {PersonalOrderShow} from '../_models';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-request-dialog',
@@ -53,14 +53,12 @@ export class RequestDialogComponent implements OnInit {
   getCreatedOrderList() {
     this.orderService.getRequestOrder(this.currentUserID, this.sitterType, this.userId).pipe(first()).subscribe(orders => {
       this.orderList = orders;
-      // this.order=orders.
     });
   }
 
 
   close() {
     this.dialogRef.close();
-    window.location.reload();
   }
 
   submit() {

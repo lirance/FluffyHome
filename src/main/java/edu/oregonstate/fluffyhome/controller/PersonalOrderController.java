@@ -6,6 +6,8 @@ import edu.oregonstate.fluffyhome.service.OrderService;
 import edu.oregonstate.fluffyhome.service.UserOrderService;
 import edu.oregonstate.fluffyhome.service.UserService;
 import edu.oregonstate.fluffyhome.utils.StaticParams;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,8 @@ import java.util.List;
 @RequestMapping("/order")
 @CrossOrigin(origins = "*")
 public class PersonalOrderController {
+
+    private final Logger logger = LoggerFactory.getLogger(PersonalOrderController.class);
 
     private final UserOrderService userOrderService;
     private final OrderService orderService;
@@ -111,20 +115,21 @@ public class PersonalOrderController {
 
             UserOrder userOrder = userOrderService.selectByPrimaryKey(userOrderKey);
             if (userOrder == null || !userOrder.getMakerType()) {
+                logger.info("userOrder is null or maker Type is wrong");
                 return false;
             }
 
-            if (orderRequestService.deleteByOrderId(orderId) != 1) {
-                return false;
-            }
+            orderRequestService.deleteByOrderId(orderId);
 
             // delete user order
             if (userOrderService.deleteByPrimaryKey(userOrderKey) != 1) {
+                logger.info("delete user order wrong");
                 return false;
             }
             //delete order & update user credits.
             return orderService.deleteByPrimaryKey(orderId) == 1 && userService.updateByPrimaryKey(u) == 1;
         } catch (Exception e) {
+            logger.error("delete error with " + orderId + " and " + userId + " \n" + e);
             return false;
         }
 

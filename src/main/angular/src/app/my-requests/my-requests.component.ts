@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {first} from 'rxjs/operators';
 import {OrderService} from '../_services';
 import {Router} from '@angular/router';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {OrderRequest} from '../_models';
 
 @Component({
@@ -26,6 +26,7 @@ export class MyRequestsComponent implements OnInit {
   }
 
   ngOnInit() {
+    localStorage.setItem('request_flag', '0');
     this.getMyRequests();
   }
 
@@ -34,7 +35,13 @@ export class MyRequestsComponent implements OnInit {
     const isSitter = localStorage.getItem('isSitter');
     this.isSitter = isSitter === 'true';
     this.orderService.getMyRequests(this.currentUserID).pipe(first()).subscribe(requests => {
-      this.requests = requests;
+
+      for (let re of requests) {
+        if (new Date(re.expire) <= new Date() && re.status === 'REQUESTED') {
+          re.status = 'INVALID';
+        }
+        this.requests.push(re);
+      }
     });
   }
 

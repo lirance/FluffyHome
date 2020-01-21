@@ -1,7 +1,7 @@
 <div *ngIf='orderDetail' class="text-center text-dark">
   <div class="card text-center">
     <div class="card-header text-muted">
-      <p>Order ID:  {{orderDetail.orderId}}</p>
+      <p>Order Number:  {{orderDetail.orderId}}</p>
       <p *ngIf="orderDetail.orderType"> This is a Charged Order (not using credits)</p>
     </div>
 
@@ -17,9 +17,9 @@
           <dd class="col-sm-9"><p>{{orderDetail.zip}}</p></dd>
           <dt class="col-sm-3">Address :</dt>
 
-          <dd class="col-sm-9"><p>
-            <a href="{{maplink}}"
-               class="card-link">{{orderDetail.address}}</a>
+          <dd class="col-sm-9"><p>{{orderDetail.address}}
+            <a href="{{mapLink}}"
+               class="card-link"> See in Google Maps</a>
           </p></dd>
 
           <dt class="col-sm-3">Start Date :</dt>

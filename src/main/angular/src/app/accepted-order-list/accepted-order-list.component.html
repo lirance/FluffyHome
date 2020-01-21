@@ -1,10 +1,12 @@
-<div class="row text-dark" *ngIf='acceptOrderList != []'>
-  <div *ngFor="let order of acceptOrderList" class="col-md-4">
-    <div class="card mb-4 box-shadow">
-      <div class="card-body">
-        <h5 class="card-title"> Order Id : {{order.orderId}} </h5>
-      </div>
+<div class="card-deck text-dark" *ngIf='acceptOrderList != []'>
+  <div *ngFor="let order of acceptOrderList" class="card mb-4">
+    <div class="card-header">Order Number : {{order.orderId}}
+      <br/>
+      <small *ngIf="order.status==='COMPLETED'" class="text-info"> Complete</small>
+      <small *ngIf="order.status !='COMPLETED'" class="text-success">In Progress</small>
+    </div>
 
+    <div class="card-body">
       <ul class="list-group list-group-flush text-left">
         <li *ngIf="!isSitter" class="list-group-item"><b>Credits : </b>{{order.credits}} </li>
         <li class="list-group-item"><b>Order Description :</b> {{order.orderDescription}} </li>
@@ -12,14 +14,15 @@
         <li class="list-group-item"><b>Start Date :</b> {{order.startDate|date}} </li>
         <li class="list-group-item"><b>End Date : </b>{{order.endDate|date}} </li>
       </ul>
-
-      <div class="card-body">
-        <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]" class="card-link">See
-          Detail</a>
-        <a *ngIf="order.status=='COMPLETED'&&!order.rated" (click)="rate(order.orderId, order.status)"
-           class="card-link text-primary">Rate</a>
-      </div>
-
     </div>
+
+    <div class="card-footer">
+      <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]" class="card-link">See
+        Detail</a>
+      <a *ngIf="order.status=='COMPLETED'&&!order.rated" (click)="rate(order.orderId, order.status)"
+         class="card-link text-primary">Rate</a>
+    </div>
+
+
   </div>
 </div>

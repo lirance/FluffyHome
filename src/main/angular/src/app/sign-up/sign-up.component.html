@@ -71,12 +71,12 @@
 
         <div *ngIf="signupForm.controls.email.touched && signupForm.controls.email.errors">
 
-          <div *ngIf="signupForm.controls.email.errors.maxlength && !signupForm.controls.email.errors.required"
+          <div *ngIf="signupForm.controls.email.errors.pattern && !signupForm.controls.email.errors.required"
                class="alert alert-danger">
-            email does not exist
+            email should be ***@***.
           </div>
 
-          <div *ngIf="signupForm.controls.email.errors.required && !signupForm.controls.email.errors.maxlength"
+          <div *ngIf="signupForm.controls.email.errors.required && !signupForm.controls.email.errors.pattern"
                class="alert alert-danger">
             email is required
           </div>
@@ -113,12 +113,12 @@
 
         <div *ngIf="signupForm.controls.zip.touched && signupForm.controls.zip.errors">
 
-          <div *ngIf="signupForm.controls.zip.errors.maxlength && !signupForm.controls.zip.errors.required"
+          <div *ngIf="signupForm.controls.zip.errors.pattern && !signupForm.controls.zip.errors.required"
                class="alert alert-danger">
-            zip code does not exist
+            zip code should be 5 numbers
           </div>
 
-          <div *ngIf="signupForm.controls.zip.errors.required && !signupForm.controls.zip.errors.maxlength"
+          <div *ngIf="signupForm.controls.zip.errors.required && !signupForm.controls.zip.errors.pattern"
                class="alert alert-danger">
             zip is required
           </div>
@@ -133,14 +133,16 @@
 
         <div *ngIf="signupForm.controls.password.touched && signupForm.controls.password.errors">
 
-          <div *ngIf="signupForm.controls.password.errors.required && !signupForm.controls.password.errors.maxlength"
-               class="alert alert-danger">
+          <div
+            *ngIf="signupForm.controls.password.errors.required && !signupForm.controls.password.errors.maxlength &&!signupForm.controls.password.errors.minlength"
+            class="alert alert-danger">
             Password is required
           </div>
 
-          <div *ngIf="signupForm.controls.password.errors.maxlength && !signupForm.controls.password.errors.required"
-               class="alert alert-danger">
-            The max length of password is 20
+          <div
+            *ngIf="(signupForm.controls.password.errors.maxlength||signupForm.controls.password.errors.minlength) && !signupForm.controls.password.errors.required"
+            class="alert alert-danger">
+            The length of password is between 8 to 20
           </div>
 
         </div>

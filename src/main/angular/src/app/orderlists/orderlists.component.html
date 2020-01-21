@@ -1,29 +1,29 @@
-<h2 class="text-dark">Orders</h2>
-<h5 class="text-dark">accept orders to get credits!</h5>
+<h2 class="text-dark">Market</h2>
+<h5 class="text-dark">Accept orders to get credits!</h5>
 <br/>
 <br/>
 
-<div class="row text-dark" *ngIf='orderList != []'>
-  <div *ngFor="let order of orderList" class="col-md-4">
-    <div class="card mb-4 box-shadow">
-      <div class="card-body">
-        <h5 class="card-title"> {{order.orderId}} </h5>
-      </div>
-
+<div class="text-dark card-deck" *ngIf='orderList != []'>
+  <div *ngFor="let order of orderList" class=" card mb-4 ">
+    <div class="card-header text-secondary">
+      Order Number : {{order.orderId}}
+    </div>
+    <div class="card-body">
       <ul class="list-group list-group-flush text-left">
         <li *ngIf="!isSitter" class="list-group-item"><b>Credits : </b>{{order.credits}} </li>
-        <li class="list-group-item"><b>Order Description :</b> {{order.orderDescription}} </li>
         <li class="list-group-item"><b>Zip :</b> {{order.zip}} </li>
         <li class="list-group-item"><b>Start Date :</b> {{order.startDate|date}} </li>
         <li class="list-group-item"><b>End Date : </b>{{order.endDate|date}} </li>
+        <li class="list-group-item"><b>Order Description :</b> {{order.orderDescription}} </li>
       </ul>
-
-      <div class="card-body">
-        <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]" class="card-link">See
-          Detail</a>
-        <a routerLink=" " *ngIf="order.maker.userId != currentUserID" class="card-link" (click)="accept(order.orderId)">Accept</a>
-      </div>
-
     </div>
+
+    <div class="card-footer">
+      <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]" class="card-link">See
+        Detail</a>
+      <a routerLink=" " *ngIf="order.maker.userId != currentUserID" class="card-link" (click)="accept(order.orderId)">Accept</a>
+    </div>
+
   </div>
+
 </div>

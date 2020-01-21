@@ -35,9 +35,10 @@ export class SignUpComponent implements OnInit {
       username: ['', Validators.compose([Validators.required, Validators.maxLength(20)])],
       phone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
       zip: ['', [Validators.required, Validators.pattern('[0-9]{5}')]],
-      email: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      email: ['', Validators.compose([Validators.required,
+        Validators.pattern('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$')])],
       address: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
-      password: ['', [Validators.required, Validators.maxLength(20)]],
+      password: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, EqualValidator('password')]],
       usertype: false// default to not sitter
     });

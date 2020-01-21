@@ -65,7 +65,7 @@
   <div class="form-group">
     <label for="orderDescription"> Order Description: </label>
     <input type="text" id="orderDescription" formControlName="orderDescription"
-           class="form-control" placeholder="anything your want others to know"
+           class="form-control" placeholder="I want someone looking after my cat bob"
            [ngClass]="{ 'is-invalid': submitted && f.orderDescription.errors }"/>
     <div *ngIf="submitted && f.orderDescription.errors" class="invalid-feedback">
       <div *ngIf="f.orderDescription.errors.required">oderDescription is required</div>

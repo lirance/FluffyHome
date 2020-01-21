@@ -6,7 +6,6 @@ import {Location} from '@angular/common';
 import {PersonalOrderShow} from '../_models';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {RateOrderDialogComponent} from '../rate-order-dialog/rate-order-dialog.component';
-import {AcceptDialogComponent} from '../accept-dialog/accept-dialog.component';
 import {ChangeOrderTypeDialogComponent} from '../change-orderType-dialog/change-order-type-dialog.component';
 
 @Component({
@@ -17,6 +16,7 @@ import {ChangeOrderTypeDialogComponent} from '../change-orderType-dialog/change-
 export class CreatedOrderListComponent implements OnInit {
   currentUserID: string;
   createdOrderList: PersonalOrderShow [] = [];
+  currentDate: Date = new Date();
   changeTypeResult: string;
 
   constructor(private orderService: OrderService, private dialog: MatDialog, private router: Router,
@@ -25,12 +25,18 @@ export class CreatedOrderListComponent implements OnInit {
 
   ngOnInit() {
     this.currentUserID = localStorage.getItem('currentUserID');
+    localStorage.setItem('order_flag', '0');
     this.getCreatedOrderList();
   }
 
   getCreatedOrderList() {
     this.orderService.getCreatedOrder(this.currentUserID).pipe(first()).subscribe(orders => {
-      this.createdOrderList = orders;
+
+      for (let or of orders) {
+        or.startDate = new Date(or.startDate);
+        this.createdOrderList.push(or);
+      }
+      // this.createdOrderList = orders;
     });
   }
 
@@ -65,6 +71,18 @@ export class CreatedOrderListComponent implements OnInit {
     dialogConfig.data = {orderId: orderId};
 
     this.dialog.open(ChangeOrderTypeDialogComponent, dialogConfig);
+  }
+
+  deleteOrder(orderId: number) {
+    // const orderId = this.route.snapshot.paramMap.get('orderId');
+    this.orderService.deleteOrder(this.currentUserID, orderId.toString()).pipe(first()).subscribe(result => {
+      if (result) {
+        // this.getCreatedOrderList();
+        window.location.reload();
+        // this.router.navigate(['/dashboard', {outlets: {'aux': ['myorder']}}]);
+      }
+
+    });
   }
 
   backtolast() {

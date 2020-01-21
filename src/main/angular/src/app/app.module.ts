@@ -42,6 +42,7 @@ import {RequestDialogComponent} from './request-dialog/request-dialog.component'
 import {RequestsComponent} from './requests/requests.component';
 import {ChangeOrderTypeDialogComponent} from './change-orderType-dialog/change-order-type-dialog.component';
 import {MyRequestsComponent} from './my-requests/my-requests.component';
+import {AllRequestComponent} from './all-request/all-request.component';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import {MyRequestsComponent} from './my-requests/my-requests.component';
     AcceptDialogComponent,
     ChangeOrderTypeDialogComponent,
     MyOrderComponent,
+    AllRequestComponent,
     SitterOrderComponent,
     CompleteDialogComponent,
     CreatedOrderListComponent,

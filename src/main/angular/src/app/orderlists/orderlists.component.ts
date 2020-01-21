@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {first} from 'rxjs/operators';
-import {OrderService} from '../_services/order.service';
+import {OrderService} from '../_services';
 import {Router} from '@angular/router';
-import {Order} from '../_models/order';
+import {Order} from '../_models';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {AcceptDialogComponent} from '../accept-dialog/accept-dialog.component';
 
@@ -18,6 +18,7 @@ export class OrderlistsComponent implements OnInit {
   currentUserID: string;
   acceptResult: string;
   isSitter: boolean;
+  currentDate: Date = new Date();
 
 
   constructor(private orderService: OrderService, private router: Router, private dialog: MatDialog) {

@@ -4,7 +4,7 @@ import {UserService} from '../_services';
 import {first} from 'rxjs/operators';
 import {User} from '../_models';
 import {Location} from '@angular/common';
-import {Pet} from '../_models/Pet';
+import {Pet} from '../_models';
 
 @Component({
   selector: 'app-public-profile',

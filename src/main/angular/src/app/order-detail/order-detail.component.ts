@@ -16,7 +16,7 @@ import {AcceptDialogComponent} from '../accept-dialog/accept-dialog.component';
 export class OrderDetailComponent implements OnInit {
 
   orderDetail: Order;
-  maplink: string;
+  mapLink: string;
   orderId: string;
   currentUserId: string;
   completeResult: string;
@@ -26,8 +26,12 @@ export class OrderDetailComponent implements OnInit {
   ifSitter = false;
 
 
-  // tslint:disable-next-line:max-line-length
-  constructor(private router: Router, private route: ActivatedRoute, private  orderService: OrderService, private location: Location, private dialog: MatDialog) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private  orderService: OrderService,
+    private location: Location,
+    private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -40,7 +44,7 @@ export class OrderDetailComponent implements OnInit {
     const orderId = this.route.snapshot.paramMap.get('orderId');
     this.orderService.getOrderDetail(orderId).pipe(first()).subscribe(order => {
       this.orderDetail = order;
-      this.maplink = 'https://www.google.com/maps/search/' + order.address + ' ,' + order.zip;
+      this.mapLink = 'https://www.google.com/maps/search/' + order.address + ' ,' + order.zip;
     });
   }
 

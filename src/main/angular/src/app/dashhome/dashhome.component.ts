@@ -4,7 +4,6 @@ import {OrderService, UserService} from '../_services';
 import {Router} from '@angular/router';
 import {Order, User} from '../_models';
 import {MatDialog, MatDialogConfig} from '@angular/material';
-import {AcceptDialogComponent} from '../accept-dialog/accept-dialog.component';
 import {RequestDialogComponent} from '../request-dialog/request-dialog.component';
 
 @Component({
@@ -15,12 +14,10 @@ import {RequestDialogComponent} from '../request-dialog/request-dialog.component
 
 export class DashhomeComponent implements OnInit {
 
-  orderList: Order[] = [];
   p2psitters: User[] = [];
   sitters: User[] = [];
   currentUserID: string;
   acceptResult: string;
-  isSitter: boolean;
   switch_flag = 0;
   created_active = 'active';
   accepted_active = '';
@@ -30,30 +27,27 @@ export class DashhomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.getOrderList();
     this.currentUserID = localStorage.getItem('currentUserID');
+    this.switch_flag = Number(localStorage.getItem('sitter_flag'));
+    if (this.switch_flag === 1) {
+      this.switch_accepted();
+    }
     this.getSitterList();
   }
 
   switch_created(): void {
     this.switch_flag = 0;
+    localStorage.setItem('sitter_flag', '0');
     this.accepted_active = '';
     this.created_active = 'active';
   }
 
   switch_accepted(): void {
     this.switch_flag = 1;
+    localStorage.setItem('sitter_flag', '1');
     this.accepted_active = 'active';
     this.created_active = '';
   }
-
-  // getOrderList() {
-  //   const isSitter = localStorage.getItem('isSitter');
-  //   this.isSitter = isSitter === 'true';
-  //   this.orderService.getOrderlist(isSitter).pipe(first()).subscribe(orderList => {
-  //     this.orderList = orderList;
-  //   });
-  // }
 
   getSitterList() {
     this.userService.getP2PSitters(this.currentUserID).pipe(first()).subscribe(users => {

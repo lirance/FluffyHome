@@ -5,7 +5,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User} from '../_models';
 import {first} from 'rxjs/operators';
 import {Location} from '@angular/common';
-import {AvaliableWeekday} from '../_models/avaliableWeekday';
 
 @Component({
   selector: 'app-userprofile',

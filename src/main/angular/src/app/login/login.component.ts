@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../_services';
 import {first} from 'rxjs/operators';
-import {User} from '../_models';
 
 @Component({
   selector: 'app-login',
@@ -39,11 +38,10 @@ export class LoginComponent implements OnInit {
           this.isSitter = data.userType === 'SITTER';
           localStorage.setItem('isSitter', JSON.stringify(this.isSitter));
           localStorage.setItem('currentUserID', JSON.stringify(this.currentUserID));
-          if (data.userType === 'SITTER') {
-            this.router.navigate(['/dashboard', {outlets: {'aux': ['orderlists']}}]);
-          } else {
-            this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
-          }
+          localStorage.setItem('request_flag', '0');
+          localStorage.setItem('order_flag', '0');
+          localStorage.setItem('sitter_flag', '0');
+          this.router.navigate(['/dashboard', {outlets: {'aux': ['orderlists']}}]);
         }
 
         if (data === null) {

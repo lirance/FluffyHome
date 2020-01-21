@@ -1,0 +1,35 @@
+<div *ngIf="!ifSitter">
+  <div class="row">
+    <div class="col-10">
+      <p class="text-dark text-left">Choose <strong>Sent</strong> to view all sent requests, <strong>Received</strong>
+        to view all received requests</p>
+    </div>
+
+    <div class="col-2">
+      <button class="btn  btn-primary" [routerLink]="['/dashboard', {outlets: {'aux': ['dashhome']}}]">
+        Go find a sitter
+      </button>
+    </div>
+  </div>
+  <ul class="nav nav-tabs text-dark">
+    <li class="nav-item">
+      <a class="nav-link {{sent_active}}" (click)="switch_sent()"><strong>Sent</strong> </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{received_active}}" (click)="switch_received()"><strong>Received</strong> </a>
+  </ul>
+  <br><br>
+  <div *ngIf='switch_flag == 0'>
+    <app-my-requests></app-my-requests>
+  </div>
+
+  <div *ngIf='switch_flag == 1'>
+    <app-requests></app-requests>
+  </div>
+</div>
+<div *ngIf="ifSitter">
+  <h2 class="text-dark">Received Requests</h2>
+  <br/>
+  <br/>
+  <app-requests></app-requests>
+</div>

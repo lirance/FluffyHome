@@ -1,6 +1,6 @@
-<h2 class="text-dark">Requests</h2>
-<br/>
-<br/>
+<!--<h2 class="text-dark">Sent Requests </h2>-->
+<!--<br/>-->
+<!--<br/>-->
 
 <!-- requests that wait for answer -->
 
@@ -17,7 +17,7 @@
           <span *ngIf="request.status==='REQUESTED'"> Waiting </span>
           <!--          <span class="btn btn-outline-danger" (click)="accept(request.requestId)">Decline</span>-->
         </div>
-        <p>Order <b>{{request.orderId}}</b>
+        <p>For Order <b>{{request.orderId}}</b>
           start from {{request.expire|date}}</p>
         <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', request.orderId]}}]" class="card-link">See
           Order
@@ -40,9 +40,9 @@
     <div *ngIf="request.status!='REQUESTED'" class="list-group text-left">
       <a class="list-group-item list-group-item-action flex-column align-items-start ">
         <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Request from user
+          <h5 class="mb-1">Request to user
             <a
-              [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', request.fuId]}}]">{{request.fuId}}</a>
+              [routerLink]="['/dashboard', {outlets: {'aux': ['publicprofile', request.fuId]}}]">{{request.tuId}}</a>
           </h5>
 
           <small *ngIf="request.status==='INVALID'" class="text-muted"> Expired </small>
@@ -51,7 +51,7 @@
 
           <!--          <span class="btn btn-outline-danger" (click)="accept(request.requestId)">Decline</span>-->
         </div>
-        <p>Order <b>{{request.orderId}}</b>
+        <p>For Order <b>{{request.orderId}}</b>
           start from {{request.expire|date}}</p>
         <a *ngIf="request.status!='INVALID'"
            [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', request.orderId]}}]" class="card-link">See

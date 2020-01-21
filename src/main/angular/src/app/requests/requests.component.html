@@ -1,9 +1,3 @@
-<h2 class="text-dark">Requests</h2>
-<br/>
-<br/>
-
-<!-- requests that wait for answer -->
-
 <div class="text-dark" *ngIf='requests != []'>
   <h5 class="text-dark text-left">New Requests:</h5>
   <div *ngFor="let request of requests">
@@ -21,7 +15,7 @@
           </span>
           <!--          <span class="btn btn-outline-danger" (click)="accept(request.requestId)">Decline</span>-->
         </div>
-        <p>Order <b>{{request.orderId}}</b>
+        <p>For Order <b>{{request.orderId}}</b>
           start from {{request.expire|date}}</p>
         <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', request.orderId]}}]" class="card-link">See
           Order
@@ -55,7 +49,7 @@
 
           <!--          <span class="btn btn-outline-danger" (click)="accept(request.requestId)">Decline</span>-->
         </div>
-        <p>Order <b>{{request.orderId}}</b>
+        <p>For Order <b>{{request.orderId}}</b>
           start from {{request.expire|date}}</p>
         <a *ngIf="request.status!='INVALID'"
            [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', request.orderId]}}]" class="card-link">See
