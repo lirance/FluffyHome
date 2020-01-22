@@ -3,7 +3,7 @@
 
   <br/>
   <div>
-    <label>Date of Order:</label>
+    <label>Date of Order: (Please Select a <b>Range</b>)</label>
     <div *ngIf="submitted" class="invalid-feedback">
       Date of order is required !!
     </div>
@@ -17,9 +17,9 @@
                    #datepicker="ngbDatepicker"
                    [autoClose]="'outside'"
                    (dateSelect)="onDateSelection($event)"
-                   [displayMonths]="1"
+                   [displayMonths]="2"
                    [dayTemplate]="t"
-                   outsideDays="hidden"
+                   [footerTemplate]="footerTemplate"
                    [startDate]="fromDate">
           </label>
           <ng-template #t let-date let-focused="focused">
@@ -37,7 +37,7 @@
       <div class="form-group">
         <div class="input-group">
           <input #dpFromDate
-                 class="form-control" placeholder="yyyy-mm-dd"
+                 class="form-control" placeholder="yyyy-mm-dd" readonly
                  name="dpFromDate"
                  [value]="formatter.format(fromDate)"
                  (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
@@ -50,7 +50,7 @@
       <div class="form-group ml-2">
         <div class="input-group">
           <input #dpToDate
-                 class="form-control" placeholder="yyyy-mm-dd"
+                 class="form-control" placeholder="yyyy-mm-dd" readonly
                  name="dpToDate"
                  [value]="formatter.format(toDate)"
                  (input)="toDate = validateInput(toDate, dpToDate.value)">
@@ -60,6 +60,10 @@
         </div>
       </div>
     </form>
+    <ng-template #footerTemplate>
+      <hr class="my-0">
+      <button class="btn btn-secondary btn-sm m-2 float-right" (click)="datepicker.close()">Close</button>
+    </ng-template>
   </div>
   <br/>
   <div class="form-group">

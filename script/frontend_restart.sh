@@ -4,7 +4,7 @@ pwd;
 rm -rf fluffyhome/angularbak
 mv fluffyhome/angular fluffyhome/angularbak;
 pwd;
-cp -rf upload/static/ fluffyhome/angular;
+cp -rf upload/angular fluffyhome/;
 chmod 777 fluffyhome/angular
 chmod 777 fluffyhome/angular/*
 pwd;
