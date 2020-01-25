@@ -21,6 +21,11 @@
         Detail</a>
       <a *ngIf="order.status=='COMPLETED'&&!order.rated" (click)="rate(order.orderId, order.status)"
          class="card-link text-primary">Rate</a>
+      &nbsp;&nbsp;
+      <button *ngIf="order.status=='ACCEPTED'" type="button" class="btn btn-outline-danger"
+              (click)="cancelAcceptedOrder(order.orderId)">
+        Cancel
+      </button>
     </div>
 
 

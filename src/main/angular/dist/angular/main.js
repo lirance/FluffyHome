@@ -829,7 +829,7 @@ module.exports = ".card-deck {\n  display: grid;\n  grid-template-columns: repea
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card-deck text-dark\" *ngIf='acceptOrderList != []'>\n  <div *ngFor=\"let order of acceptOrderList\" class=\"card mb-4\">\n    <div class=\"card-header\">Order Number : {{order.orderId}}\n      <br/>\n      <small *ngIf=\"order.status==='COMPLETED'\" class=\"text-info\"> Complete</small>\n      <small *ngIf=\"order.status !='COMPLETED'\" class=\"text-success\">In Progress</small>\n    </div>\n\n    <div class=\"card-body\">\n      <ul class=\"list-group list-group-flush text-left\">\n        <li *ngIf=\"!isSitter\" class=\"list-group-item\"><b>Credits : </b>{{order.credits}} </li>\n        <li class=\"list-group-item\"><b>Order Description :</b> {{order.orderDescription}} </li>\n        <li class=\"list-group-item\"><b>Zip :</b> {{order.zip}} </li>\n        <li class=\"list-group-item\"><b>Start Date :</b> {{order.startDate|date}} </li>\n        <li class=\"list-group-item\"><b>End Date : </b>{{order.endDate|date}} </li>\n      </ul>\n    </div>\n\n    <div class=\"card-footer\">\n      <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]\" class=\"card-link\">See\n        Detail</a>\n      <a *ngIf=\"order.status=='COMPLETED'&&!order.rated\" (click)=\"rate(order.orderId, order.status)\"\n         class=\"card-link text-primary\">Rate</a>\n    </div>\n\n\n  </div>\n</div>\n"
+module.exports = "<div class=\"card-deck text-dark\" *ngIf='acceptOrderList != []'>\n  <div *ngFor=\"let order of acceptOrderList\" class=\"card mb-4\">\n    <div class=\"card-header\">Order Number : {{order.orderId}}\n      <br/>\n      <small *ngIf=\"order.status==='COMPLETED'\" class=\"text-info\"> Complete</small>\n      <small *ngIf=\"order.status !='COMPLETED'\" class=\"text-success\">In Progress</small>\n    </div>\n\n    <div class=\"card-body\">\n      <ul class=\"list-group list-group-flush text-left\">\n        <li *ngIf=\"!isSitter\" class=\"list-group-item\"><b>Credits : </b>{{order.credits}} </li>\n        <li class=\"list-group-item\"><b>Order Description :</b> {{order.orderDescription}} </li>\n        <li class=\"list-group-item\"><b>Zip :</b> {{order.zip}} </li>\n        <li class=\"list-group-item\"><b>Start Date :</b> {{order.startDate|date}} </li>\n        <li class=\"list-group-item\"><b>End Date : </b>{{order.endDate|date}} </li>\n      </ul>\n    </div>\n\n    <div class=\"card-footer\">\n      <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]\" class=\"card-link\">See\n        Detail</a>\n      <a *ngIf=\"order.status=='COMPLETED'&&!order.rated\" (click)=\"rate(order.orderId, order.status)\"\n         class=\"card-link text-primary\">Rate</a>\n      &nbsp;&nbsp;\n      <button *ngIf=\"order.status=='ACCEPTED'\" type=\"button\" class=\"btn btn-outline-danger\"\n              (click)=\"cancelAcceptedOrder(order.orderId)\">\n        Cancel\n      </button>\n    </div>\n\n\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -886,6 +886,13 @@ var AcceptedOrderListComponent = /** @class */ (function () {
         dialogConfig.autoFocus = true;
         dialogConfig.data = { orderId: orderId, state: state };
         this.dialog.open(_rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_5__["RateOrderDialogComponent"], dialogConfig);
+    };
+    AcceptedOrderListComponent.prototype.cancelAcceptedOrder = function (orderId) {
+        this.orderService.cancelAcceptedOrder(this.currentUserID, orderId.toString()).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["first"])()).subscribe(function (result) {
+            if (result) {
+                window.location.reload();
+            }
+        });
     };
     AcceptedOrderListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1572,7 +1579,7 @@ module.exports = ".form-group.hidden {\n  width: 0;\n  margin: 0;\n  border: non
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"text-dark\">Create an order</h2>\n<form [formGroup]=\"orderForm\" (ngSubmit)=\"onSubmit()\" class=\"text-dark text-left\">\n\n  <br/>\n  <div>\n    <label>Date of Order: (Please Select a <b>Range</b>)</label>\n    <div *ngIf=\"submitted\" class=\"invalid-feedback\">\n      Date of order is required !!\n    </div>\n    <form class=\"form-inline\">\n      <div class=\"form-group hidden\">\n        <div class=\"input-group\">\n          <label>\n            <input name=\"datepicker\"\n                   class=\"form-control\"\n                   ngbDatepicker\n                   #datepicker=\"ngbDatepicker\"\n                   [autoClose]=\"'outside'\"\n                   (dateSelect)=\"onDateSelection($event)\"\n                   [displayMonths]=\"2\"\n                   [dayTemplate]=\"t\"\n                   [footerTemplate]=\"footerTemplate\"\n                   [startDate]=\"fromDate\">\n          </label>\n          <ng-template #t let-date let-focused=\"focused\">\n        <span class=\"custom-day\"\n              [class.focused]=\"focused\"\n              [class.range]=\"isRange(date)\"\n              [class.faded]=\"isHovered(date) || isInside(date)\"\n              (mouseenter)=\"hoveredDate = date\"\n              (mouseleave)=\"hoveredDate = null\">\n          {{ date.day }}\n        </span>\n          </ng-template>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"input-group\">\n          <input #dpFromDate\n                 class=\"form-control\" placeholder=\"yyyy-mm-dd\" readonly\n                 name=\"dpFromDate\"\n                 [value]=\"formatter.format(fromDate)\"\n                 (input)=\"fromDate = validateInput(fromDate, dpFromDate.value)\">\n\n          <div class=\"input-group-append\">\n            <button class=\"btn btn-outline-secondary calendar\" (click)=\"datepicker.toggle()\" type=\"button\"></button>\n          </div>\n        </div>\n      </div>\n      <div class=\"form-group ml-2\">\n        <div class=\"input-group\">\n          <input #dpToDate\n                 class=\"form-control\" placeholder=\"yyyy-mm-dd\" readonly\n                 name=\"dpToDate\"\n                 [value]=\"formatter.format(toDate)\"\n                 (input)=\"toDate = validateInput(toDate, dpToDate.value)\">\n          <div class=\"input-group-append\">\n            <button class=\"btn btn-outline-secondary calendar\" (click)=\"datepicker.toggle()\" type=\"button\"></button>\n          </div>\n        </div>\n      </div>\n    </form>\n    <ng-template #footerTemplate>\n      <hr class=\"my-0\">\n      <button class=\"btn btn-secondary btn-sm m-2 float-right\" (click)=\"datepicker.close()\">Close</button>\n    </ng-template>\n  </div>\n  <br/>\n  <div class=\"form-group\">\n    <label for=\"orderDescription\"> Order Description: </label>\n    <input type=\"text\" id=\"orderDescription\" formControlName=\"orderDescription\"\n           class=\"form-control\" placeholder=\"I want someone looking after my cat bob\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.orderDescription.errors }\"/>\n    <div *ngIf=\"submitted && f.orderDescription.errors\" class=\"invalid-feedback\">\n      <div *ngIf=\"f.orderDescription.errors.required\">oderDescription is required</div>\n    </div>\n  </div>\n\n  <div class=\"form-check\">\n    <input type=\"checkbox\" id=\"orderType\" class=\"form-check-input\" formControlName=\"orderType\">\n    <label class=\"form-check-label\" for=\"orderType\">\n      I don't want to use my credits. (this means this order will cost you money)\n    </label>\n  </div>\n  <br/>\n\n\n  <div class=\"form-group text-center\">\n    <button class=\"btn btn-primary\">Submit</button>\n    <a (click)=\"backtolast()\" class=\"btn btn-link\">Cancel</a>\n  </div>\n\n</form>\n\n<br><br>\n"
+module.exports = "<h2 class=\"text-dark\">Create an order</h2>\n<p class=\"text-success\">You have {{userCredits}} CREDITS</p>\n<form [formGroup]=\"orderForm\" (ngSubmit)=\"onSubmit()\" class=\"text-dark text-left\">\n\n  <br/>\n  <div>\n    <label>Date of Order: (Please Select a <b>Range</b>; One day cost <b>5</b> CREDITS)</label>\n    <div *ngIf=\"submitted\" class=\"invalid-feedback\">\n      Date of order is required !!\n    </div>\n    <form class=\"form-inline\">\n      <div class=\"form-group hidden\">\n        <div class=\"input-group\">\n          <label>\n            <input name=\"datepicker\"\n                   class=\"form-control\"\n                   ngbDatepicker\n                   #datepicker=\"ngbDatepicker\"\n                   [autoClose]=\"'outside'\"\n                   (dateSelect)=\"onDateSelection($event)\"\n                   [displayMonths]=\"2\"\n                   [dayTemplate]=\"t\"\n                   [footerTemplate]=\"footerTemplate\"\n                   [startDate]=\"fromDate\">\n          </label>\n          <ng-template #t let-date let-focused=\"focused\">\n        <span class=\"custom-day\"\n              [class.focused]=\"focused\"\n              [class.range]=\"isRange(date)\"\n              [class.faded]=\"isHovered(date) || isInside(date)\"\n              (mouseenter)=\"hoveredDate = date\"\n              (mouseleave)=\"hoveredDate = null\">\n          {{ date.day }}\n        </span>\n          </ng-template>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"input-group\">\n          <input #dpFromDate\n                 class=\"form-control\" placeholder=\"yyyy-mm-dd\" readonly\n                 name=\"dpFromDate\"\n                 [value]=\"formatter.format(fromDate)\"\n                 (input)=\"fromDate = validateInput(fromDate, dpFromDate.value)\">\n\n          <div class=\"input-group-append\">\n            <button class=\"btn btn-outline-secondary calendar\" (click)=\"datepicker.toggle()\" type=\"button\"></button>\n          </div>\n        </div>\n      </div>\n      <div class=\"form-group ml-2\">\n        <div class=\"input-group\">\n          <input #dpToDate\n                 class=\"form-control\" placeholder=\"yyyy-mm-dd\" readonly\n                 name=\"dpToDate\"\n                 [value]=\"formatter.format(toDate)\"\n                 (input)=\"toDate = validateInput(toDate, dpToDate.value)\">\n          <div class=\"input-group-append\">\n            <button class=\"btn btn-outline-secondary calendar\" (click)=\"datepicker.toggle()\" type=\"button\"></button>\n          </div>\n        </div>\n      </div>\n    </form>\n    <ng-template #footerTemplate>\n      <hr class=\"my-0\">\n      <button class=\"btn btn-secondary btn-sm m-2 float-right\" (click)=\"datepicker.close()\">Close</button>\n    </ng-template>\n  </div>\n  <br/>\n  <div class=\"form-group\">\n    <label for=\"orderDescription\"> Order Description: </label>\n    <input type=\"text\" id=\"orderDescription\" formControlName=\"orderDescription\"\n           class=\"form-control\" placeholder=\"I want someone looking after my cat bob\"\n           [ngClass]=\"{ 'is-invalid': submitted && f.orderDescription.errors }\"/>\n    <div *ngIf=\"submitted && f.orderDescription.errors\" class=\"invalid-feedback\">\n      <div *ngIf=\"f.orderDescription.errors.required\">oderDescription is required</div>\n    </div>\n  </div>\n\n  <div class=\"form-check\">\n    <input type=\"checkbox\" id=\"orderType\" class=\"form-check-input\" formControlName=\"orderType\">\n    <label class=\"form-check-label\" for=\"orderType\">\n      I don't want to use my credits. (this means this order will cost you money)\n    </label>\n  </div>\n  <br/>\n\n\n  <div class=\"form-group text-center\">\n    <button class=\"btn btn-primary\">Submit</button>\n    <a (click)=\"backtolast()\" class=\"btn btn-link\">Cancel</a>\n  </div>\n\n</form>\n\n<br><br>\n"
 
 /***/ }),
 
@@ -1609,10 +1616,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CreateOrderComponent = /** @class */ (function () {
-    function CreateOrderComponent(formBuilder, router, orderService, alertService, location, calendar, formatter, config) {
+    function CreateOrderComponent(formBuilder, router, orderService, userService, alertService, location, calendar, formatter, config) {
+        var _this = this;
         this.formBuilder = formBuilder;
         this.router = router;
         this.orderService = orderService;
+        this.userService = userService;
         this.alertService = alertService;
         this.location = location;
         this.calendar = calendar;
@@ -1625,6 +1634,17 @@ var CreateOrderComponent = /** @class */ (function () {
         config.minDate = this.fromDate;
         config.outsideDays = 'hidden';
         // config.markDisabled(date:NgbDate)=>calendar.getwe
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
+        this.router.events.subscribe(function (evt) {
+            if (evt instanceof _angular_router__WEBPACK_IMPORTED_MODULE_3__["NavigationEnd"]) {
+                // trick the Router into believing it's last link wasn't previously loaded
+                _this.router.navigated = false;
+                // if you need to scroll back to top, here is the right place
+                window.scrollTo(0, 0);
+            }
+        });
     }
     CreateOrderComponent.prototype.onDateSelection = function (date) {
         if (!this.fromDate && !this.toDate) {
@@ -1652,6 +1672,8 @@ var CreateOrderComponent = /** @class */ (function () {
         return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
     };
     CreateOrderComponent.prototype.ngOnInit = function () {
+        this.currentUserId = localStorage.getItem('currentUserID');
+        this.getUserByUserId(this.currentUserId);
         this.orderForm = this.formBuilder.group({
             orderId: [],
             orderType: false,
@@ -1681,6 +1703,11 @@ var CreateOrderComponent = /** @class */ (function () {
                 else {
                     console.log('success!');
                     // this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
+                    // this.currentUserId = localStorage.getItem('currentUserID');
+                    localStorage.removeItem('currentUser');
+                    _this.userService.getUserById(_this.currentUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["first"])()).subscribe(function (user) {
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                    });
                     _this.location.back();
                 }
             });
@@ -1696,6 +1723,12 @@ var CreateOrderComponent = /** @class */ (function () {
     CreateOrderComponent.prototype.backtolast = function () {
         this.location.back();
     };
+    CreateOrderComponent.prototype.getUserByUserId = function (userId) {
+        var _this = this;
+        this.userService.getUserById(userId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["first"])()).subscribe(function (user) {
+            _this.userCredits = user.credits;
+        });
+    };
     CreateOrderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-create-order',
@@ -1705,6 +1738,7 @@ var CreateOrderComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
             _services__WEBPACK_IMPORTED_MODULE_4__["OrderService"],
+            _services__WEBPACK_IMPORTED_MODULE_4__["UserService"],
             _services__WEBPACK_IMPORTED_MODULE_4__["AlertService"],
             _angular_common__WEBPACK_IMPORTED_MODULE_6__["Location"],
             _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_7__["NgbCalendar"],
@@ -1736,7 +1770,7 @@ module.exports = ".card-deck {\n  display: grid;\n  grid-template-columns: repea
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card-deck text-dark\" *ngIf='createdOrderList != []'>\n  <div *ngFor=\"let order of createdOrderList\" class=\"card mb-4\">\n    <!--    <div class=\"card mb-4\">-->\n    <div class=\"card-header text-dark\">Order Number : {{order.orderId}}\n      <br/>\n      <small *ngIf=\"order.status==='ORDERED'&&order.startDate<=currentDate\" class=\"text-danger\">Expired</small>\n\n      <small *ngIf=\"order.status==='ACCEPTED'\" class=\"text-success\"> Accepted</small>\n      <small *ngIf=\"order.status==='ORDERED'&&order.startDate>currentDate\" class=\"text-warning\"> Waiting for\n        accept</small>\n      <small *ngIf=\"order.status==='COMPLETED'\" class=\"text-info\"> Complete</small>\n\n    </div>\n\n    <div class=\"card-body\">\n      <ul class=\"list-group list-group-flush text-left\">\n        <li *ngIf=\"!order.orderType\" class=\"list-group-item\"><b>Credits : </b>{{order.credits}} </li>\n        <li *ngIf=\"order.orderType\" class=\"list-group-item\"><b>Charged Order</b></li>\n        <li class=\"list-group-item\"><b>Zip :</b> {{order.zip}} </li>\n        <li class=\"list-group-item\"><b>Start Date :</b> {{order.startDate|date}} </li>\n        <li class=\"list-group-item\"><b>End Date : </b>{{order.endDate|date}} </li>\n        <li class=\"list-group-item\"><b>Order Description :</b> {{order.orderDescription}} </li>\n      </ul>\n    </div>\n\n\n    <div class=\"card-footer\" *ngIf=\"order.status==='ORDERED'&&order.startDate<=currentDate else links\">\n      <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"deleteOrder(order.orderId)\">\n        Delete Order\n      </button>\n    </div>\n    <ng-template #links>\n\n\n      <div class=\"card-footer\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]\" class=\"card-link\">See\n          Detail</a>\n        <a *ngIf=\"order.status=='COMPLETED'&&!order.rated\" (click)=\"rate(order.orderId, order.status)\" routerLink=\" \"\n           class=\"card-link \">Rate</a>\n\n        <a *ngIf=\"order.status=='ORDERED'&&!order.orderType\" (click)=\"changeOrderType(order.orderId)\" routerLink=\" \"\n           class=\"card-link \">Change to Charged Order</a>\n      </div>\n    </ng-template>\n\n  </div>\n  <!--  </div>-->\n</div>\n"
+module.exports = "<div class=\"card-deck text-dark\" *ngIf='createdOrderList != []'>\n  <div *ngFor=\"let order of createdOrderList\" class=\"card mb-4\">\n    <!--    <div class=\"card mb-4\">-->\n    <div class=\"card-header text-dark\">Order Number : {{order.orderId}}\n      <br/>\n      <small *ngIf=\"order.status==='ORDERED'&&order.startDate<=currentDate\" class=\"text-danger\">Expired</small>\n\n      <small *ngIf=\"order.status==='ACCEPTED'\" class=\"text-success\"> Accepted</small>\n      <small *ngIf=\"order.status==='ORDERED'&&order.startDate>currentDate\" class=\"text-warning\"> Waiting for\n        accept</small>\n      <small *ngIf=\"order.status==='COMPLETED'\" class=\"text-info\"> Complete</small>\n\n    </div>\n\n    <div class=\"card-body\">\n      <ul class=\"list-group list-group-flush text-left\">\n        <li *ngIf=\"!order.orderType\" class=\"list-group-item\"><b>Credits : </b>{{order.credits}} </li>\n        <li *ngIf=\"order.orderType\" class=\"list-group-item\"><b>Charged Order</b></li>\n        <li class=\"list-group-item\"><b>Zip :</b> {{order.zip}} </li>\n        <li class=\"list-group-item\"><b>Start Date :</b> {{order.startDate|date}} </li>\n        <li class=\"list-group-item\"><b>End Date : </b>{{order.endDate|date}} </li>\n        <li class=\"list-group-item\"><b>Order Description :</b> {{order.orderDescription}} </li>\n      </ul>\n    </div>\n\n\n    <div class=\"card-footer\" *ngIf=\"order.status==='ORDERED'&&order.startDate<=currentDate else links\">\n      <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"deleteOrder(order.orderId)\">\n        Delete Order\n      </button>\n    </div>\n\n\n    <ng-template #links>\n\n\n      <div class=\"card-footer\">\n        <a [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]\" class=\"card-link\">See\n          Detail</a>\n        <a *ngIf=\"order.status=='COMPLETED'&&order.rated else ratee\"></a>\n        <ng-template #ratee>\n          <a *ngIf=\"order.status=='COMPLETED'&&!order.rated else but\" (click)=\"rate(order.orderId, order.status)\"\n             routerLink=\" \"\n             class=\"card-link \">Rate</a>\n        </ng-template>\n\n        <ng-template #but>\n          &nbsp;&nbsp;\n          <button *ngIf=\"order.status=='ACCEPTED' else otherButtons\" type=\"button\" class=\"btn btn-outline-success\"\n                  (click)=\"complete(order.orderId.toString(),order.recipient.userId)\">\n            Complete\n          </button>\n        </ng-template>\n        <ng-template #otherButtons>\n          <br/><br/>\n          <button *ngIf=\"order.status=='ORDERED'&&!order.orderType\" (click)=\"changeOrderType(order.orderId.toString())\"\n                  routerLink=\" \"\n                  class=\"btn btn-outline-warning \">Change to Charged Order\n          </button>\n          &nbsp;&nbsp;\n          <button *ngIf='order.status == \"ORDERED\"' type=\"button\" class=\"btn btn-outline-danger\"\n                  (click)=\"deleteOrder(order.orderId)\">\n            Delete\n          </button>\n        </ng-template>\n\n\n      </div>\n    </ng-template>\n\n  </div>\n  <!--  </div>-->\n</div>\n"
 
 /***/ }),
 
@@ -1759,6 +1793,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _rate_order_dialog_rate_order_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../rate-order-dialog/rate-order-dialog.component */ "./src/app/rate-order-dialog/rate-order-dialog.component.ts");
 /* harmony import */ var _change_orderType_dialog_change_order_type_dialog_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../change-orderType-dialog/change-order-type-dialog.component */ "./src/app/change-orderType-dialog/change-order-type-dialog.component.ts");
+/* harmony import */ var _complete_dialog_complete_dialog_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../complete-dialog/complete-dialog.component */ "./src/app/complete-dialog/complete-dialog.component.ts");
+
 
 
 
@@ -1769,14 +1805,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CreatedOrderListComponent = /** @class */ (function () {
-    function CreatedOrderListComponent(orderService, dialog, router, location, route) {
+    function CreatedOrderListComponent(orderService, userService, dialog, router, location, route) {
+        var _this = this;
         this.orderService = orderService;
+        this.userService = userService;
         this.dialog = dialog;
         this.router = router;
         this.location = location;
         this.route = route;
         this.createdOrderList = [];
         this.currentDate = new Date();
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
+        this.router.events.subscribe(function (evt) {
+            if (evt instanceof _angular_router__WEBPACK_IMPORTED_MODULE_4__["NavigationEnd"]) {
+                // trick the Router into believing it's last link wasn't previously loaded
+                _this.router.navigated = false;
+                // if you need to scroll back to top, here is the right place
+                window.scrollTo(0, 0);
+            }
+        });
     }
     CreatedOrderListComponent.prototype.ngOnInit = function () {
         this.currentUserID = localStorage.getItem('currentUserID');
@@ -1816,14 +1865,38 @@ var CreatedOrderListComponent = /** @class */ (function () {
         this.dialog.open(_change_orderType_dialog_change_order_type_dialog_component__WEBPACK_IMPORTED_MODULE_8__["ChangeOrderTypeDialogComponent"], dialogConfig);
     };
     CreatedOrderListComponent.prototype.deleteOrder = function (orderId) {
+        var _this = this;
         // const orderId = this.route.snapshot.paramMap.get('orderId');
         this.orderService.deleteOrder(this.currentUserID, orderId.toString()).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["first"])()).subscribe(function (result) {
             if (result) {
                 // this.getCreatedOrderList();
+                var currentUserId = localStorage.getItem('currentUserID');
+                localStorage.removeItem('currentUser');
+                _this.userService.getUserById(currentUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["first"])()).subscribe(function (user) {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                });
                 window.location.reload();
                 // this.router.navigate(['/dashboard', {outlets: {'aux': ['myorder']}}]);
             }
         });
+    };
+    CreatedOrderListComponent.prototype.complete = function (orderId, recipientId) {
+        var _this = this;
+        // const orderId = this.route.snapshot.paramMap.get('orderId');
+        this.orderService.completeOrder(this.currentUserID, orderId, recipientId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["first"])()).subscribe(function (result) {
+            result.toString();
+            _this.completeResult = result;
+            _this.openCompleteDialog();
+        });
+    };
+    CreatedOrderListComponent.prototype.openCompleteDialog = function () {
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {
+            completeResult: this.completeResult
+        };
+        this.dialog.open(_complete_dialog_complete_dialog_component__WEBPACK_IMPORTED_MODULE_9__["CompleteDialogComponent"], dialogConfig);
     };
     CreatedOrderListComponent.prototype.backtolast = function () {
         this.location.back();
@@ -1834,8 +1907,12 @@ var CreatedOrderListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./created-order-list.component.html */ "./src/app/created-order-list/created-order-list.component.html"),
             styles: [__webpack_require__(/*! ./created-order-list.component.css */ "./src/app/created-order-list/created-order-list.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_3__["OrderService"], _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialog"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
-            _angular_common__WEBPACK_IMPORTED_MODULE_5__["Location"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_3__["OrderService"],
+            _services__WEBPACK_IMPORTED_MODULE_3__["UserService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialog"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_5__["Location"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
     ], CreatedOrderListComponent);
     return CreatedOrderListComponent;
 }());
@@ -1862,7 +1939,7 @@ module.exports = "/* Links */\na,\na:focus,\na:hover {\n  color: #fff;\n}\n.navc
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg navbar-light bg-light h-10\" style=\"background-color: #f0b07b;\">\n  <div class=\"navcontainer\">\n    <div class=\"row\">\n      <!--      <a *ngIf=\"!ifSitter\" class=\"navbar-brand\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['dashhome']}}]\">FluffyHome</a>-->\n      <a class=\"navbar-brand\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderlists']}}]\">FluffyHome</a>\n\n      <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\"\n              aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n      </button>\n\n      <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\n        <ul class=\"navbar-nav mr-auto\">\n          <li class=\"nav-item\">\n            <!--            <a *ngIf=\"!ifSitter\" class=\"nav-link\"-->\n            <!--               [routerLink]=\"['/dashboard', {outlets: {'aux': ['dashhome']}}]\">Home<span-->\n            <!--              class=\"sr-only\">(current)</span></a>-->\n            <a class=\"nav-link\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderlists']}}]\">Market<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n          <li *ngIf=\"!ifSitter\" class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['dashhome']}}]\">Find a Sitter<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n\n          <!--          <li *ngIf=\"!ifSitter\" class=\"nav-item\">-->\n          <!--            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['createorder']}}]\">Create Order</a>-->\n          <!--          </li>-->\n          <li *ngIf=\"!ifSitter\" classs=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['myorder']}}]\">My Orders</a>\n          </li>\n\n          <li *ngIf=\"ifSitter\" classs=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['sitterorder']}}]\">My Orders</a>\n          </li>\n\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['allRequest']}}]\">My Requests<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n\n\n        </ul>\n\n        <div class=\"nav-item dropdown\">\n          <button *ngIf=\"currentUser;else elseBlock\" class=\" btn dropdown-toggle text-primary\" id=\"dropdownMenuButton\"\n                  type=\"button\"\n                  data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n            {{currentUser.username}}\n          </button>\n          <ng-template #elseBlock>\n            <!--            <button [routerLink]=\"\" ]></button>-->\n            <a class=\"nav-link text-dark\" routerLink=\"/login\" routerLinkActive=\"active\">Log In</a>\n          </ng-template>\n\n          <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n            <a class=\"dropdown-item text-dark\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['myprofile', currentUserID]}}]\">My Profile</a>\n            <a *ngIf=\"!ifSitter\" class=\"dropdown-item text-dark\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['mypets', currentUserID]}}]\">My Pets</a>\n            <a class=\"dropdown-item text-dark\" (click)=\"userLogout()\">Log Out</a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</nav>\n\n<div class=\"jumbotron h-90\">\n  <div class=\"container\">\n    <router-outlet name=\"aux\"></router-outlet>\n  </div>\n</div>\n"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-light bg-light h-10\" style=\"background-color: #f0b07b;\">\n  <div class=\"navcontainer\">\n    <div class=\"row\">\n      <!--      <a *ngIf=\"!ifSitter\" class=\"navbar-brand\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['dashhome']}}]\">FluffyHome</a>-->\n      <a class=\"navbar-brand\" [routerLink]=\"['/']\">FluffyHome</a>\n\n      <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\"\n              aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n      </button>\n\n      <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\n        <ul class=\"navbar-nav mr-auto\">\n          <li class=\"nav-item\">\n            <!--            <a *ngIf=\"!ifSitter\" class=\"nav-link\"-->\n            <!--               [routerLink]=\"['/dashboard', {outlets: {'aux': ['dashhome']}}]\">Home<span-->\n            <!--              class=\"sr-only\">(current)</span></a>-->\n            <a class=\"nav-link\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['orderlists']}}]\">Market<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n          <li *ngIf=\"!ifSitter\" class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['dashhome']}}]\">Find a Sitter<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n\n          <!--          <li *ngIf=\"!ifSitter\" class=\"nav-item\">-->\n          <!--            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['createorder']}}]\">Create Order</a>-->\n          <!--          </li>-->\n          <li *ngIf=\"!ifSitter\" classs=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['myorder']}}]\">My Orders</a>\n          </li>\n\n          <li *ngIf=\"ifSitter\" classs=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['sitterorder']}}]\">My Orders</a>\n          </li>\n\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['/dashboard', {outlets: {'aux': ['allRequest']}}]\">My Requests<span\n              class=\"sr-only\">(current)</span></a>\n          </li>\n\n\n        </ul>\n        <div class=\"text-success\"> {{currentUser.credits}}  CREDITS</div>\n        &nbsp;&nbsp;\n        <div class=\"text-dark\"> |</div>\n\n        <div class=\"nav-item dropdown\">\n          <button *ngIf=\"currentUser;else elseBlock\" class=\" btn dropdown-toggle text-primary\" id=\"dropdownMenuButton\"\n                  type=\"button\"\n                  data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n            {{currentUser.username}}\n          </button>\n          <ng-template #elseBlock>\n            <!--            <button [routerLink]=\"\" ]></button>-->\n            <a class=\"nav-link text-dark\" routerLink=\"/login\" routerLinkActive=\"active\">Log In</a>\n          </ng-template>\n\n          <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n            <a class=\"dropdown-item text-dark\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['myprofile', currentUserID]}}]\">My Profile</a>\n            <a *ngIf=\"!ifSitter\" class=\"dropdown-item text-dark\"\n               [routerLink]=\"['/dashboard', {outlets: {'aux': ['mypets', currentUserID]}}]\">My Pets</a>\n            <a class=\"dropdown-item text-dark\" (click)=\"userLogout()\">Log Out</a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</nav>\n\n<div class=\"jumbotron h-90\">\n  <div class=\"container\">\n    <router-outlet name=\"aux\"></router-outlet>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2184,7 +2261,7 @@ var EditPetInfoComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/* Links */\na,\na:focus,\na:hover {\n  color: #fff;\n}\n/* Custom default button */\n.btn-secondary,\n.btn-secondary:hover,\n.btn-secondary:focus {\n  color: #333;\n  text-shadow: none; /* Prevent inheritance from `body` */\n  background-color: #fff;\n  border: .05rem solid #fff;\n}\n/*\n * Base structure\n */\n.cover-container {\n  max-width: 42em;\n}\n/*\n * Cover\n */\n.cover {\n  padding: 0 1.5rem;\n}\n.cover .btn-lg {\n  padding: .75rem 1.25rem;\n  font-weight: 700;\n}\n.masthead {\n  margin-bottom: 2rem;\n}\n/*\n * Footer\n */\n.mastfoot {\n  color: rgba(255, 255, 255, .5);\n}\n.masthead-brand {\n  margin-bottom: 0;\n}\n.nav-masthead .nav-link {\n  padding: .25rem;\n  font-weight: 700;\n  color: rgba(255, 255, 255, .5);\n  background-color: transparent;\n  border-bottom: .25rem solid transparent;\n}\n.nav-masthead .nav-link:hover,\n.nav-masthead .nav-link:focus {\n  border-bottom-color: rgba(255, 255, 255, .25);\n}\n.nav-masthead .nav-link + .nav-link {\n  margin-left: 1rem;\n}\n.nav-masthead .active {\n  color: #fff;\n  border-bottom-color: #fff;\n}\n@media (min-width: 48em) {\n  .masthead-brand {\n    float: left;\n  }\n  .nav-masthead {\n    float: right;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsV0FBVztBQUNYOzs7RUFHRSxZQUFZO0NBQ2I7QUFFRCwyQkFBMkI7QUFDM0I7OztFQUdFLFlBQVk7RUFDWixrQkFBa0IsQ0FBQyxxQ0FBcUM7RUFDeEQsdUJBQXVCO0VBQ3ZCLDBCQUEwQjtDQUMzQjtBQUVEOztHQUVHO0FBRUg7RUFDRSxnQkFBZ0I7Q0FDakI7QUFFRDs7R0FFRztBQUNIO0VBQ0Usa0JBQWtCO0NBQ25CO0FBQ0Q7RUFDRSx3QkFBd0I7RUFDeEIsaUJBQWlCO0NBQ2xCO0FBRUQ7RUFDRSxvQkFBb0I7Q0FDckI7QUFDRDs7R0FFRztBQUNIO0VBQ0UsK0JBQStCO0NBQ2hDO0FBRUQ7RUFDRSxpQkFBaUI7Q0FDbEI7QUFFRDtFQUNFLGdCQUFnQjtFQUNoQixpQkFBaUI7RUFDakIsK0JBQStCO0VBQy9CLDhCQUE4QjtFQUM5Qix3Q0FBd0M7Q0FDekM7QUFFRDs7RUFFRSw4Q0FBOEM7Q0FDL0M7QUFFRDtFQUNFLGtCQUFrQjtDQUNuQjtBQUVEO0VBQ0UsWUFBWTtFQUNaLDBCQUEwQjtDQUMzQjtBQUVEO0VBQ0U7SUFDRSxZQUFZO0dBQ2I7RUFDRDtJQUNFLGFBQWE7R0FDZDtDQUNGIiwiZmlsZSI6InNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBMaW5rcyAqL1xuYSxcbmE6Zm9jdXMsXG5hOmhvdmVyIHtcbiAgY29sb3I6ICNmZmY7XG59XG5cbi8qIEN1c3RvbSBkZWZhdWx0IGJ1dHRvbiAqL1xuLmJ0bi1zZWNvbmRhcnksXG4uYnRuLXNlY29uZGFyeTpob3Zlcixcbi5idG4tc2Vjb25kYXJ5OmZvY3VzIHtcbiAgY29sb3I6ICMzMzM7XG4gIHRleHQtc2hhZG93OiBub25lOyAvKiBQcmV2ZW50IGluaGVyaXRhbmNlIGZyb20gYGJvZHlgICovXG4gIGJhY2tncm91bmQtY29sb3I6ICNmZmY7XG4gIGJvcmRlcjogLjA1cmVtIHNvbGlkICNmZmY7XG59XG5cbi8qXG4gKiBCYXNlIHN0cnVjdHVyZVxuICovXG5cbi5jb3Zlci1jb250YWluZXIge1xuICBtYXgtd2lkdGg6IDQyZW07XG59XG5cbi8qXG4gKiBDb3ZlclxuICovXG4uY292ZXIge1xuICBwYWRkaW5nOiAwIDEuNXJlbTtcbn1cbi5jb3ZlciAuYnRuLWxnIHtcbiAgcGFkZGluZzogLjc1cmVtIDEuMjVyZW07XG4gIGZvbnQtd2VpZ2h0OiA3MDA7XG59XG5cbi5tYXN0aGVhZCB7XG4gIG1hcmdpbi1ib3R0b206IDJyZW07XG59XG4vKlxuICogRm9vdGVyXG4gKi9cbi5tYXN0Zm9vdCB7XG4gIGNvbG9yOiByZ2JhKDI1NSwgMjU1LCAyNTUsIC41KTtcbn1cblxuLm1hc3RoZWFkLWJyYW5kIHtcbiAgbWFyZ2luLWJvdHRvbTogMDtcbn1cblxuLm5hdi1tYXN0aGVhZCAubmF2LWxpbmsge1xuICBwYWRkaW5nOiAuMjVyZW07XG4gIGZvbnQtd2VpZ2h0OiA3MDA7XG4gIGNvbG9yOiByZ2JhKDI1NSwgMjU1LCAyNTUsIC41KTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XG4gIGJvcmRlci1ib3R0b206IC4yNXJlbSBzb2xpZCB0cmFuc3BhcmVudDtcbn1cblxuLm5hdi1tYXN0aGVhZCAubmF2LWxpbms6aG92ZXIsXG4ubmF2LW1hc3RoZWFkIC5uYXYtbGluazpmb2N1cyB7XG4gIGJvcmRlci1ib3R0b20tY29sb3I6IHJnYmEoMjU1LCAyNTUsIDI1NSwgLjI1KTtcbn1cblxuLm5hdi1tYXN0aGVhZCAubmF2LWxpbmsgKyAubmF2LWxpbmsge1xuICBtYXJnaW4tbGVmdDogMXJlbTtcbn1cblxuLm5hdi1tYXN0aGVhZCAuYWN0aXZlIHtcbiAgY29sb3I6ICNmZmY7XG4gIGJvcmRlci1ib3R0b20tY29sb3I6ICNmZmY7XG59XG5cbkBtZWRpYSAobWluLXdpZHRoOiA0OGVtKSB7XG4gIC5tYXN0aGVhZC1icmFuZCB7XG4gICAgZmxvYXQ6IGxlZnQ7XG4gIH1cbiAgLm5hdi1tYXN0aGVhZCB7XG4gICAgZmxvYXQ6IHJpZ2h0O1xuICB9XG59XG4iXX0= */"
+module.exports = "/* Links */\na,\na:focus,\na:hover {\n  color: #fff;\n}\n/* Custom default button */\n.btn-secondary,\n.btn-secondary:hover,\n.btn-secondary:focus {\n  color: #333;\n  text-shadow: none; /* Prevent inheritance from `body` */\n  background-color: #fff;\n  border: .05rem solid #fff;\n}\n/*\n * Base structure\n */\n.cover-container {\n  max-width: 42em;\n  background: rgba(0, 0, 0, .4);\n}\n/*\n * Cover\n */\n.cover {\n  padding: 0 1.5rem;\n}\n.cover .btn-lg {\n  padding: .75rem 1.25rem;\n  font-weight: 700;\n}\n.masthead {\n  margin-bottom: 2rem;\n}\n/*\n * Footer\n */\n.mastfoot {\n  color: rgba(255, 255, 255, .5);\n}\n.masthead-brand {\n  margin-bottom: 0;\n}\n.nav-masthead .nav-link {\n  padding: .25rem;\n  font-weight: 700;\n  color: rgba(255, 255, 255, .5);\n  background-color: transparent;\n  border-bottom: .25rem solid transparent;\n}\n.nav-masthead .nav-link:hover,\n.nav-masthead .nav-link:focus {\n  border-bottom-color: rgba(255, 255, 255, .25);\n}\n.nav-masthead .nav-link + .nav-link {\n  margin-left: 1rem;\n}\n.nav-masthead .active {\n  color: #fff;\n  border-bottom-color: #fff;\n}\n@media (min-width: 48em) {\n  .masthead-brand {\n    float: left;\n  }\n\n  .nav-masthead {\n    float: right;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsV0FBVztBQUNYOzs7RUFHRSxZQUFZO0NBQ2I7QUFFRCwyQkFBMkI7QUFDM0I7OztFQUdFLFlBQVk7RUFDWixrQkFBa0IsQ0FBQyxxQ0FBcUM7RUFDeEQsdUJBQXVCO0VBQ3ZCLDBCQUEwQjtDQUMzQjtBQUVEOztHQUVHO0FBRUg7RUFDRSxnQkFBZ0I7RUFDaEIsOEJBQThCO0NBQy9CO0FBRUQ7O0dBRUc7QUFDSDtFQUNFLGtCQUFrQjtDQUNuQjtBQUVEO0VBQ0Usd0JBQXdCO0VBQ3hCLGlCQUFpQjtDQUNsQjtBQUVEO0VBQ0Usb0JBQW9CO0NBQ3JCO0FBRUQ7O0dBRUc7QUFDSDtFQUNFLCtCQUErQjtDQUNoQztBQUVEO0VBQ0UsaUJBQWlCO0NBQ2xCO0FBRUQ7RUFDRSxnQkFBZ0I7RUFDaEIsaUJBQWlCO0VBQ2pCLCtCQUErQjtFQUMvQiw4QkFBOEI7RUFDOUIsd0NBQXdDO0NBQ3pDO0FBRUQ7O0VBRUUsOENBQThDO0NBQy9DO0FBRUQ7RUFDRSxrQkFBa0I7Q0FDbkI7QUFFRDtFQUNFLFlBQVk7RUFDWiwwQkFBMEI7Q0FDM0I7QUFFRDtFQUNFO0lBQ0UsWUFBWTtHQUNiOztFQUVEO0lBQ0UsYUFBYTtHQUNkO0NBQ0YiLCJmaWxlIjoic3JjL2FwcC9ob21lL2hvbWUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qIExpbmtzICovXG5hLFxuYTpmb2N1cyxcbmE6aG92ZXIge1xuICBjb2xvcjogI2ZmZjtcbn1cblxuLyogQ3VzdG9tIGRlZmF1bHQgYnV0dG9uICovXG4uYnRuLXNlY29uZGFyeSxcbi5idG4tc2Vjb25kYXJ5OmhvdmVyLFxuLmJ0bi1zZWNvbmRhcnk6Zm9jdXMge1xuICBjb2xvcjogIzMzMztcbiAgdGV4dC1zaGFkb3c6IG5vbmU7IC8qIFByZXZlbnQgaW5oZXJpdGFuY2UgZnJvbSBgYm9keWAgKi9cbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcbiAgYm9yZGVyOiAuMDVyZW0gc29saWQgI2ZmZjtcbn1cblxuLypcbiAqIEJhc2Ugc3RydWN0dXJlXG4gKi9cblxuLmNvdmVyLWNvbnRhaW5lciB7XG4gIG1heC13aWR0aDogNDJlbTtcbiAgYmFja2dyb3VuZDogcmdiYSgwLCAwLCAwLCAuNCk7XG59XG5cbi8qXG4gKiBDb3ZlclxuICovXG4uY292ZXIge1xuICBwYWRkaW5nOiAwIDEuNXJlbTtcbn1cblxuLmNvdmVyIC5idG4tbGcge1xuICBwYWRkaW5nOiAuNzVyZW0gMS4yNXJlbTtcbiAgZm9udC13ZWlnaHQ6IDcwMDtcbn1cblxuLm1hc3RoZWFkIHtcbiAgbWFyZ2luLWJvdHRvbTogMnJlbTtcbn1cblxuLypcbiAqIEZvb3RlclxuICovXG4ubWFzdGZvb3Qge1xuICBjb2xvcjogcmdiYSgyNTUsIDI1NSwgMjU1LCAuNSk7XG59XG5cbi5tYXN0aGVhZC1icmFuZCB7XG4gIG1hcmdpbi1ib3R0b206IDA7XG59XG5cbi5uYXYtbWFzdGhlYWQgLm5hdi1saW5rIHtcbiAgcGFkZGluZzogLjI1cmVtO1xuICBmb250LXdlaWdodDogNzAwO1xuICBjb2xvcjogcmdiYSgyNTUsIDI1NSwgMjU1LCAuNSk7XG4gIGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xuICBib3JkZXItYm90dG9tOiAuMjVyZW0gc29saWQgdHJhbnNwYXJlbnQ7XG59XG5cbi5uYXYtbWFzdGhlYWQgLm5hdi1saW5rOmhvdmVyLFxuLm5hdi1tYXN0aGVhZCAubmF2LWxpbms6Zm9jdXMge1xuICBib3JkZXItYm90dG9tLWNvbG9yOiByZ2JhKDI1NSwgMjU1LCAyNTUsIC4yNSk7XG59XG5cbi5uYXYtbWFzdGhlYWQgLm5hdi1saW5rICsgLm5hdi1saW5rIHtcbiAgbWFyZ2luLWxlZnQ6IDFyZW07XG59XG5cbi5uYXYtbWFzdGhlYWQgLmFjdGl2ZSB7XG4gIGNvbG9yOiAjZmZmO1xuICBib3JkZXItYm90dG9tLWNvbG9yOiAjZmZmO1xufVxuXG5AbWVkaWEgKG1pbi13aWR0aDogNDhlbSkge1xuICAubWFzdGhlYWQtYnJhbmQge1xuICAgIGZsb2F0OiBsZWZ0O1xuICB9XG5cbiAgLm5hdi1tYXN0aGVhZCB7XG4gICAgZmxvYXQ6IHJpZ2h0O1xuICB9XG59XG4iXX0= */"
 
 /***/ }),
 
@@ -2195,7 +2272,7 @@ module.exports = "/* Links */\na,\na:focus,\na:hover {\n  color: #fff;\n}\n/* Cu
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"cover-container d-flex w-100 h-100 p-3 mx-auto flex-column\">\n\n  <header class=\"masthead mb-auto\">\n    <div class=\"inner\">\n      <h3 class=\"masthead-brand\">FluffyHome</h3>\n      <nav class=\"nav nav-masthead justify-content-center\">\n        <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\">Home</a>\n        <a class=\"nav-link\" routerLink=\"/aboutUs\" routerLinkActive=\"active\">About us</a>\n        <a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Log in</a>\n        <a class=\"nav-link\" routerLink=\"/signup\" routerLinkActive=\"active\">Sign up</a>\n      </nav>\n    </div>\n  </header>\n\n  <main role=\"main\" class=\"inner cover\">\n    <h1 class=\"cover-heading\">Come on and get Peer-to-Peer pet sitting service.</h1><br>\n    <p class=\"lead\">Fluffyhome is an app that people can find other people to look after their pets when they leave\n      home. Find a sitter to look after you fluffy friend for free. Earn credits for caring others' pets and you can use\n      your credits to get free service from others.</p><br>\n    <p class=\"lead\">\n      <button routerLink=\"/login\" class=\"btn btn-lg btn-secondary mr-5\">Log in</button>\n      <button routerLink=\"/signup\" class=\"btn btn-lg btn-secondary\">Sign up</button>\n    </p>\n  </main>\n\n  <footer class=\"mastfoot mt-auto\">\n    <div class=\"inner\">\n      <p>Website for <a href=\"https://github.com/lirance/FluffyHome\">Capstone Project</a>, by <a href=\"https://github.com/lirance\">@Chendi Zhang</a>.</p>\n    </div>\n  </footer>\n\n</div>\n"
+module.exports = "<body style=\"background-image:url(../../assets/images/IMG_0791.JPG);background-size: cover\">\n<div class=\"cover-container d-flex w-100 h-100 p-3 mx-auto flex-column\">\n\n  <header class=\"masthead mb-auto\">\n    <div class=\"inner\">\n      <h3 class=\"masthead-brand\">FluffyHome</h3>\n      <nav class=\"nav nav-masthead justify-content-center\">\n        <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\">Home</a>\n        <a class=\"nav-link\" routerLink=\"/aboutUs\" routerLinkActive=\"active\">About us</a>\n        <a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Log in</a>\n        <a class=\"nav-link\" routerLink=\"/signup\" routerLinkActive=\"active\">Sign up</a>\n      </nav>\n    </div>\n  </header>\n\n  <main role=\"main\" class=\"inner cover\">\n    <h1 class=\"cover-heading\">Come on and get Peer-to-Peer pet sitting service.</h1><br>\n    <p class=\"lead\">Fluffyhome is an website that people can find other people to look after their pets when they leave\n      home. Find a sitter to look after you fluffy friend for free. Earn credits for caring others' pets and you can use\n      your credits to get free service from others.</p><br>\n    <p class=\"lead\">\n      <button routerLink=\"/login\" class=\"btn btn-lg btn-secondary mr-5\">Log in</button>\n      <button routerLink=\"/signup\" class=\"btn btn-lg btn-secondary\">Sign up</button>\n    </p>\n  </main>\n\n  <footer class=\"mastfoot mt-auto\">\n    <div class=\"inner\">\n      <p>Website for <a href=\"https://github.com/lirance/FluffyHome\">Capstone Project</a>, by <a\n        href=\"https://github.com/lirance\">@Chendi Zhang</a>.</p>\n    </div>\n  </footer>\n\n</div>\n</body>\n"
 
 /***/ }),
 
@@ -2732,15 +2809,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var OrderDetailComponent = /** @class */ (function () {
-    function OrderDetailComponent(router, route, orderService, location, dialog) {
+    function OrderDetailComponent(router, route, orderService, userService, location, dialog) {
+        var _this = this;
         this.router = router;
         this.route = route;
         this.orderService = orderService;
+        this.userService = userService;
         this.location = location;
         this.dialog = dialog;
         this.cancelResult = false;
         this.deleteResult = false;
         this.ifSitter = false;
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
+        this.router.events.subscribe(function (evt) {
+            if (evt instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"]) {
+                // trick the Router into believing it's last link wasn't previously loaded
+                _this.router.navigated = false;
+                // if you need to scroll back to top, here is the right place
+                window.scrollTo(0, 0);
+            }
+        });
     }
     OrderDetailComponent.prototype.ngOnInit = function () {
         this.getOrder();
@@ -2778,10 +2868,16 @@ var OrderDetailComponent = /** @class */ (function () {
     OrderDetailComponent.prototype.deleteOrder = function () {
         var _this = this;
         var orderId = this.route.snapshot.paramMap.get('orderId');
-        var userid = localStorage.getItem('currentUserID');
-        this.orderService.deleteOrder(userid, orderId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])()).subscribe(function (result) {
+        this.currentUserId = localStorage.getItem('currentUserID');
+        this.orderService.deleteOrder(this.currentUserId, orderId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])()).subscribe(function (result) {
             if (result) {
+                console.log('update successful');
                 _this.deleteResult = true;
+                _this.currentUserId = localStorage.getItem('currentUserID');
+                localStorage.removeItem('currentUser');
+                _this.userService.getUserById(_this.currentUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])()).subscribe(function (user) {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                });
                 _this.backtolast();
             }
         });
@@ -2825,6 +2921,7 @@ var OrderDetailComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
             _services__WEBPACK_IMPORTED_MODULE_4__["OrderService"],
+            _services__WEBPACK_IMPORTED_MODULE_4__["UserService"],
             _angular_common__WEBPACK_IMPORTED_MODULE_5__["Location"],
             _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialog"]])
     ], OrderDetailComponent);
@@ -3297,11 +3394,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var RequestsComponent = /** @class */ (function () {
-    function RequestsComponent(orderService, router, dialog) {
+    function RequestsComponent(orderService, userService, router, dialog) {
+        var _this = this;
         this.orderService = orderService;
+        this.userService = userService;
         this.router = router;
         this.dialog = dialog;
         this.requests = [];
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
+        this.router.events.subscribe(function (evt) {
+            if (evt instanceof _angular_router__WEBPACK_IMPORTED_MODULE_4__["NavigationEnd"]) {
+                // trick the Router into believing it's last link wasn't previously loaded
+                _this.router.navigated = false;
+                // if you need to scroll back to top, here is the right place
+                window.scrollTo(0, 0);
+            }
+        });
     }
     RequestsComponent.prototype.ngOnInit = function () {
         localStorage.setItem('request_flag', '1');
@@ -3323,10 +3433,17 @@ var RequestsComponent = /** @class */ (function () {
         });
     };
     RequestsComponent.prototype.response = function (orderId, accept) {
+        var _this = this;
         this.orderService.responseRequest(orderId, Number(this.currentUserID), accept).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["first"])()).subscribe(function (result) {
             result.toString();
             console.log(result);
             // this.getRequests();
+            // currentUserId
+            var currentUserId = localStorage.getItem('currentUserID');
+            localStorage.removeItem('currentUser');
+            _this.userService.getUserById(currentUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["first"])()).subscribe(function (user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+            });
             window.location.reload();
             //   this.acceptResult = result;
             //   this.openAcceptDialog();
@@ -3339,6 +3456,7 @@ var RequestsComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./requests.component.css */ "./src/app/requests/requests.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_3__["OrderService"],
+            _services__WEBPACK_IMPORTED_MODULE_3__["UserService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
             _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialog"]])
     ], RequestsComponent);

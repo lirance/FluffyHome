@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {first} from 'rxjs/operators';
-import {OrderService} from '../_services';
-import {Router} from '@angular/router';
+import {OrderService, UserService} from '../_services';
+import {NavigationEnd, Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {OrderRequest} from '../_models';
 
@@ -21,8 +21,21 @@ export class RequestsComponent implements OnInit {
 
   constructor(
     private orderService: OrderService,
+    private userService: UserService,
     private router: Router,
     private dialog: MatDialog) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+
+    this.router.events.subscribe((evt) => {
+      if (evt instanceof NavigationEnd) {
+        // trick the Router into believing it's last link wasn't previously loaded
+        this.router.navigated = false;
+        // if you need to scroll back to top, here is the right place
+        window.scrollTo(0, 0);
+      }
+    });
   }
 
   ngOnInit() {
@@ -50,6 +63,12 @@ export class RequestsComponent implements OnInit {
       result.toString();
       console.log(result);
       // this.getRequests();
+      // currentUserId
+      const currentUserId = localStorage.getItem('currentUserID');
+      localStorage.removeItem('currentUser');
+      this.userService.getUserById(currentUserId).pipe(first()).subscribe(user => {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+      });
       window.location.reload();
       //   this.acceptResult = result;
       //   this.openAcceptDialog();

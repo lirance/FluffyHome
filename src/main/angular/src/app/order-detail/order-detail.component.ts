@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Order} from '../_models';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
-import {OrderService} from '../_services';
+import {AlertService, OrderService, UserService} from '../_services';
 import {Location} from '@angular/common';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {CompleteDialogComponent} from '../complete-dialog/complete-dialog.component';
 import {AcceptDialogComponent} from '../accept-dialog/accept-dialog.component';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-order-detail',
@@ -30,8 +31,21 @@ export class OrderDetailComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private  orderService: OrderService,
+    private userService: UserService,
     private location: Location,
     private dialog: MatDialog) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+
+    this.router.events.subscribe((evt) => {
+      if (evt instanceof NavigationEnd) {
+        // trick the Router into believing it's last link wasn't previously loaded
+        this.router.navigated = false;
+        // if you need to scroll back to top, here is the right place
+        window.scrollTo(0, 0);
+      }
+    });
   }
 
   ngOnInit() {
@@ -71,10 +85,16 @@ export class OrderDetailComponent implements OnInit {
 
   deleteOrder() {
     const orderId = this.route.snapshot.paramMap.get('orderId');
-    const userid = localStorage.getItem('currentUserID');
-    this.orderService.deleteOrder(userid, orderId).pipe(first()).subscribe(result => {
+    this.currentUserId = localStorage.getItem('currentUserID');
+    this.orderService.deleteOrder(this.currentUserId, orderId).pipe(first()).subscribe(result => {
       if (result) {
+        console.log('update successful');
         this.deleteResult = true;
+        this.currentUserId = localStorage.getItem('currentUserID');
+        localStorage.removeItem('currentUser');
+        this.userService.getUserById(this.currentUserId).pipe(first()).subscribe(user => {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        });
         this.backtolast();
       }
 

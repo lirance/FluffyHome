@@ -2,7 +2,7 @@
   <div class="navcontainer">
     <div class="row">
       <!--      <a *ngIf="!ifSitter" class="navbar-brand" [routerLink]="['/dashboard', {outlets: {'aux': ['dashhome']}}]">FluffyHome</a>-->
-      <a class="navbar-brand" [routerLink]="['/dashboard', {outlets: {'aux': ['orderlists']}}]">FluffyHome</a>
+      <a class="navbar-brand" [routerLink]="['/']">FluffyHome</a>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,9 @@
 
 
         </ul>
+        <div class="text-success"> {{currentUser.credits}}  CREDITS</div>
+        &nbsp;&nbsp;
+        <div class="text-dark"> |</div>
 
         <div class="nav-item dropdown">
           <button *ngIf="currentUser;else elseBlock" class=" btn dropdown-toggle text-primary" id="dropdownMenuButton"

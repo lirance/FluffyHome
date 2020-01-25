@@ -48,4 +48,13 @@ export class AcceptedOrderListComponent implements OnInit {
 
     this.dialog.open(RateOrderDialogComponent, dialogConfig);
   }
+
+  cancelAcceptedOrder(orderId: number) {
+    this.orderService.cancelAcceptedOrder(this.currentUserID, orderId.toString()).pipe(first()).subscribe(result => {
+      if (result) {
+        window.location.reload();
+      }
+
+    });
+  }
 }

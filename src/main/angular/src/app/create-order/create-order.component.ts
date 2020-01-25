@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {OrderService, AlertService} from '../_services';
+import {NavigationEnd, Router} from '@angular/router';
+import {OrderService, AlertService, UserService} from '../_services';
 import {first} from 'rxjs/operators';
 import {Location} from '@angular/common';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
@@ -19,6 +19,9 @@ export class CreateOrderComponent implements OnInit {
   loading = false;
   submitted = false;
 
+  currentUserId: string;
+  userCredits: number;
+
   hoveredDate: NgbDate;
 
   fromDate: NgbDate;
@@ -28,6 +31,7 @@ export class CreateOrderComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private orderService: OrderService,
+    private userService: UserService,
     private alertService: AlertService,
     private location: Location,
     private calendar: NgbCalendar,
@@ -39,6 +43,18 @@ export class CreateOrderComponent implements OnInit {
     config.minDate = this.fromDate;
     config.outsideDays = 'hidden';
     // config.markDisabled(date:NgbDate)=>calendar.getwe
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+
+    this.router.events.subscribe((evt) => {
+      if (evt instanceof NavigationEnd) {
+        // trick the Router into believing it's last link wasn't previously loaded
+        this.router.navigated = false;
+        // if you need to scroll back to top, here is the right place
+        window.scrollTo(0, 0);
+      }
+    });
   }
 
   onDateSelection(date: NgbDate) {
@@ -70,6 +86,8 @@ export class CreateOrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentUserId = localStorage.getItem('currentUserID');
+    this.getUserByUserId(this.currentUserId);
     this.orderForm = this.formBuilder.group({
       orderId: [],
       orderType: false,
@@ -96,6 +114,11 @@ export class CreateOrderComponent implements OnInit {
           } else {
             console.log('success!');
             // this.router.navigate(['/dashboard', {outlets: {'aux': ['dashhome']}}]);
+            // this.currentUserId = localStorage.getItem('currentUserID');
+            localStorage.removeItem('currentUser');
+            this.userService.getUserById(this.currentUserId).pipe(first()).subscribe(user => {
+              localStorage.setItem('currentUser', JSON.stringify(user));
+            });
             this.location.back();
           }
         });
@@ -113,5 +136,13 @@ export class CreateOrderComponent implements OnInit {
 
   backtolast() {
     this.location.back();
+  }
+
+
+  getUserByUserId(userId: string) {
+
+    this.userService.getUserById(userId).pipe(first()).subscribe(user => {
+      this.userCredits = user.credits;
+    });
   }
 }

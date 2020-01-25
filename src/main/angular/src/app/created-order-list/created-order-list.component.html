@@ -29,17 +29,42 @@
         Delete Order
       </button>
     </div>
+
+
     <ng-template #links>
 
 
       <div class="card-footer">
         <a [routerLink]="['/dashboard', {outlets: {'aux': ['orderdetail', order.orderId]}}]" class="card-link">See
           Detail</a>
-        <a *ngIf="order.status=='COMPLETED'&&!order.rated" (click)="rate(order.orderId, order.status)" routerLink=" "
-           class="card-link ">Rate</a>
+        <a *ngIf="order.status=='COMPLETED'&&order.rated else ratee"></a>
+        <ng-template #ratee>
+          <a *ngIf="order.status=='COMPLETED'&&!order.rated else but" (click)="rate(order.orderId, order.status)"
+             routerLink=" "
+             class="card-link ">Rate</a>
+        </ng-template>
 
-        <a *ngIf="order.status=='ORDERED'&&!order.orderType" (click)="changeOrderType(order.orderId)" routerLink=" "
-           class="card-link ">Change to Charged Order</a>
+        <ng-template #but>
+          &nbsp;&nbsp;
+          <button *ngIf="order.status=='ACCEPTED' else otherButtons" type="button" class="btn btn-outline-success"
+                  (click)="complete(order.orderId.toString(),order.recipient.userId)">
+            Complete
+          </button>
+        </ng-template>
+        <ng-template #otherButtons>
+          <br/><br/>
+          <button *ngIf="order.status=='ORDERED'&&!order.orderType" (click)="changeOrderType(order.orderId.toString())"
+                  routerLink=" "
+                  class="btn btn-outline-warning ">Change to Charged Order
+          </button>
+          &nbsp;&nbsp;
+          <button *ngIf='order.status == "ORDERED"' type="button" class="btn btn-outline-danger"
+                  (click)="deleteOrder(order.orderId)">
+            Delete
+          </button>
+        </ng-template>
+
+
       </div>
     </ng-template>
 

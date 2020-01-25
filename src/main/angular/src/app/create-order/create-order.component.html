@@ -1,9 +1,10 @@
 <h2 class="text-dark">Create an order</h2>
+<p class="text-success">You have {{userCredits}} CREDITS</p>
 <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="text-dark text-left">
 
   <br/>
   <div>
-    <label>Date of Order: (Please Select a <b>Range</b>)</label>
+    <label>Date of Order: (Please Select a <b>Range</b>; One day cost <b>5</b> CREDITS)</label>
     <div *ngIf="submitted" class="invalid-feedback">
       Date of order is required !!
     </div>
